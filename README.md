@@ -10,6 +10,7 @@ Some other changes are also made to try and make a better out of the box experie
 - Build compression of assets (to .gz files) is enabled by default. You can still disable this if you prefer.
 - All required scripts/assets (e.g. Bootstrap) are now included in built project (no more third party JS/font downloads).
 - Web browser IndexedDB usage is enabled by default to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer it disabled.
+- IndexedDB notices/warnings are sent to console rather than a banner to avoid visual clutter.
 - Uses HTML5 single-threaded by default as it seems to work a bit better (tried this after seeing @ufna's decision). Multi-threaded still works though and is available if you prefer that.
 - Web socket networking and plugin is enabled by default - this is needed to support multiplayer in HTML5.
 - Development builds now use optimisation level "O1" rather than O2 (O2 takes a while in latest emscripten so didn't seem so good for quick dev builds). It seems run fast enough to be worth the quick builds in Development mode. Test/Shipping is still O3 as before.
@@ -20,15 +21,19 @@ Tested on Windows with Firefox and Chrome based browsers.
 
 ## Branches
 
-**NOTE: to access the below repository branches you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected)**
+**NOTE: to access the below repository branches etc. you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected)**
 
 ### [UnrealEngine 4.27-html5-es3](https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3)
 
 This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders and **emscripten 3.1.24**.
 
+If you want to take a look at the full code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27.2 release.
+
 ### [UnrealEngine 4.24-html5-es2](https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2)
 
-This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.24** (may be useful as a fallback if you still need to use 4.24 or ES2 but want the other changes above - it also acts as a reference versus @nickshin's Epic Games HTML5 plugin development branch).
+This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.24** 
+
+This may be useful as a fallback if you still need to use 4.24 or ES2 but want the other changes above - it also works as a reference of changes versus @nickshin's Epic Games HTML5 plugin development branch - see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18...SpeculativeCoder:4.24-html5-es2) for the comparison.
 
 ## Commentary
 
