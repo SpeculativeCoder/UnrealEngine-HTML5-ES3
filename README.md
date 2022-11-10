@@ -39,6 +39,10 @@ This may be useful as a fallback if you still need to use 4.24 or ES2 but want t
 
 If interested in a more in-depth discussion of the development / code etc. there are some notes in a [COMMENTARY](https://github.com/SpeculativeCoder/UnrealEngine/wiki/COMMENTARY) wiki page which I will aim to add to over time.
 
+## Discussion / Issues
+
+If you need to raise any technical issues / discussions regarding this fork we should prefer to use the [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues) / [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions) attached to the fork to ensure we are inside the Epic Games account system (just to be safe).
+
 ## Guide
 
 ### Requirements
