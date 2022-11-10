@@ -116,7 +116,7 @@ Once built, go to to where the build was packaged and run ``HTML5LaunchHelper.ex
 
 Navigate to http://localhost:8000
 
-You should see the running game.
+Select the .html file. You should see the running game.
 
 ## Troubleshooting
 
