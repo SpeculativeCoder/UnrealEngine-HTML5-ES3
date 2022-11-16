@@ -13,7 +13,7 @@ Some other changes are also made to try and make a better out of the box experie
 - IndexedDB notices/warnings are sent to console rather than a banner to avoid visual clutter.
 - Uses HTML5 single-threaded by default as it seems to work a bit better (tried this after seeing @ufna's decision). Multi-threaded still works though and is available if you prefer that.
 - Web socket networking and plugin is enabled by default - this is needed to support multiplayer in HTML5.
-- Development builds now use optimisation level "O1" rather than O2 (O2 takes a while in latest emscripten so didn't seem so good for quick dev builds). It seems run fast enough to be worth the quick builds in Development mode. Test/Shipping is still O3 as before.
+- Added option for passing command line options to the HTML5 application via a session storage key. This allows a convenient way to invoke the packaged application with different command lines e.g. for different maps / modes etc. It is disabled by default but can be enabled by option 'Session storage command line key' in the HTML5 project settings.
 
 Tested on Windows 10 with Firefox and Chrome based browsers.
 
@@ -21,21 +21,23 @@ Tested on Windows 10 with Firefox and Chrome based browsers.
 
 ## Branches
 
-**NOTE: to access the below repository branches etc. you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected)**
+**To access the below repository branches etc. you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected) - if you do not do this you will see 404 error on the links below.**
+
+Also, you will need to **clone** the respositories below (using git) as some of the HTML5 setup functionality currently depends on being a cloned git repository - if you download as ZIP and unpack it the HTML5 setup won't currently work (will look at a solution to this in future but for now easiest solution is to clone rather than download as ZIP).
 
 ### 4.27 HTML5 ES3
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders and **emscripten 3.1.24**.
+This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders and **emscripten 3.1.25**.
 
-If you want to take a look at the full code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27.2 release.
+If you want to take a look at the full code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27 release.
 
 ### 4.24 HTML5 ES2
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.24** 
+This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.25** 
 
 This may be useful as a fallback if you still need to use 4.24 or ES2 but want the other changes above - it also works as a reference of changes versus @nickshin's Epic Games HTML5 plugin development branch - see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18...SpeculativeCoder:4.24-html5-es2) for the comparison.
 
@@ -49,16 +51,16 @@ If you need to raise any technical issues / discussions regarding this fork and 
 
 ### Requirements
 
-- Git (e.g. Git for Windows)
+- Git (Git for Windows)
 - Visual Studio 2019 or 2022 - for the install I select workloads "Game development with C++" and ".NET desktop development"
 - CMake
 - Python (3.*)
 
-I have only built/tested on Windows 10. Other platforms may need further fixes/changes
+I have only built/tested on Windows 10 using the commands below. Other platforms may need further fixes/changes
 
 ### Installation
 
-Using a shell e.g. Git for Windows BASH shell.
+Using a Git for Windows BASH shell.
 
 Clone the repository branch:
 
@@ -122,9 +124,9 @@ Select the .html file. You should see the running game.
 
 ## Troubleshooting
 
-### When opening UE4.sln in Visual Studio you see "Target framework not supported" regarding each .NET program
+### When opening UE4.sln in Visual Studio you see "Target framework not supported" for each .NET program
 
-For each of these you should be able to accept the default of "Update the target" which seems to work fine for me.
+For each of these you should be able to accept the default of "Update the target" to the newer version of .NET which seems to work fine.
 
 ### When building HTML5 you see: **error CS1519: Invalid token '(' in class, struct, or interface member declaration**
 
@@ -143,6 +145,12 @@ Try disabling Mobile MSAA (in Project Rendering options).
 ### When compiling, you see: "Detected compiler newer than Visual Studio 2019, please update min version checking"
 
 This will happen when using Visual Studio 2022. It is just a warning and shouldn't cause any issues as VS2022 seems to be able to build the engine fine.
+
+### When running HTML5Setup.sh you see: "fatal: not a git repository (or any of the parent directories): .git"
+
+The HTML5Setup.sh script currently uses a git checkout/restore to ensure the engine files are in a clean state before applying a patch. If you downloaded via ZIP and unpack it won't currently work as the unpacked ZIP isn't a git repository. 
+
+If you try again using a git clone to do the download then it should work as you will get a working git repository.
 
 ## More Information
 
