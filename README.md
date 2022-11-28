@@ -1,29 +1,28 @@
-# UnrealEngine HTML5 ES3
+# UnrealEngine HTML5 (WebGL) ES3
 
-This is work which builds upon the Epic Games HTML5 platform plugin to add:
-- Support for **ES3 shaders** rather than ES2.
+<img src="Images/FirstPerson.PNG" style="width:600px"/>
+
+This is work which builds upon the [Epic Games HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
 - Support the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of emscripten** (will try to keep this up to date).
+- Support for **ES3 shaders** rather than ES2.
 
 Some other changes are also made to try and make a better out of the box experience:
 
-- Build compression of assets (to .gz files) is enabled by default. You can still disable this if you prefer.
-- All required scripts/assets (e.g. Bootstrap) are now included in built project (no more third party JS/font downloads).
-- Web browser IndexedDB usage is enabled by default to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer it disabled.
-- IndexedDB notices/warnings are sent to console rather than a banner to avoid visual clutter.
-- Uses HTML5 single-threaded by default as it seems to work a bit better (tried this after seeing @ufna's decision). Multi-threaded still works though and is available if you prefer that.
-- Web socket networking and plugin is enabled by default - this is needed to support multiplayer in HTML5.
-- Added option for passing command line options to the HTML5 application via a session storage key. This allows a convenient way to invoke the packaged application with different command lines e.g. for different maps / modes etc. It is disabled by default but can be enabled by option 'Session storage command line key' in the HTML5 project settings.
+- **Build compression of assets (to .gz files) is enabled by default**. You can still disable this if you prefer.
+- **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
+- **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer it disabled. Any IndexedDB notices/warnings are now sent to console rather than a visible banner to avoid visual clutter.
+- **Uses single-threaded by default** as it seems to work better at the moment (tried this after seeing @ufna's decision). Multi-threaded is still available but currently only works properly when packing for Development (will be looking into this issue).
+- **Web socket networking plugin is enabled by default** should you wish to use multiplayer in HTML5.
+- Added an **optional way to pass command line options to the HTML5 application via session storage**. It is disabled by default but can be enabled by option 'Session storage command line key' in the HTML5 project settings. This can be used to easily invoke different maps / modes etc.: `window.sessionStorage.setItem('UnrealEngine_CommandLine', 'FirstPersonExampleMap -stdout'); window.location.href = 'http://localhost:8000/FirstPerson.html';`
 
 Tested on Windows 10 with Firefox and Chrome based browsers.
-
-<img src="Images/FirstPerson.PNG" style="width:600px"/>
 
 ## Branches
 
 **To access the below repository branches etc. you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected) - if you do not do this you will see 404 error on the links below.**
 
-Also, you will need to **clone** the respositories below (using git) as some of the HTML5 setup functionality currently depends on being a cloned git repository - if you download as ZIP and unpack it the HTML5 setup won't currently work (will look at a solution to this in future but for now easiest solution is to clone rather than download as ZIP).
+Also, you will need to **clone** the respositories below (using git) as some of the HTML5 setup functionality currently depends on being a cloned git repository - if you download as ZIP and unpack it the HTML5 setup won't currently work (will look at a solution to this in future).
 
 ### 4.27 HTML5 ES3
 
@@ -43,9 +42,9 @@ This may be useful as a fallback if you still need to use 4.24 or ES2 but want t
 
 ## Discussion / Issues
 
-If interested in a more in-depth discussion of the development / code etc. there are some notes in a [COMMENTARY](https://github.com/SpeculativeCoder/UnrealEngine/wiki/COMMENTARY) wiki page which I will aim to add to over time.
-
 If you need to raise any technical issues / discussions regarding this fork and the code changes we should prefer to use the [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues) / [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions) attached to the fork to ensure we are inside the Epic Games account system (just to be safe).
+
+If interested in a more in-depth discussion of the development / code etc. there are some notes in a [COMMENTARY](https://github.com/SpeculativeCoder/UnrealEngine/wiki/COMMENTARY) wiki page which I will aim to add to over time.
 
 ## Guide
 
@@ -151,7 +150,3 @@ This will happen when using Visual Studio 2022. It is just a warning and shouldn
 The HTML5Setup.sh script currently uses a git checkout/restore to ensure the engine files are in a clean state before applying a patch. If you downloaded via ZIP and unpack it won't currently work as the unpacked ZIP isn't a git repository. 
 
 If you try again using a git clone to do the download then it should work as you will get a working git repository.
-
-## More Information
-
-You can find more information about the original HTML5 platform plugin at the [GitHub for Epic Games HTML5 platform plugin](https://github.com/UnrealEngineHTML5/Documentation)
