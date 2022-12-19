@@ -3,32 +3,31 @@
 <img src="Images/FirstPerson.PNG" style="width:600px"/>
 
 This is work which builds upon the [Epic Games HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
-- Support the **latest/final version of UE4 (4.27)**.
+- Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of emscripten** (will try to keep this up to date).
-- Support for **ES3 shaders** rather than ES2.
+- Support for **ES3 shaders** (from WebGL2) rather than ES2 (from WebGL1).
 
 Some other changes are also made to try and make a better out of the box experience:
 
 - **Build compression of assets (to .gz files) is enabled by default**. You can still disable this if you prefer.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
-- **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer it disabled. Any IndexedDB notices/warnings are now sent to console rather than a visible banner to avoid visual clutter.
+- **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer it disabled. Any IndexedDB notices/warnings are now sent to console rather than a banner to avoid visual clutter.
 - **Uses single-threaded by default** as it seems to work better at the moment (tried this after seeing @ufna's decision). Multi-threaded is still available but currently only works properly when packing for Development (will be looking into this issue).
 - **Web socket networking plugin is enabled by default** should you wish to use multiplayer in HTML5.
-- Added an **optional way to pass command line options to the HTML5 application via session storage**. It is disabled by default but can be enabled by option 'Session storage command line key' in the HTML5 project settings. This can be used to easily invoke different maps / modes etc.: `window.sessionStorage.setItem('UnrealEngine_CommandLine', 'FirstPersonExampleMap -stdout'); window.location.href = 'http://localhost:8000/FirstPerson.html';`
+- Added an [**optional way to pass command line options to the HTML5 application via session storage key**](Features/Feature-CommandLine.md). This feature is disabled by default.
+- Added [**experimental support for websocket SSL and websocket URL override via session storage key**](Features/Feature-WebSocketSSL.md). This allows multiplayer to work when serving the HTML5 client via HTTPS. These features are disabled by default.
 
-Tested on Windows 10 with Firefox and Chrome based browsers.
+Tested on Windows 10 with latest Firefox and Chrome based browsers.
 
 ## Branches
 
-**To access the below repository branches etc. you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected) - if you do not do this you will see 404 error on the links below.**
-
-Also, you will need to **clone** the respositories below (using git) as some of the HTML5 setup functionality currently depends on being a cloned git repository - if you download as ZIP and unpack it the HTML5 setup won't currently work (will look at a solution to this in future).
+**To access the links below you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected) - if you do not do this you will see 404 error.**
 
 ### 4.27 HTML5 ES3
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders and **emscripten 3.1.25**.
+This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders and **emscripten 3.1.26**.
 
 If you want to take a look at the full code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27 release.
 
@@ -36,13 +35,13 @@ If you want to take a look at the full code here is a [diff](https://github.com/
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.25** 
+This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.26** 
 
 This may be useful as a fallback if you still need to use 4.24 or ES2 but want the other changes above - it also works as a reference of changes versus @nickshin's Epic Games HTML5 plugin development branch - see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18...SpeculativeCoder:4.24-html5-es2) for the comparison.
 
-## Discussion / Issues
+## Issues / Discussions
 
-If you need to raise any technical issues / discussions regarding this fork and the code changes we should prefer to use the [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues) / [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions) attached to the fork to ensure we are inside the Epic Games account system (just to be safe).
+If you need to raise any technical issues / discussions regarding this fork and the code changes you can use [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues) / [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions).
 
 If interested in a more in-depth discussion of the development / code etc. there are some notes in a [COMMENTARY](https://github.com/SpeculativeCoder/UnrealEngine/wiki/COMMENTARY) wiki page which I will aim to add to over time.
 
@@ -50,12 +49,12 @@ If interested in a more in-depth discussion of the development / code etc. there
 
 ### Requirements
 
-- Git (Git for Windows)
-- Visual Studio 2019 or 2022 - for the install I select workloads "Game development with C++" and ".NET desktop development"
+- Git for Windows
+- Visual Studio 2019 (install workloads "Game Development with C++" and ".NET desktop environment" with extra selection of ".NET Framework 4.6.2 development tools"). Visual Studio 2022 also works.
 - CMake
 - Python (3.*)
 
-I have only built/tested on Windows 10 using the commands below. Other platforms may need further fixes/changes
+I have only built/tested on Windows 10 using the commands below. Other platforms may need further fixes/changes.
 
 ### Installation
 
@@ -145,8 +144,12 @@ Try disabling Mobile MSAA (in Project Rendering options).
 
 This will happen when using Visual Studio 2022. It is just a warning and shouldn't cause any issues as VS2022 seems to be able to build the engine fine.
 
+### When packaging HTML5 you see: "WARNING: Library XXX as not resolvable to a file when used in Module 'PhysX', assuming it is a filename and will search library paths for it. This is slow and dependency checking will not work for it. Please update reference to be fully qualified alternatively use PublicSystemLibraryPaths if you do intended to use this slow path to suppress this warning."
+
+The XXX is usually PhysX. This seems to occur when HTML5Setup.sh randomly fails to properly build PhysX (or some other third party library) with an error like ```mingw32-make.exe[2]: write error: stdout``` but doesn't actually stop the ./HTML5Setup.sh build so it is easy to miss.
+
+If you get this issue try running ./HTMLSetup.sh again.
+
 ### When running HTML5Setup.sh you see: "fatal: not a git repository (or any of the parent directories): .git"
 
-The HTML5Setup.sh script currently uses a git checkout/restore to ensure the engine files are in a clean state before applying a patch. If you downloaded via ZIP and unpack it won't currently work as the unpacked ZIP isn't a git repository. 
-
-If you try again using a git clone to do the download then it should work as you will get a working git repository.
+The HTML5Setup.sh script used to do a git checkout/restore to ensure the engine files were in a clean state before applying a patch, hence it didn't work if you downloaded a ZIP. However, I changed the HTML5Setup.sh to no longer require a git repository so if you have an older version of the code just do a new clone or ZIP download and you shouldn't run into this problem any more.
