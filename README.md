@@ -142,9 +142,9 @@ Then do **Right Click -> Rebuild Selection** to force rebuild the .NET programs.
 
 Try disabling Mobile MSAA (in Project Rendering options).
 
-### When compiling, you see: "Detected compiler newer than Visual Studio 2019, please update min version checking"
+### When compiling, you see: "Detected compiler newer than Visual Studio 2019/2022, please update min version checking"
 
-This will happen when using Visual Studio 2022. It is just a warning and shouldn't cause any issues as VS2022 seems to be able to build the engine fine.
+This could happen if you are using a very new version of Visual Studio (i.e. 2022 latest versions). It is just a warning and shouldn't cause any issues as VS2022 (and hopefully future versions) seems to be able to build the engine fine.
 
 ### When packaging HTML5 you see: "WARNING: Library XXX as not resolvable to a file when used in Module 'PhysX', assuming it is a filename and will search library paths for it. This is slow and dependency checking will not work for it. Please update reference to be fully qualified alternatively use PublicSystemLibraryPaths if you do intended to use this slow path to suppress this warning."
 
