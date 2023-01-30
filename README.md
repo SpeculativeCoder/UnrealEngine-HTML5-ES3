@@ -160,4 +160,4 @@ The HTML5Setup.sh script used to do a git checkout/restore to ensure the engine 
 
 ### When running HTML5Setup.sh you see: "zlib-1.2.8.tar.gz: Cannot open: No such file or directory"
 
-This happens if you run HTML5Setup.sh without first having run the ./Setup.bat stage.
+This happens if you run HTML5Setup.sh without first having run the ./Setup.bat stage. Running ./Setup.bat to ensure all the dependencies Unreal needs are downloaded (including this zlib tar) should avoid this error.
