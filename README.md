@@ -157,3 +157,7 @@ NOTE: In the latest versions of the HTML5 branches the third party libraries are
 ### When running HTML5Setup.sh you see: "fatal: not a git repository (or any of the parent directories): .git"
 
 The HTML5Setup.sh script used to do a git checkout/restore to ensure the engine files were in a clean state before applying a patch, hence it didn't work if you downloaded a ZIP. However, I changed the HTML5Setup.sh to no longer require a git repository so if you have an older version of the code just do a new clone or ZIP download and you shouldn't run into this problem any more.
+
+### When running HTML5Setup.sh you see: "zlib-1.2.8.tar.gz: Cannot open: No such file or directory"
+
+This happens if you run HTML5Setup.sh without first having run the ./Setup.bat stage.
