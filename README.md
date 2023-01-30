@@ -1,6 +1,6 @@
 # UnrealEngine HTML5 (WebGL) ES3
 
-<img src="Images/FirstPerson.PNG" style="width:600px"/>
+<img src="Images/ThirdPerson.PNG" style="width:600px"/>
 
 This is work which builds upon the [Epic Games HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
 - Support for the **latest/final version of UE4 (4.27)**.
@@ -27,7 +27,7 @@ Tested on Windows 10 with latest Firefox and Chrome based browsers.
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders and **emscripten 3.1.29**.
+This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders and **emscripten 3.1.31**.
 
 If you want to take a look at the full code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27 release.
 
@@ -35,7 +35,7 @@ If you want to take a look at the full code here is a [diff](https://github.com/
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.29** 
+This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.31** 
 
 This may be useful as a fallback if you still need to use 4.24 or ES2 but want the other changes above - it also works as a reference of changes versus @nickshin's Epic Games HTML5 plugin development branch - see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18...SpeculativeCoder:4.24-html5-es2) for the comparison.
 
@@ -44,6 +44,8 @@ This may be useful as a fallback if you still need to use 4.24 or ES2 but want t
 If you need to raise any technical issues / discussions regarding this fork and the code changes you can use [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues) / [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions).
 
 If interested in a more in-depth discussion of the development / code etc. there are some notes in a [COMMENTARY](https://github.com/SpeculativeCoder/UnrealEngine/wiki/COMMENTARY) wiki page which I will aim to add to over time.
+
+Also there could be discussion in Unreal Slackers Discord https://unrealslackers.org/ in the **#web** channel (but note this channel is also for the <a href="https://docs.unrealengine.com/5.1/en-US/pixel-streaming-in-unreal-engine/">Pixel Streaming</a> technology).
 
 ## Guide
 
@@ -112,7 +114,7 @@ You can run the editor at ``Engine\Binaries\Win64\UE4Editor.exe``
 
 First time though you will probably have to wait a while for shaders to compile.
 
-Make a new First Person (or whatever you want) project. You should be able to build the project for HTML5 via **Package Project -> HTML5**
+Make a new (e.g. First Person, Third Person, or whatever you want) project. You should be able to build the project for HTML5 via **Package Project -> HTML5**
 
 Once built, go to to where the build was packaged and run ``HTML5LaunchHelper.exe``
 
