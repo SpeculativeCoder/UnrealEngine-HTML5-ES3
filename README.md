@@ -1,6 +1,6 @@
 # UnrealEngine HTML5 (WebGL) ES3
 
-<img src="Images/ThirdPerson.PNG" style="width:600px"/>
+<img src="Images/ThirdPerson.PNG" style="width:500px"/>
 
 This is work which builds upon the [UnrealEngine community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
 - Support for the **latest/final version of UE4 (4.27)**.
@@ -21,7 +21,7 @@ Some other changes were also made to try and make a better out of the box experi
 
 ## Example
 
-[AdhocCombat (https://adhoccombat.com)](https://adhoccombat.com) - work in progress
+[**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - work in progress
 
 <img src="Images/AdhocCombat1.PNG" style="width:400px"/> <img src="Images/AdhocCombat2.PNG" style="width:400px"/>
 
