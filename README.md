@@ -2,22 +2,28 @@
 
 <img src="Images/ThirdPerson.PNG" style="width:600px"/>
 
-This is work which builds upon the [Epic Games HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
+This is work which builds upon the [UnrealEngine community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
 - Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of emscripten** (will try to keep this up to date).
 - Support for **ES3 shaders** (WebGL2).
 
-Some other changes are also made to try and make a better out of the box experience:
+Supported/tested on Windows 10 with latest Firefox and Chrome based browsers.
+
+Some other changes were also made to try and make a better out of the box experience:
 
 - **Build compression of assets (to .gz files) is enabled by default**. You can still disable this if you prefer.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
-- **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer it disabled. Any IndexedDB notices/warnings are now sent to console rather than a banner to avoid visual clutter.
-- **Uses single-threaded by default** as it seems to work better at the moment (tried this after seeing @ufna's decision). Multi-threaded is still available but currently only works properly when packing for Development (will be looking into this issue).
+- **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer the user to download the data every time.
+- **Uses single-threaded by default** as it seems to work better at the moment (tried this after seeing [@ufna](https://github.com/ufna/UE-HTML5)'s decision). Multi-threaded is still available but currently only works properly when packing for Development (will be looking into this issue).
 - **Web socket networking plugin is enabled by default** should you wish to use multiplayer in HTML5.
-- Added an [**optional way to pass command line options to the HTML5 application via session storage key**](Features/Feature-CommandLine.md). This feature is disabled by default.
-- Added [**optional, experimental, support for websocket SSL and websocket URL override via session storage key**](Features/Feature-WebSocketSSL.md). This allows multiplayer to work when serving the HTML5 client via HTTPS. These features are disabled by default.
+- Added [**optional experimental support for websocket SSL**](Features/Feature-WebSocketSSL.md). This allows multiplayer to work when serving the HTML5 client via HTTPS. This feature is disabled by default.
+- Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps etc. This feature is disabled by default.
 
-Tested on Windows 10 with latest Firefox and Chrome based browsers.
+## Example
+
+[AdhocCombat (https://adhoccombat.com)](https://adhoccombat.com) - work in progress
+
+<img src="Images/AdhocCombat1.PNG" style="width:400px"/> <img src="Images/AdhocCombat2.PNG" style="width:400px"/>
 
 ## Branches
 
@@ -29,7 +35,7 @@ https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
 This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders and **emscripten 3.1.31**.
 
-If you want to take a look at the full code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27 release.
+If you want to take a look at the full code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27.2 release (you can see the changes are all _new_ files in the Platforms/HTML5 folder). An alternative way to view the changes is to take UE 4.27.2 _along with_ @nickshin's last community supported UE4.24 HTML5 plugin code and compare this against the ES3 branch above - see this [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27.2-release_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3). This shows the actual differences in the plugin code which were needed to get 4.27.2 working (along with the other changes) rather than all new files.
 
 ### 4.24 HTML5 ES2
 
@@ -37,15 +43,8 @@ https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
 This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.31** 
 
-This may be useful as a fallback if you still need to use 4.24 or ES2 but want the other changes above - it also works as a reference of changes versus @nickshin's Epic Games HTML5 plugin development branch - see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18...SpeculativeCoder:4.24-html5-es2) for the comparison.
+This may be useful as a fallback if you still need to use 4.24 or ES2 but want the other changes above - it also works as a reference of changes versus @nickshin's UE4.24 HTML5 plugin branch - see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18...SpeculativeCoder:4.24-html5-es2) for the comparison.
 
-## Issues / Discussions
-
-If you need to raise any technical issues / discussions regarding this fork and the code changes you can use [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues) / [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions).
-
-If interested in a more in-depth discussion of the development / code etc. there are some notes in a [COMMENTARY](https://github.com/SpeculativeCoder/UnrealEngine/wiki/COMMENTARY) wiki page which I will aim to add to over time.
-
-Also there could be discussion in Unreal Slackers Discord https://unrealslackers.org/ in the **#web** channel (but note this channel is also for the <a href="https://docs.unrealengine.com/5.1/en-US/pixel-streaming-in-unreal-engine/">Pixel Streaming</a> technology).
 
 ## Guide
 
@@ -56,7 +55,7 @@ Also there could be discussion in Unreal Slackers Discord https://unrealslackers
 - CMake
 - Python (3.*)
 
-I have only built/tested on Windows 10 using the commands below. Other platforms may need further fixes/changes.
+I have only built/tested on Windows 10 (with Visual Studio using the Windows 10 SDK) using the commands below. Other platforms may need further fixes/changes.
 
 ### Installation
 
@@ -122,15 +121,23 @@ Navigate to http://localhost:8000
 
 Select the .html file. You should see the running game.
 
+## Issues / Discussions
+
+If you need to raise any technical issues / discussions regarding this fork and the code changes you can use [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues) / [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions) (as above, you need your GitHub linked to your Epic Games account to use these).
+
+If interested in a more in-depth discussion of the development / code etc. there are some notes in a [COMMENTARY](https://github.com/SpeculativeCoder/UnrealEngine/wiki/COMMENTARY) wiki page which I will aim to add to over time.
+
+Also there could be some general HTML5 plugin discussion in Unreal Slackers Discord https://unrealslackers.org/ in the **#web** channel (but note this channel is for general discussion of Unreal on the web, including the <a href="https://docs.unrealengine.com/5.1/en-US/pixel-streaming-in-unreal-engine/">Pixel Streaming</a> technology).
+
 ## Troubleshooting
 
 ### When opening UE4.sln in Visual Studio you see "Target framework not supported" for each .NET program
 
 For each of these you should be able to accept the default of "Update the target" to the newer version of .NET which seems to work fine.
 
-### When building HTML5 you see: **error CS1519: Invalid token '(' in class, struct, or interface member declaration**
+### When packaging HTML5 you see: **error CS1519: Invalid token '(' in class, struct, or interface member declaration**
 
-If you see this when trying to build HTML5 then in Visual Studio CTRL-Click these:
+If you see this when trying to package for HTML5 then in Visual Studio CTRL-Click these:
 - AutomationTool
 - AutomationToolLauncher
 - HTML5LaunchHelper
@@ -144,11 +151,11 @@ Try disabling Mobile MSAA (in Project Rendering options).
 
 ### When compiling, you see: "Detected compiler newer than Visual Studio 2019/2022, please update min version checking"
 
-This could happen if you are using a very new version of Visual Studio (i.e. 2022 latest versions). It is just a warning and shouldn't cause any issues as VS2022 (and hopefully future versions) seems to be able to build the engine fine.
+This could happen if you are using a very new version of Visual Studio (i.e. 2022 latest versions). It is just a warning and shouldn't cause any issues as VS2022 seems to be able to build the engine fine.
 
-### When packaging HTML5 you see: "WARNING: Library XXX as not resolvable to a file when used in Module 'PhysX', assuming it is a filename and will search library paths for it. This is slow and dependency checking will not work for it. Please update reference to be fully qualified alternatively use PublicSystemLibraryPaths if you do intended to use this slow path to suppress this warning."
+### When packaging HTML5 you see: "WARNING: Library XXX as not resolvable to a file when used in Module 'XXX', assuming it is a filename and will search library paths for it. This is slow and dependency checking will not work for it. Please update reference to be fully qualified alternatively use PublicSystemLibraryPaths if you do intended to use this slow path to suppress this warning."
 
-The XXX is usually PhysX. This seems to occur when HTML5Setup.sh randomly fails to properly build PhysX (or some other third party library) with an error like ```mingw32-make.exe[2]: write error: stdout``` but doesn't actually stop the ./HTML5Setup.sh build so it is easy to miss.
+The XXX is usually PhysX. This seems to occur when HTML5Setup.sh randomly fails to properly build PhysX (or some other third party library) with an error like ```mingw32-make.exe[2]: write error: stdout``` but doesn't actually stop the ./HTML5Setup.sh build so it is easy to miss and you will only notice when then trying to package for HTML5.
 
 If you get this issue try running ./HTMLSetup.sh again.
 
@@ -161,3 +168,14 @@ The HTML5Setup.sh script used to do a git checkout/restore to ensure the engine 
 ### When running HTML5Setup.sh you see: "zlib-1.2.8.tar.gz: Cannot open: No such file or directory"
 
 This happens if you run HTML5Setup.sh without first having run the ./Setup.bat stage. Running ./Setup.bat to ensure all the dependencies Unreal needs are downloaded (including this zlib tar) should avoid this error.
+
+# Copyright / License
+
+Copyright (c) 2022-2023 SpeculativeCoder (https://github.com/SpeculativeCoder)
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+See [LICENSE](LICENCE). The license only applies to the files in this repository.
+
+**IMPORTANT: Any other repositories that are referred to / linked to are under their own copyright / license. 
+For example https://github.com/SpeculativeCoder/UnrealEngine is under the Unreal Engine EULA etc. which you accept when you link your GitHub account to your Epic Games account.**
