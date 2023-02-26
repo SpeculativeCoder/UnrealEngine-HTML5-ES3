@@ -175,7 +175,7 @@ Copyright (c) 2022-2023 SpeculativeCoder (https://github.com/SpeculativeCoder)
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
-See [LICENSE](LICENCE). The license only applies to the files in this repository.
+See [LICENSE](LICENSE) (CC-BY-4.0). The license only applies to the files in this repository.
 
 **IMPORTANT: Any other repositories that are referred to / linked to are under their own copyright / license. 
 For example https://github.com/SpeculativeCoder/UnrealEngine is under the Unreal Engine EULA etc. which you accept when you link your GitHub account to your Epic Games account.**
