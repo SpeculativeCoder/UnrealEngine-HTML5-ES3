@@ -1,13 +1,13 @@
 # UnrealEngine HTML5 ES3 (WebGL2)
 
-<img src="Images/ThirdPerson.PNG" style="width:600px"/>
+<img src="Images/ThirdPerson.jpg" style="width:600px"/>
 
 This is work which builds upon the [UnrealEngine community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
 - Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of emscripten** (will try to keep this up to date).
 - Support for **ES3 shaders** (WebGL2).
 
-Supported/tested on Windows 10 with latest Firefox and Chrome based browsers.
+Only supported/tested on Windows 10 with latest Firefox and Chrome based browsers. Other platforms/browsers may either not work or have performance/graphical issues.
 
 Some other changes were also made to try and make a better out of the box experience:
 
@@ -20,8 +20,6 @@ Some other changes were also made to try and make a better out of the box experi
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps etc. This feature is disabled by default.
 
 Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - work in progress
-
-<img src="Images/AdhocCombat1.PNG" style="width:400px"/> <img src="Images/AdhocCombat2.PNG" style="width:400px"/>
 
 ## Git Repository / Branches
 
