@@ -7,7 +7,7 @@ This is work which builds upon the [UnrealEngine community-supported HTML5 (WebG
 - Support for a **recent version of emscripten** (will try to keep this up to date).
 - Support for **ES3 shaders** (WebGL2).
 
-Only supported/tested on Windows 10 with latest Firefox and Chrome based browsers. Other platforms/browsers may either not work or have performance/graphical issues.
+Supported/tested on Windows 10 with latest Firefox and Chrome based browsers. Other platforms/browsers may either not work or have performance/graphical issues.
 
 Some other changes were also made to try and make a better out of the box experience:
 
@@ -39,7 +39,7 @@ https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
 This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.32** 
 
-This may be useful as a fallback if you still need to use 4.24 or ES2 but want the other changes above - it also works as a reference of changes versus @nickshin's UE4.24 HTML5 plugin branch - see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18...SpeculativeCoder:4.24-html5-es2) for the comparison.
+This may be useful as a fallback if you still need to use 4.24 or ES2 but want the other changes above - it also works as a reference of changes versus @nickshin's UE4.24 HTML5 plugin branch - see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) for the comparison.
 
 
 ## Requirements
@@ -168,6 +168,34 @@ This happens if you run HTML5Setup.sh without first having run the ./Setup.bat s
 ### When running HMTL5Setup.sh you see: "Python" (and/or things simply stop after seeing "Resolving deltas: 100% (XXX/XXX), done." and nothing more happens)
 
 Even if you have Python properly installed, Windows may have some [App installer python.exe and python3.exe](https://stackoverflow.com/questions/57485491/python-python3-executes-in-command-prompt-but-does-not-run-correctly) that could possibly be interfering with Python usage.
+
+### When running the game you only see a blank white page with buttons at the top and/or in the console log you see: "Uncaught SyntaxError: illegal character U+001F" and/or you see error/warning message: "Downloaded a compressed file XXX without the necessary HTTP response header "Content-Encoding: gzip""
+
+If you are using compressed packaging for HTML5 (which is the default), you need to ensure the files ending in `.gz' (i.e. the compressed files) are served with the following HTTP header:
+
+    Content-Encoding: gzip
+    
+This signals to the web browser that it needs to decompress the file before trying to use it.
+
+The way the header can be set depends on how you are hosting the files. It will differ per solution - check the documentation for your web hosting solution. 
+
+However, if you need to temporarily work around this, you can disable compressed packaging:
+
+Project Settings -> HTML5 -> Packaging -> Compress files during packaging: Set to **false**
+
+Most of the increase in size due to turning off this compression will be in the size of the Unreal binary code which will no longer be compressed. The PAK data file actually has its own compression (which should be turned on by default) handled by Unreal so depending on how big your project the increase may or may not be a significant versus the overall size. 
+
+Also some web hosting solutions may _automatically_ do all the gzip compression of .css / .js assets on the fly (and set appropriate headers too) so in those cases you may be better off not using compressed packaging.
+
+### Why is the download so big? Can I reduce the size of the generated application?
+
+By default, Unreal includes all assets used by _any_ map in the project. So if you have enabled starter content, or some Marketplace assets, these may have maps in them that are dragging in a lot of assets you didn't actually intend to use.
+
+You should set the maps which will be included the packaging via this setting (make sure it has only the maps you make use of):
+
+Project Settings -> Packaging -> List of maps to include in packaged build
+
+This is an advanced setting so you may need to click the down arrow to show it.
 
 ## Issues / Discussions
 
