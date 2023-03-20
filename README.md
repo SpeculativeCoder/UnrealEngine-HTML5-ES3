@@ -23,7 +23,7 @@ Some other changes were also made to try and make a better out of the box experi
 Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - work in progress
 
 Known Issues:
-- In ES3 branch, reflections appear incorrect / have a blue tint. Using a gray texture reflection cubemap can somewhat mitigate this issue. See relevant [troubleshooting section](TROUBLESHOOTING.md).
+- In ES3 branch, reflections appear incorrect / have a blue tint. Using a gray texture reflection cubemap can somewhat mitigate this issue. See relevant [troubleshooting section](TROUBLESHOOTING.md#when-running-the-game-with-the-es3-branch-you-see-a-blue-tint--incorrect-reflections).
 - In both ES2 and ES3 branch, HTML5 multithreading only works for Development builds (Test/Shipping has graphical corruption / black screen). Single-threaded is now the default and should be used to avoid this issue.
 
 ## Git Repository / Branches
