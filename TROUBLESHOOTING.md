@@ -4,7 +4,9 @@
 
 ### When running HTML5Setup.sh you see: "fatal: not a git repository (or any of the parent directories): .git"
 
-The HTML5Setup.sh script in the above branches used to do a git checkout/restore to ensure the engine files were in a clean state before applying a patch, hence it didn't work if you downloaded a ZIP. However, I changed the HTML5Setup.sh to no longer require a git repository so if you have an older version of the code just do a new clone or ZIP download and you shouldn't run into this problem any more.
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3552c51f1a81aeb94f4bf1de5a347986bd5e3ca1) - update to the latest version of the fork avoid this issue_ 
+
+The HTML5Setup.sh script used to do a git checkout/restore to ensure the engine files were in a clean state before applying a patch, hence it didn't work if you downloaded a ZIP. However, I changed the HTML5Setup.sh to no longer require a git repository so if you have an older version of the code just do a new clone or ZIP download and you shouldn't run into this problem any more.
 
 ### When running HTML5Setup.sh you see: "zlib-1.2.8.tar.gz: Cannot open: No such file or directory"
 
@@ -18,9 +20,9 @@ Even if you have Python properly installed, Windows may have some [App installer
 
 For each of these you should be able to accept the default of "Update the target" to the newer version of .NET which seems to work fine.
 
-### When compiling, you see: "Detected compiler newer than Visual Studio XXX, please update min version checking"
+### When compiling, you see: "Detected compiler newer than Visual Studio XXXX, please update min version checking"
 
-XXX is just whatever version of Visual Studio the branch was last successfully tested with. This can appear if you are using an even more recent version of Visual Studio (i.e. 2022 latest versions). It is just a warning and shouldn't cause any issues as VS2022 seems to be able to build the engine fine.
+XXX is just whatever version of Visual Studio the branch was last successfully tested with. This can appear if you are using an even more recent version of Visual Studio e.g. 2022 latest releases. It is just a warning and shouldn't cause any issues as VS2022 seems to be able to build the engine fine. I will keep trying to bump the version check to avoid the warning but new releases of VS2022 may trigger it again.
 
 ### When packaging HTML5 you see: **error CS1519: Invalid token '(' in class, struct, or interface member declaration**
 
@@ -33,6 +35,8 @@ If you see this when trying to package for HTML5 then in Visual Studio CTRL-Clic
 Then do **Right Click -> Rebuild Selection** to force rebuild the .NET programs. Seems to fix the issue.
 
 ### When packaging HTML5 you see: "WARNING: Library XXX as not resolvable to a file when used in Module 'XXX'"
+
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3552c51f1a81aeb94f4bf1de5a347986bd5e3ca1) - update to the latest version of the fork avoid this issue_ 
 
 The XXX is usually PhysX. This seems to occur when HTML5Setup.sh randomly fails to properly build PhysX (or some other third party library) with an error like ```mingw32-make.exe[2]: write error: stdout``` but doesn't actually stop the ./HTML5Setup.sh build so it is easy to miss and you will only notice when then trying to package for HTML5.
 
@@ -56,6 +60,8 @@ Once you have done this you can package the project again as HTML5 and see if th
 
 ### When running the game you only see a blank white page with buttons at the top and/or in the console log you see: "Uncaught SyntaxError: illegal character U+001F" and/or you see error/warning message: "Downloaded a compressed file XXX without the necessary HTTP response header "Content-Encoding: gzip""
 
+_Note: A workaround was added as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/bb4fd48050d006df946f20e014d730a40a894cd7) (although only for Chrome-based browsers) - updating to the latest version of the fork may help you avoid this issue_ 
+
 If you are using compressed packaging for HTML5 (which is the default), you need to ensure the files ending in `.gz' (i.e. the compressed files) are served with the following HTTP header:
 
     Content-Encoding: gzip
@@ -74,15 +80,21 @@ Also some web hosting solutions may _automatically_ do all the gzip compression 
 
 ### When running the game with the ES3 branch you see a blue tint / incorrect reflections
 
-There is something wrong with the ES3 fork with regard to reflections (cause is unknown at the moment). One clear issue is that the sphere reflection capture somehow causes a blue color tint on materials where reflections occur. You can see this in the following screenshot where the water and some of the character clothing has reflections which appear blue (rather than properly showing the environment in the reflection):
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3c9050caa5d0faf0bc161f63367c95751f3a4351) - update to the latest version of the fork avoid this issue_ 
 
-<img src="Images/ActionRPG_BlueTintIssue.jpg" style="width:400px"/>
+In older versions of the ES3 fork you may notice incorrect colors on the reflections, which may or may not appear as a blue tint as shown in this screenshot:
 
-For now, a workaround you could try is to pick a gray texture for your sphere reflection spheres (rather than using scene captures). Go to your SphereReflectionCapture's and/or your SkyLight etc. and set the Reflection Capture -> Reflection Source Type to **Specified Cubemap** and then choose Reflection Capture -> Cubemap as a gray texture e.g. **GrayTextureCube** (you can choose lighter / darker version depending on how visible you want the reflections i.e. whatever looks best for your particular project). This is not ideal but seems to be a way to mitigate this blue tint issue for now:
+<img src="Images/ActionRPG_BlueTintIssue.jpg" style="width:600px"/>
 
-<img src="Images/ActionRPG_GrayTextureCubeWorkaround.jpg" style="width:400px"/>
+One workaround was to pick a gray texture (e.g. GrayTextureCube) for your sphere reflection spheres (rather than using scene captures):
 
-[Original report thread with discussion](https://github.com/SpeculativeCoder/UnrealEngine/issues/19) (NOTE: this link requires your GitHub account to be linked to Epic Games account or you will see 404). Thanks to [@MackeyK24](https://github.com/MackeyK24) for reporting this issue.
+<img src="Images/ActionRPG_GrayTextureCubeWorkaround.jpg" style="width:600px"/>
+
+However, this has been fixed in the latest version of the fork, so you should update to receive the fix and reflections should look more correct:
+
+<img src="Images/ActionRPG_Fixed.jpg" style="width:600px"/>
+
+[Original report thread with discussion / resolution](https://github.com/SpeculativeCoder/UnrealEngine/issues/19) (NOTE: this link requires your GitHub account to be linked to Epic Games account or you will see 404). Thanks to [@MackeyK24](https://github.com/MackeyK24) for reporting this issue.
 
 ### Why is the download so big? Can I reduce the size of the generated application?
 

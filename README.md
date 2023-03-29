@@ -2,29 +2,32 @@
 
 <img src="Images/ThirdPerson.jpg" style="width:600px"/>
 
-This is work which builds upon the [UnrealEngine community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
+This is a fork of UnrealEngine 4 which builds upon the [UnrealEngine community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
+- Support for **ES3 shaders** (WebGL2).
 - Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of emscripten** (will try to keep this up to date).
-- Support for **ES3 shaders** (WebGL2).
 
 Supported/tested on Windows 10 with latest Firefox and Chrome based browsers. Other platforms/browsers may either not work or have performance/graphical issues.
 
-Some other changes were also made to try and make a better out of the box experience:
+Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - personal project, work in progress
 
-- **Build compression of assets (to .gz files) is enabled by default**. You can still disable this if you prefer.
+### Other Features
+
+Some other changes have also made to try and make a better out of the box experience:
+
+- **Build compression of assets (to .gz files) is enabled by default**. You can still disable this if you prefer. 
+- If your hosting setup does not set the necessary `Content-Type: gzip` header when serving compressed .gz files, an attempt will be made to work around this by using [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream). This fallback is  currently only supported/tested in Chrome-based browsers.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
 - **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer the user to download the data every time.
-- **Uses single-threaded by default** as it seems to work better at the moment (tried this after seeing [@ufna](https://github.com/ufna/UE-HTML5)'s decision).
+- **Uses single-threaded mode by default** as it seems to work better at the moment (tried this after seeing [@ufna](https://github.com/ufna/UE-HTML5)'s decision) and is supported for Development, Testing, and Shipping packaging (Debug packaging is not supported). Multi-threaded mode can still be used, but currently only works for Development packaging (Testing/Shipping just shows a blank screen - hope to resolve this issue at some point).
+
 - **Web socket networking plugin is enabled by default** should you wish to use multiplayer in HTML5.
 - Added [**optional experimental support for websocket SSL**](Features/Feature-WebSocketSSL.md). This allows multiplayer to work when serving the HTML5 client via HTTPS. This feature is disabled by default.
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps etc. This feature is disabled by default.
-- Added support for using [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to attempt decompression of assets when they are not served with appropriate HTTP header. This gives more flexibility when hosting your application in environments where you don't/can't control the HTTP headers. This fallback is only supported in Chrome-based browsers.
 
-Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - work in progress
+Also available is an alternative branch with UE 4.24 using ES2 (WebGL1) shaders - but with the above new features - for those who wish to remain on that version.
 
-Known Issues:
-- In ES3 branch, reflections appear incorrect / have a blue tint. Using a gray texture reflection cubemap can somewhat mitigate this issue. See relevant [troubleshooting section](TROUBLESHOOTING.md#when-running-the-game-with-the-es3-branch-you-see-a-blue-tint--incorrect-reflections).
-- In both ES2 and ES3 branch, HTML5 multithreading only works for Development builds (Test/Shipping has graphical corruption / black screen). Single-threaded is now the default and should be used to avoid this issue.
+
 
 ## Git Repository / Branches
 
@@ -36,7 +39,10 @@ https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
 This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders and **emscripten 3.1.34**.
 
-If you want to take a look at the full code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27.2 release (you can see the changes are all _new_ files in the Platforms/HTML5 folder). An alternative way to view the changes is to take UE 4.27.2 _along with_ @nickshin's last community supported UE4.24 HTML5 plugin code and compare this against the ES3 branch above - see this [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27.2-release_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3). This shows the actual differences in the plugin code which were needed to get 4.27.2 working rather than all new files.
+If you want to look at the code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27.2 release (you can see the changes are all _new_ files in the Platforms/HTML5 folder).
+
+An alternative way to view the code is a [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27.2-release_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) of this branch against UE 4.27.2 release 
+with @nickshin's last community supported UE4.24 HTML5 plugin code as the starting point. This shows the actual differences in the plugin code which were needed to get 4.27.2 working rather than all new files.
 
 ### 4.24 HTML5 ES2
 
@@ -44,7 +50,7 @@ https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
 This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.34** 
 
-This may be useful as a fallback if you still need to use 4.24 or ES2 but want the other changes above - it also works as a reference of changes versus @nickshin's UE4.24 HTML5 plugin branch - see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) for the comparison.
+This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the code see this see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
 
 ## Requirements
 
@@ -121,13 +127,13 @@ Select the .html file. You should see the running game.
 
 ## Troubleshooting
 
-See [TROUBLESHOOTING](TROUBLESHOOTING.md) for troubleshooting / workarounds.
+See [TROUBLESHOOTING](TROUBLESHOOTING.md) for typical troubleshooting / workarounds.
 
 ## Issues / Discussions
 
-If you need to raise any technical issues / discussions regarding this fork and the code changes you can use [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues) / [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions) (you need your GitHub linked to your Epic Games account to see these or you will see 404 error).
+If you need to raise any technical issues / discussions regarding this fork and the code changes you can use the [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues) or [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions) sections for the fork (you need your GitHub linked to your Epic Games account to see these or you will see 404 error).
 
-If interested in a more in-depth discussion of the development / code etc. there are some notes in a [COMMENTARY](https://github.com/SpeculativeCoder/UnrealEngine/wiki/COMMENTARY) wiki page which I will aim to add to over time (you need your GitHub linked to your Epic Games account to see this or you will see 404 error).
+If interested in a more technical commentary of the development / code etc. there are some notes in the wiki under [COMMENTARY](https://github.com/SpeculativeCoder/UnrealEngine/wiki/COMMENTARY) which I will aim to add to over time (you need your GitHub linked to your Epic Games account to see this or you will see 404 error).
 
 Also there could be some general HTML5 plugin discussion in Unreal Slackers Discord https://unrealslackers.org/ in the **#web** channel (but note this channel is for general discussion of Unreal on the web, including the <a href="https://docs.unrealengine.com/5.1/en-US/pixel-streaming-in-unreal-engine/">Pixel Streaming</a> technology).
 
