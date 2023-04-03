@@ -7,7 +7,7 @@ This is a fork of UnrealEngine 4 which builds upon the [UnrealEngine community-s
 - Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of emscripten** (will try to keep this up to date).
 
-Supported/tested on Windows 10 with latest Firefox and Chrome based browsers. Other platforms/browsers may either not work or have performance/graphical issues.
+Supported/tested on Windows 10 with latest Firefox and Chrome based browsers. Other platforms/browsers may either not work (e.g. mobile) or have performance/graphical issues (e.g. MacOS).
 
 Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - personal project, work in progress
 
