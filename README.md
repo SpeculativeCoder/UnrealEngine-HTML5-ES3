@@ -2,32 +2,30 @@
 
 <img src="Images/ThirdPerson.jpg" style="width:600px"/>
 
-This is a fork of UnrealEngine 4 which builds upon the [UnrealEngine community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
+This is documentation for a fork of UnrealEngine 4 which builds upon the [community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
 - Support for **ES3 shaders** (WebGL2).
 - Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of emscripten** (will try to keep this up to date).
 
-Supported/tested on Windows 10 with latest Firefox and Chrome based browsers. Other platforms/browsers may either not work (e.g. mobile) or have performance/graphical issues (e.g. MacOS).
+Packaged HTML5 projects should work with **Firefox** and **Chrome-based** browsers on **Windows 10/11** or **MacOS**. Safari on MacOS also appears to work for now but there may be subtle issues or future problems. Other browsers/platforms may either not currently work (e.g. mobile) or have graphical/performance issues.
 
 Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - personal project, work in progress
+
+Packaging of HTML5 projects (i.e. using Unreal Editor) is currently done on Windows 10 (11 should also work).
 
 ### Other Features
 
 Some other changes have also made to try and make a better out of the box experience:
 
-- **Build compression of assets (to .gz files) is enabled by default**. You can still disable this if you prefer. 
-- If your hosting setup does not set the necessary `Content-Type: gzip` header when serving compressed .gz files, an attempt will be made to work around this by using [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream). This fallback is  currently only supported/tested in Chrome-based browsers.
+- **Build compression of assets (to .gz files) is enabled by default**. You can still disable this if you prefer. Compressed (.gz suffix) assets need to be served using `Content-Type: gzip`. If you are unable to set this header in your hosting environment, a fallback decompression attempt will now be made (using [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream)). This fallback is currently only supported/tested in Chrome-based browsers.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
 - **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer the user to download the data every time.
-- **Uses single-threaded mode by default** as it seems to work better at the moment (tried this after seeing [@ufna](https://github.com/ufna/UE-HTML5)'s decision) and is supported for Development, Testing, and Shipping packaging (Debug packaging is not supported). Multi-threaded mode can still be used, but currently only works for Development packaging (Testing/Shipping just shows a blank screen - hope to resolve this issue at some point).
-
+- **Uses single-threaded mode by default** as it seems to work better at the moment (tried this after seeing [@ufna](https://github.com/ufna/UE-HTML5)'s decision) and is supported for Development, Testing, and Shipping packaging (Debug/DebugGame packaging is not supported). Multi-threaded mode can still be used, but currently only works for Development packaging (Testing/Shipping just shows a blank screen).
 - **Web socket networking plugin is enabled by default** should you wish to use multiplayer in HTML5.
-- Added [**optional experimental support for websocket SSL**](Features/Feature-WebSocketSSL.md). This allows multiplayer to work when serving the HTML5 client via HTTPS. This feature is disabled by default.
+- Added [**optional experimental support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS. This feature is disabled by default.
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps etc. This feature is disabled by default.
 
-Also available is an alternative branch with UE 4.24 using ES2 (WebGL1) shaders - but with the above new features - for those who wish to remain on that version.
-
-
+Also available is an alternative branch with UE 4.24 using ES2 shaders (WebGL1) - but with the above new features - for those who wish to remain on that version.
 
 ## Git Repository / Branches
 
@@ -37,7 +35,7 @@ Also available is an alternative branch with UE 4.24 using ES2 (WebGL1) shaders 
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders and **emscripten 3.1.34**.
+This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders (WebGL2) and **emscripten 3.1.35**
 
 If you want to look at the code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27.2 release (you can see the changes are all _new_ files in the Platforms/HTML5 folder).
 
@@ -48,12 +46,13 @@ with @nickshin's last community supported UE4.24 HTML5 plugin code as the starti
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders and **emscripten 3.1.34** 
+This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders (WebGL1) and **emscripten 3.1.35**
 
 This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the code see this see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
 
 ## Requirements
 
+- Windows 10 (11 should also work)
 - Git for Windows
 - Visual Studio 2019 or 2022 (install workloads "Game Development with C++" and ".NET desktop environment" with extra selection of ".NET Framework 4.6.2 development tools" - also ensure you select/use a Windows 10 SDK).
 - CMake
@@ -137,7 +136,7 @@ If interested in a more technical commentary of the development / code etc. ther
 
 Also there could be some general HTML5 plugin discussion in Unreal Slackers Discord https://unrealslackers.org/ in the **#web** channel (but note this channel is for general discussion of Unreal on the web, including the <a href="https://docs.unrealengine.com/5.1/en-US/pixel-streaming-in-unreal-engine/">Pixel Streaming</a> technology).
 
-## Copyright / License
+## Documentation Copyright / License
 
 Copyright (c) 2022-2023 SpeculativeCoder (https://github.com/SpeculativeCoder)
 
@@ -145,5 +144,4 @@ Copyright (c) 2022-2023 SpeculativeCoder (https://github.com/SpeculativeCoder)
 
 See [LICENSE](LICENSE) (CC-BY-4.0). The license only applies to the files in this repository.
 
-**IMPORTANT: Any other repositories that are referred to / linked to are under their own copyright / license. 
-For example https://github.com/SpeculativeCoder/UnrealEngine is under the Unreal Engine EULA etc. which you accept when you link your GitHub account to your Epic Games account.**
+**IMPORTANT: Any other repositories that are referred to / linked to are under their own copyright / license. For example https://github.com/SpeculativeCoder/UnrealEngine is under the Unreal Engine EULA etc. which you accept when you link your GitHub account to your Epic Games account.**
