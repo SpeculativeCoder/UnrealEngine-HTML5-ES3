@@ -30,7 +30,7 @@ Also available is an alternative branch with UE 4.24 using ES2 shaders (WebGL1) 
 ### Caveats / Known Issues
 
 - Only Development, Testing, and Shipping packaging is supported. Debug/DebugGame packaging is not supported.
-- In the ES3 branch, stationary directional light does not properly cast dynamic shadows from moveable meshes. For now you could either work without these shadows or switch to moveable directional light (which does cast shadows but with worse quality).
+- In the ES3 branch, [stationary directional light does not properly cast dynamic shadows from moveable meshes](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-the-game-with-the-es3-branch-you-notice-that-stationary-directional-light-is-not-casting-dynamic-shadows). For now you could either work without these shadows or switch to moveable directional light (which does cast shadows but with worse quality).
 - In both ES2 and ES3 branches, HTML5 multithreading only works for Development builds and may have subtle issues. Test/Shipping has graphical corruption / black screen. Single-threaded should be used to avoid this issue (make sure **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False**).
 
 ## Git Repository / Branches
