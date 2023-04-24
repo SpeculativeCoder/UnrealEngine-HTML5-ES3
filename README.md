@@ -7,11 +7,11 @@ This is documentation for a fork of UnrealEngine 4 which builds upon the [commun
 - Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of emscripten** (will try to keep this up to date).
 
-Packaged HTML5 projects should work with **Firefox** and **Chrome-based** browsers on **Windows 10/11** or **MacOS**. Safari on MacOS also appears to work for now but there may be subtle issues or future problems. Other browsers/platforms may either not currently work (e.g. mobile) or have graphical/performance issues.
+Packaged HTML5 projects should work in **Firefox** or **Chrome-based** browsers on **Windows 10/11** or **MacOS**. Safari on MacOS also appears to work for now but there may be subtle issues or future problems. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work.
+
+Development/packaging of HTML5 projects (i.e. building and using this fork of Unreal Editor) is only tested on Windows 10 (but 11 should also work). 
 
 Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - personal project, work in progress
-
-Packaging of HTML5 projects (i.e. using Unreal Editor) is currently done on Windows 10 (11 should also work).
 
 ### Other Features
 
@@ -20,12 +20,18 @@ Some other changes have also made to try and make a better out of the box experi
 - **Build compression of assets (to .gz files) is enabled by default**. You can still disable this if you prefer. Compressed (.gz suffix) assets need to be served using `Content-Type: gzip`. If you are unable to set this header in your hosting environment, a fallback decompression attempt will now be made (using [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream)). This fallback is currently only supported/tested in Chrome-based browsers.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
 - **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer the user to download the data every time.
-- **Uses single-threaded mode by default** as it seems to work better at the moment (tried this after seeing [@ufna](https://github.com/ufna/UE-HTML5)'s decision) and is supported for Development, Testing, and Shipping packaging (Debug/DebugGame packaging is not supported). Multi-threaded mode can still be used, but currently only works for Development packaging (Testing/Shipping just shows a blank screen).
+- **Uses single-threaded HTML5 mode by default** as it seems to work better at the moment (tried this after seeing [@ufna](https://github.com/ufna/UE-HTML5)'s decision). You can still package a HTML5 build with multithreading support but it has issues (see Caveats section below).
 - **Web socket networking plugin is enabled by default** should you wish to use multiplayer in HTML5.
 - Added [**optional experimental support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS. This feature is disabled by default.
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps etc. This feature is disabled by default.
 
 Also available is an alternative branch with UE 4.24 using ES2 shaders (WebGL1) - but with the above new features - for those who wish to remain on that version.
+
+### Caveats / Known Issues
+
+- Only Development, Testing, and Shipping packaging is supported. Debug/DebugGame packaging is not supported.
+- In the ES3 branch, stationary directional light does not properly cast dynamic shadows from moveable meshes. For now you could either work without these shadows or switch to moveable directional light (which does cast shadows but with worse quality).
+- In both ES2 and ES3 branches, HTML5 multithreading only works for Development builds and may have subtle issues. Test/Shipping has graphical corruption / black screen. Single-threaded should be used to avoid this issue (make sure **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False**).
 
 ## Git Repository / Branches
 

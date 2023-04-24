@@ -1,12 +1,8 @@
 # UnrealEngine HTML5 ES3 (WebGL2)
 
-## Troubleshooting
+## Troubleshooting - Recent
 
-### When running HTML5Setup.sh you see: "fatal: not a git repository (or any of the parent directories): .git"
-
-_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3552c51f1a81aeb94f4bf1de5a347986bd5e3ca1) - update to the latest version of the fork avoid this issue_ 
-
-The HTML5Setup.sh script used to do a git checkout/restore to ensure the engine files were in a clean state before applying a patch, hence it didn't work if you downloaded a ZIP. However, I changed the HTML5Setup.sh to no longer require a git repository so if you have an older version of the code just do a new clone or ZIP download and you shouldn't run into this problem any more.
+These are issues you may run into using the latest version of the fork.
 
 ### When running HTML5Setup.sh you see: "zlib-1.2.8.tar.gz: Cannot open: No such file or directory"
 
@@ -34,19 +30,23 @@ If you see this when trying to package for HTML5 then in Visual Studio CTRL-Clic
 
 Then do **Right Click -> Rebuild Selection** to force rebuild the .NET programs. Seems to fix the issue.
 
-### When packaging HTML5 you see: "WARNING: Library XXX as not resolvable to a file when used in Module 'XXX'"
-
-_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3552c51f1a81aeb94f4bf1de5a347986bd5e3ca1) - update to the latest version of the fork avoid this issue_ 
-
-The XXX is usually PhysX. This seems to occur when HTML5Setup.sh randomly fails to properly build PhysX (or some other third party library) with an error like ```mingw32-make.exe[2]: write error: stdout``` but doesn't actually stop the ./HTML5Setup.sh build so it is easy to miss and you will only notice when then trying to package for HTML5.
-
-If you get this issue try running ./HTMLSetup.sh again.
-
-NOTE: In the latest versions of the above branches the third party libraries are built using only a single thread (-j 1) to hopefully avoid this problem happening as much.
-
 ### When running game you see in browser console an error with: "Assertion failed" regarding multisampled textures
 
 Try disabling Mobile MSAA (in Project Rendering options).
+
+### When running the game with the ES3 branch you notice that stationary directional light is not casting dynamic shadows
+
+In the ES2 version of the fork, dynamic shadows (e.g. casted from moving meshes) from a stationary direction light (like in First Person or Third Person sample projects) will appear: 
+
+<img src="Images/ThirdPerson_424ES2_StationaryDirectionalLightDynamicShadowsVisible.jpg" style="width:600px"/>
+
+But in the ES3 version of the fork, dynamic shadows do not appear:
+
+<img src="Images/ThirdPerson_427ES3_StationaryDirectionalLightDynamicShadowsNotVisible.jpg" style="width:600px"/>
+
+The cause of this issue is currently unknown, but if you don't want to go without shadows you could try changing your directional light to movable. This works although the shadows are not as good visually:
+
+<img src="Images/ThirdPerson_427ES3_MovableDirectionalLightDynamicShadowsVisible.jpg" style="width:600px"/>
 
 ### When running game you see in browser console an error with: "Assertion failed" relating to a compression method and "file needs to be forced to use zlib compression"
 
@@ -78,6 +78,36 @@ Most of the increase in size due to turning off this compression will be in the 
 
 Also some web hosting solutions may _automatically_ do all the gzip compression of .css / .js assets on the fly (and set appropriate headers too) so in those cases you may be better off not using compressed packaging.
 
+### Why is the download so big? Can I reduce the size of the generated application?
+
+By default, Unreal includes all assets used by _any_ map in the project. So if you have enabled starter content, or some Marketplace assets, these may have maps in them that are dragging in a lot of assets you didn't actually intend to use.
+
+You should set the maps which will be included the packaging via this setting (make sure it has only the maps you make use of):
+
+Project Settings -> Packaging -> List of maps to include in packaged build
+
+This is an advanced setting so you may need to click the down arrow to show it.
+
+## Troubleshooting - Legacy
+
+These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the lates version.
+
+### When running HTML5Setup.sh you see: "fatal: not a git repository (or any of the parent directories): .git"
+
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3552c51f1a81aeb94f4bf1de5a347986bd5e3ca1) - update to the latest version of the fork avoid this issue_ 
+
+The HTML5Setup.sh script used to do a git checkout/restore to ensure the engine files were in a clean state before applying a patch, hence it didn't work if you downloaded a ZIP. However, I changed the HTML5Setup.sh to no longer require a git repository so if you have an older version of the code just do a new clone or ZIP download and you shouldn't run into this problem any more.
+
+### When packaging HTML5 you see: "WARNING: Library XXX as not resolvable to a file when used in Module 'XXX'"
+
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3552c51f1a81aeb94f4bf1de5a347986bd5e3ca1) - update to the latest version of the fork avoid this issue_ 
+
+The XXX is usually PhysX. This seems to occur when HTML5Setup.sh randomly fails to properly build PhysX (or some other third party library) with an error like ```mingw32-make.exe[2]: write error: stdout``` but doesn't actually stop the ./HTML5Setup.sh build so it is easy to miss and you will only notice when then trying to package for HTML5.
+
+If you get this issue try running ./HTMLSetup.sh again.
+
+NOTE: In the latest versions of the above branches the third party libraries are built using only a single thread (-j 1) to hopefully avoid this problem happening as much.
+
 ### When running the game with the ES3 branch you see a blue tint / incorrect reflections
 
 _Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3c9050caa5d0faf0bc161f63367c95751f3a4351) - update to the latest version of the fork avoid this issue_ 
@@ -95,13 +125,3 @@ However, this has been fixed in the latest version of the fork, so you should up
 <img src="Images/ActionRPG_Fixed.jpg" style="width:600px"/>
 
 [Original report thread with discussion / resolution](https://github.com/SpeculativeCoder/UnrealEngine/issues/19) (NOTE: this link requires your GitHub account to be linked to Epic Games account or you will see 404). Thanks to [@MackeyK24](https://github.com/MackeyK24) for reporting this issue.
-
-### Why is the download so big? Can I reduce the size of the generated application?
-
-By default, Unreal includes all assets used by _any_ map in the project. So if you have enabled starter content, or some Marketplace assets, these may have maps in them that are dragging in a lot of assets you didn't actually intend to use.
-
-You should set the maps which will be included the packaging via this setting (make sure it has only the maps you make use of):
-
-Project Settings -> Packaging -> List of maps to include in packaged build
-
-This is an advanced setting so you may need to click the down arrow to show it.
