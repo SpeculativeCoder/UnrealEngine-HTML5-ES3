@@ -90,7 +90,7 @@ This is an advanced setting so you may need to click the down arrow to show it.
 
 ## Troubleshooting - Legacy
 
-These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the lates version.
+These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the latest version.
 
 ### When running HTML5Setup.sh you see: "fatal: not a git repository (or any of the parent directories): .git"
 
