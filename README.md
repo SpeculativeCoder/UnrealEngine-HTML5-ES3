@@ -7,9 +7,9 @@ This is documentation for a fork of UnrealEngine 4 which builds upon the [commun
 - Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of emscripten** (will try to keep this up to date).
 
-Packaged HTML5 projects should work in **Firefox** or **Chrome-based** browsers on **Windows 10/11** or **MacOS**. Safari on MacOS also appears to work for now but there may be subtle issues or future problems. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work.
+Packaged HTML5 projects work best in **Firefox** or **Chrome-based** browsers on **Windows 10/11**. Also works in Firefox, Safari and Chrome-based browsers on MacOS. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work.
 
-Development/packaging of HTML5 projects (i.e. building and using this fork of Unreal Editor) is only tested on Windows 10 (but 11 should also work). 
+Development/packaging of HTML5 projects (i.e. building and using this fork of Unreal Editor) is done on Windows 10 (but 11 should also be OK).
 
 Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - personal project, work in progress
 
@@ -29,9 +29,17 @@ Also available is an alternative branch with UE 4.24 using ES2 shaders (WebGL1) 
 
 ### Caveats / Known Issues
 
+There are some issues with the HTML5 plugin (some already existed, some are new in this fork):
 - Only Development, Testing, and Shipping packaging is supported. Debug/DebugGame packaging is not supported.
-- In the ES3 branch, [stationary directional light does not properly cast dynamic shadows from moveable meshes](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-the-game-with-the-es3-branch-you-notice-that-stationary-directional-light-is-not-casting-dynamic-shadows). For now you could either work without these shadows or switch to moveable directional light (which does cast shadows but with worse quality).
-- In both ES2 and ES3 branches, HTML5 multithreading only works for Development builds and may have subtle issues. Test/Shipping has graphical corruption / black screen. Single-threaded should be used to avoid this issue (make sure **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False**).
+- Currently, in the ES3 branch, [stationary directional lights do not properly cast dynamic shadows](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-the-game-with-the-es3-branch-you-notice-that-stationary-directional-light-is-not-casting-dynamic-shadows). For now you could either work without these shadows or switch to moveable directional light (which does work but has worse quality).
+- HTML5 multithreading only works for Development builds and may have subtle issues. Test/Shipping can't used at the moment as it renders a black screen. Single-threaded should be used to avoid this issue (make sure **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False**).
+- Mobile MSAA is not supported and [must be disabled in your project or you will see an error when running the HTML5 client](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-game-you-see-in-browser-console-an-error-with-assertion-failed-regarding-multisampled-textures).
+- Currently, Safari mouse sensitivity is dramatically different to Firefox/Chrome-based. This is likely due to how Safari reports mouse movementX - see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and associated [bug](https://github.com/w3c/pointerlock/issues/42).
+- Video playing, and likely anything related to Unreal [Media Framework](https://docs.unrealengine.com/4.27/en-US/WorkingWithMedia/IntegratingMedia/MediaFramework/) does not work.
+
+For all features you may wish to use, a good rule of thumb is: anything that didn't work in ES2 likely won't work in the ES3 fork, except maybe some graphical features which specifically needed ES3. Anything that needs compute shaders won't work as that isn't supported in WebGL1 or WebGL2.
+
+See [TROUBLESHOOTING](TROUBLESHOOTING.md) for more detail on typical issues / troubleshooting / workarounds.
 
 ## Git Repository / Branches
 
@@ -41,7 +49,7 @@ Also available is an alternative branch with UE 4.24 using ES2 shaders (WebGL1) 
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders (WebGL2) and **emscripten 3.1.35**
+This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders (WebGL2) and **emscripten 3.1.37**
 
 If you want to look at the code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27.2 release (you can see the changes are all _new_ files in the Platforms/HTML5 folder).
 
@@ -52,7 +60,7 @@ with @nickshin's last community supported UE4.24 HTML5 plugin code as the starti
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders (WebGL1) and **emscripten 3.1.35**
+This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders (WebGL1) and **emscripten 3.1.37**
 
 This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the code see this see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
 
@@ -130,9 +138,29 @@ Navigate to http://localhost:8000
 
 Select the .html file. You should see the running game.
 
-## Troubleshooting
+## Updates
 
-See [TROUBLESHOOTING](TROUBLESHOOTING.md) for typical troubleshooting / workarounds.
+If a new version of the fork is released (i.e. a new commit to the branch), it is best to rebuild Unreal entirely to avoid any issues.
+
+If you downloaded as ZIP, just delete the old extracted directory, download the branch again and start from scratch.
+
+If you cloned the git repository / branch, go into the folder where you cloned the git repository e.g.
+
+    cd ue-4.27-html5-es3
+    
+Then do:
+
+     rm -fr Engine/Platforms/HTML5/Build/emsdk/emsdk-* && git clean -fdx && git -c core.hooksPath=/dev/null restore .
+
+This will clear everything out to almost exactly as you originally downloaded.
+
+Now do
+
+    git pull
+    
+This will bring in the latest version of the branch.
+
+Now follow the original Installation guide starting with the `./Setup.bat` step.
 
 ## Issues / Discussions
 
