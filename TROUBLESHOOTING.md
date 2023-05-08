@@ -36,17 +36,23 @@ Try disabling Mobile MSAA (in Project Rendering options).
 
 ### When running the game with the ES3 branch you notice that stationary directional light is not casting dynamic shadows
 
-In the ES2 version of the fork, dynamic shadows (e.g. casted from moving meshes) from a stationary direction light (like in First Person or Third Person sample projects) will appear: 
+In the ES2 version of the fork, modulated dynamic shadows (e.g. casted from moving meshes) from a stationary direction light (like in First Person or Third Person sample projects) will appear: 
 
 <img src="Images/ThirdPerson_424ES2_StationaryDirectionalLightDynamicShadowsVisible.jpg" style="width:600px"/>
 
-But in the ES3 version of the fork, dynamic shadows do not appear:
+But in the ES3 version of the fork, the modulated dynamic shadows do not appear:
 
 <img src="Images/ThirdPerson_427ES3_StationaryDirectionalLightDynamicShadowsNotVisible.jpg" style="width:600px"/>
 
-The cause of this issue is currently unknown, but if you don't want to go without shadows you could try changing your directional light to movable. This works although the shadows are not as good visually:
+The cause of this issue is currently unknown, but as a workaround for stationary direction lights you could switch to non-modulated dynamic shadows.
 
-<img src="Images/ThirdPerson_427ES3_MovableDirectionalLightDynamicShadowsVisible.jpg" style="width:600px"/>
+On your directional light, set **Cast Modulated Shadows** to **false** (you may need to click the down arrow in Light section to see this as it is an advanced property).
+
+You will also need to be sure you have set an appropriate distance in the **Dynamic Shadow Distance** in the Cascaded Shadows Maps section of the directional light (default is 0 which will disable the shadow). For example, with a setting of 500, in the third person sample project the non-modulated dynamic shadow looks as follows:
+
+<img src="Images/ThirdPerson_427ES3_StationaryDirectionalLightNonModulatedDynamicShadowsVisible.jpg" style="width:600px"/>
+
+You will likely need to tweak the Cascaded Shadow Map settings etc. to get an acceptable quality / performance balance for your project.
 
 ### When running game you see in browser console an error with: "Assertion failed" relating to a compression method and "file needs to be forced to use zlib compression"
 
