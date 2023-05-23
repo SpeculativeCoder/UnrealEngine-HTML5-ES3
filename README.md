@@ -21,11 +21,11 @@ Some other changes have also made to try and make a better out of the box experi
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
 - **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer the user to download the data every time.
 - **Uses single-threaded HTML5 mode by default** as it seems to work better at the moment (tried this after seeing [@ufna](https://github.com/ufna/UE-HTML5)'s decision). You can still package a HTML5 build with multithreading support but it has issues (see Caveats section below).
-- **Web socket networking plugin is enabled by default** should you wish to use multiplayer in HTML5.
-- Added [**optional experimental support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS. This feature is disabled by default.
+- **Web socket networking plugin is enabled by default** should you wish to use multiplayer in HTML5. You would still need to run separate server(s) (e.g. Windows / Linux servers) to connect to as web browser HTML5 clients cannot act as servers.
+- Added [**optional, experimental, support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS. This feature is disabled by default.
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps etc. This feature is disabled by default.
 
-Also available is an alternative branch with UE 4.24 using ES2 shaders (WebGL1) - but with the above new features - for those who wish to remain on that version.
+Also available is an **alternative branch with UE 4.24 using ES2 shaders (WebGL1)** - but with the above new features - for those who wish to remain on that version.
 
 ### Caveats / Known Issues
 
@@ -45,22 +45,22 @@ See [TROUBLESHOOTING](TROUBLESHOOTING.md) for more detail on typical issues / tr
 
 **To access the links below you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected) - if you do not do this you will see 404 error.**
 
-### 4.27 HTML5 ES3
+### 4.27 HTML5 ES3 (WebGL2)
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders (WebGL2) and **emscripten 3.1.37**
+This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders (WebGL2) and **emscripten 3.1.39**
 
 If you want to look at the code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27.2 release (you can see the changes are all _new_ files in the Platforms/HTML5 folder).
 
 An alternative way to view the code is a [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27.2-release_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) of this branch against UE 4.27.2 release 
 with @nickshin's last community supported UE4.24 HTML5 plugin code as the starting point. This shows the actual differences in the plugin code which were needed to get 4.27.2 working rather than all new files.
 
-### 4.24 HTML5 ES2
+### 4.24 HTML5 ES2 (WebGL1)
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders (WebGL1) and **emscripten 3.1.37**
+This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders (WebGL1) and **emscripten 3.1.39**
 
 This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the code see this see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
 
@@ -68,7 +68,7 @@ This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but
 
 - Windows 10 (11 should also work)
 - Git for Windows
-- Visual Studio 2019 or 2022 (install workloads "Game Development with C++" and ".NET desktop environment" with extra selection of ".NET Framework 4.6.2 development tools" - also ensure you select/use a Windows 10 SDK).
+- Visual Studio 2019 or 2022 - install workloads "Game Development with C++" and ".NET desktop environment" with extra selection of ".NET Framework 4.6.2 development tools" - also ensure you select/use a Windows 10 SDK.
 - CMake
 - Python (3.*)
 
@@ -78,11 +78,25 @@ I have only built/tested on Windows 10 using the commands below. Other platforms
 
 Using a Git for Windows BASH shell.
 
-Clone the repository branch (you can also download the branch as a ZIP and unpack it if you prefer that way):
+Clone the appropriate repository branch (you can also download the branch as a ZIP and unpack it if you prefer that way).
 
-    git clone -b 4.27-html5-es3 --single-branch https://github.com/SpeculativeCoder/UnrealEngine.git ue-4.27-html5-es3
+For the 4.27 ES3 (WebGL2) branch you can do:
 
-Go into the folder:
+    `git clone -b 4.27-html5-es3 --single-branch https://github.com/SpeculativeCoder/UnrealEngine.git ue-4.27-html5-es3`
+
+Or, alternatively, for the 4.24 ES2 (WebGL1) branch you would instead do:
+
+    `git clone -b 4.24-html5-es2 --single-branch https://github.com/SpeculativeCoder/UnrealEngine.git ue-4.24-html5-es2`
+
+This should download the branch (it will take a while depending on your connection as the source is quite large).
+
+Now, as per an [announcement from Epic Games](https://forums.unrealengine.com/t/upcoming-disruption-of-service-impacting-unreal-engine-users-on-github/1155880), you will need to replace the `Commit.gitdeps.xml` in the `Engine/Build` folder with a version newly provided by Epic depending on the version you are using. You can download the latest Commit.gitdeps.xml from the *Assets* section of the relevant UnrealEngine release below and replace the file in your `Engine/Build` folder with it:
+- https://github.com/EpicGames/UnrealEngine/releases/tag/4.27.2-release if you are using 4.27 ES3 (WebGL2) branch
+- https://github.com/EpicGames/UnrealEngine/releases/tag/4.24.3-release if you are using 4.24 ES2 (WebGL1) branch
+
+Note: this was a recent breaking change so in future I hope to include this fix in the branches but want to do it in a clean way so for now we rely on the official fix/source.
+
+Back in Git Bash, go into the folder:
 
     cd ue-4.27-html5-es3
     
@@ -90,7 +104,9 @@ Run:
     
     ./Setup.bat
 
-This will download a lot of dependencies used by Unreal engine and perform some setup tasks. Then do:
+This will download a lot of dependencies used by Unreal engine and perform some setup tasks (if you see an error about remote server returned error or 403 / Forbidden then you may not have properly applied the Commit.gitdeps.xml fix above). 
+
+Now do:
 
     cd Engine/Platforms/HTML5
     ./HTML5Setup.sh
@@ -152,11 +168,11 @@ Then do:
 
      rm -fr Engine/Platforms/HTML5/Build/emsdk/emsdk-* && git clean -fdx && git -c core.hooksPath=/dev/null restore .
 
-This will clear everything out to almost exactly as you originally downloaded.
+This will clear everything out to almost exactly as you originally downloaded (the hooksPath argument stops the Unreal git hooks from downloading any new files).
 
 Now do
 
-    git pull
+    git -c core.hooksPath=/dev/null pull
     
 This will bring in the latest version of the branch.
 
