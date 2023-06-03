@@ -7,7 +7,7 @@ This is documentation for a fork of UnrealEngine 4 which builds upon the [commun
 - Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of emscripten** (will try to keep this up to date).
 
-Packaged HTML5 projects work best in **Firefox** or **Chrome-based** browsers on **Windows 10/11**. Also works in Firefox, Safari and Chrome-based browsers on MacOS. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work.
+Packaged HTML5 projects work best in **Firefox** or **Chrome-based** browsers on **Windows 10/11**. They also work for now in Firefox, Safari and Chrome-based browsers on MacOS. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work.
 
 Development/packaging of HTML5 projects (i.e. building and using this fork of Unreal Editor) is done on Windows 10 (but 11 should also be OK).
 
@@ -30,11 +30,12 @@ Also available is an **alternative branch with UE 4.24 using ES2 shaders (WebGL1
 ### Caveats / Known Issues
 
 There are some issues with the HTML5 plugin (some already existed, some are new in this fork):
-- Only Development, Testing, and Shipping packaging is supported. Debug/DebugGame packaging is not supported.
-- Currently, in the ES3 branch, [stationary directional lights do not properly cast modulated dynamic shadows](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-the-game-with-the-es3-branch-you-notice-that-stationary-directional-light-is-not-casting-dynamic-shadows). A workaround for this for now could be to use non-modulated dynamic shadows (on your directional light set Cast Modulated Shadows to false, and also ensure you have set an appropriate Dynamic Shadow Distance).
-- HTML5 multithreading only works for Development builds and may have subtle issues. Test/Shipping can't used at the moment as it renders a black screen. Single-threaded should be used to avoid this issue (make sure **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False**).
-- Mobile MSAA is not supported and [must be disabled in your project or you will see an error when running the HTML5 client](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-game-you-see-in-browser-console-an-error-with-assertion-failed-regarding-multisampled-textures).
 - Currently, Safari mouse sensitivity is dramatically different to Firefox/Chrome-based. This is likely due to how Safari reports mouse movementX - see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and associated [bug](https://github.com/w3c/pointerlock/issues/42).
+- MacOS with dedicated graphics (e.g. Intel Macs with NVIDIA/AMD cards) may not automatically use dedicated graphics (reason unknown at the moment) which can result in much worse performance. Users with external displays plugged in will already be using dedicated graphics so should be fine. Other users can temporarily [disable Automatic graphics switching](https://support.apple.com/en-us/HT202043) to force use of dedicated graphics.
+- Only Development, Testing, and Shipping packaging is supported. Debug/DebugGame packaging is not supported.
+- You should make sure **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False**. HTML5 multithreading is not fully supported (it only works in Development, not Test/Shipping and may have subtle/unknown issues). 
+- Currently, in the ES3 branch, [stationary directional lights do not properly cast modulated dynamic shadows](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-the-game-with-the-es3-branch-you-notice-that-stationary-directional-light-is-not-casting-dynamic-shadows). A workaround for this for now could be to use non-modulated dynamic shadows (on your directional light set Cast Modulated Shadows to false, and also ensure you have set an appropriate Dynamic Shadow Distance).
+- Mobile MSAA is not supported and [must be disabled in your project or you will see an error when running the HTML5 client](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-game-you-see-in-browser-console-an-error-with-assertion-failed-regarding-multisampled-textures).
 - Video playing, and likely anything related to Unreal [Media Framework](https://docs.unrealengine.com/4.27/en-US/WorkingWithMedia/IntegratingMedia/MediaFramework/) does not work.
 
 For all features you may wish to use, a good rule of thumb is: anything that didn't work in ES2 likely won't work in the ES3 fork, except maybe some graphical features which specifically needed ES3. Anything that needs compute shaders won't work as that isn't supported in WebGL1 or WebGL2.
@@ -70,7 +71,7 @@ This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but
 - Git for Windows
 - Visual Studio 2019 or 2022 - install workloads "Game Development with C++" and ".NET desktop environment" with extra selection of ".NET Framework 4.6.2 development tools" - also ensure you select/use a Windows 10 SDK.
 - CMake
-- Python (3.*)
+- Python 3.* (watch out for Windows Python app installer "app execution aliases" which may cause problems - recommend setting these to disabled - see [this Stack Overflow post](https://stackoverflow.com/a/61958044))
 
 I have only built/tested on Windows 10 using the commands below. Other platforms may need further fixes/changes.
 
@@ -90,7 +91,7 @@ Or, alternatively, for the 4.24 ES2 (WebGL1) branch you would instead do:
 
 This should download the branch (it will take a while depending on your connection as the source is quite large).
 
-Now, as per an [announcement from Epic Games](https://forums.unrealengine.com/t/upcoming-disruption-of-service-impacting-unreal-engine-users-on-github/1155880), you will need to replace the `Commit.gitdeps.xml` in the `Engine/Build` folder with a version newly provided by Epic depending on the version you are using. You can download the latest Commit.gitdeps.xml from the *Assets* section of the relevant UnrealEngine release below and replace the file in your `Engine/Build` folder with it:
+Now, as per an [announcement from Epic Games](https://forums.unrealengine.com/t/upcoming-disruption-of-service-impacting-unreal-engine-users-on-github/1155880), you will need to replace the `Commit.gitdeps.xml` in the `Engine/Build` folder with a version newly provided by Epic depending on the engine version you are using. You can download the latest Commit.gitdeps.xml from the *Assets* section of the relevant UnrealEngine release below and replace the file in your `Engine/Build` folder with it:
 - https://github.com/EpicGames/UnrealEngine/releases/tag/4.27.2-release if you are using 4.27 ES3 (WebGL2) branch
 - https://github.com/EpicGames/UnrealEngine/releases/tag/4.24.3-release if you are using 4.24 ES2 (WebGL1) branch
 
@@ -104,14 +105,14 @@ Run:
     
     ./Setup.bat
 
-This will download a lot of dependencies used by Unreal engine and perform some setup tasks (if you see an error about remote server returned error or 403 / Forbidden then you may not have properly applied the Commit.gitdeps.xml fix above). 
+This will download a lot of dependencies used by Unreal engine and perform some setup tasks. *If you see an error about remote server returned error or 403 / Forbidden then you may not have properly applied the Commit.gitdeps.xml fix above.* 
 
 Now do:
 
     cd Engine/Platforms/HTML5
     ./HTML5Setup.sh
 
-This patches the UnrealEngine source with a bunch of fixes, downloads emscripten SDK and builds the various support libraries (e.g. PhysX). It takes a while.
+This patches the UnrealEngine source with a bunch of fixes, downloads emscripten SDK and builds the various support libraries (e.g. PhysX). It takes a while. At the end of this some notification sounds will be played to try and let you know it's finished and you should see the line `Success!` after a bunch of green messages. *If you do not see the `Success!` line then something has gone wrong and the any further steps will encounter problems. Any issues with the HTML5Setup.sh step can also often leave Engine/Platforms/HTML/Build/emsdk in a broken state so deleting that directory is often a necessary part of trying again after you have chased down whatever the problem was.*
 
 Now do:
 
@@ -119,9 +120,9 @@ Now do:
     cd -
     ./GenerateProjectFiles.bat
 
-Open ``UE4.sln`` in Visual Studio.
+Open ``UE4.sln`` in Visual Studio. You will probably see a popup asking if it is OK to upgrade the .NET programs from 4.5 to 4.8 (or similar). You can accept this in each case (I typically click the "do this for all" checkbox to get through this quicker).
 
-You first need to add the HTML5LauncherHelper project to the solution... to do this you can Right Click **Programs** then **Add -> Existing Project** then navigate to and select this project to add to the solution: ``Engine\Platforms\HTML5\Source\Programs\HTML5\HTML5LaunchHelper\HTML5LauncherHelper.csproj``
+You first need to add the HTML5LauncherHelper project to the solution... to do this you can Right Click **Programs** then **Add -> Existing Project** then navigate to and select this project to add to the solution: ``Engine\Platforms\HTML5\Source\Programs\HTML5\HTML5LaunchHelper\HTML5LauncherHelper.csproj``. You may see the .NET 4.5 to 4.8 (or similar) version upgrade again which you can accept.
 
 Now you can build all the programs. CTRL-Click the following projects to select them all at once:
 
@@ -146,7 +147,9 @@ You can run the editor at ``Engine\Binaries\Win64\UE4Editor.exe``
 
 First time though you will probably have to wait a while for shaders to compile.
 
-Make a new (e.g. First Person, Third Person, or whatever you want) project. You should be able to build the project for HTML5 via **Package Project -> HTML5**
+Make a new (e.g. First Person, Third Person, or whatever you want) project. You should be able to build the project for HTML5 via **Package Project -> HTML5**. 
+
+To see the build process / messages, you can show the Output Log via **Window -> Developer Tools -> Output Log**. This is useful for chasing down any problems. *If you see a packaging error about AutomationTool failing with messages about "invalid tokens" etc. [you may need to rebuild the .NET programs and try to package again.](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-packaging-html5-you-see-error-cs1519-invalid-token--in-class-struct-or-interface-member-declaration)*
 
 Once built, go to to where the build was packaged and run ``HTML5LaunchHelper.exe``
 

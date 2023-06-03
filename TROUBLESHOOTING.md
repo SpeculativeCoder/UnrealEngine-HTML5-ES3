@@ -8,9 +8,13 @@ These are issues you may run into using the latest version of the fork.
 
 This happens if you run HTML5Setup.sh without first having run the ./Setup.bat stage. Running ./Setup.bat to ensure all the dependencies Unreal needs are downloaded (including this zlib tar) should avoid this error.
 
-### When running HMTL5Setup.sh you see: "Python" (and/or things simply stop after seeing "Resolving deltas: 100% (XXX/XXX), done." and nothing more happens)
+After resolving this issue, you should ensure to delete the `Engine/Platforms/HTML/Build/emsdk` folder before trying HTML5Setup again as emsdk can sometimes be left in a broken state.
 
-Even if you have Python properly installed, Windows may have some [App installer python.exe and python3.exe](https://stackoverflow.com/questions/57485491/python-python3-executes-in-command-prompt-but-does-not-run-correctly) that could possibly be interfering with Python usage.
+### When running HMTL5Setup.sh you see: "Python" (and/or things simply stop after seeing "Resolving deltas: 100% (XXX/XXX), done." and nothing more happens), or possibly other errors relating to Python
+
+Even if you have official Python properly installed, Windows may have some [app installer "app execution aliases" for Python](https://stackoverflow.com/a/61958044) that could possibly be interfering with Python usage.
+
+After resolving this issue, you should ensure to delete the `Engine/Platforms/HTML/Build/emsdk` folder before trying HTML5Setup again as emsdk can sometimes be left in a broken state.
 
 ### When opening UE4.sln in Visual Studio you see "Target framework not supported" for each .NET program
 
