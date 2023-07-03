@@ -7,7 +7,9 @@ This is documentation for a fork of UnrealEngine 4 which builds upon the [commun
 - Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of [emscripten](https://emscripten.org/)** (will try to keep this up to date).
 
-Packaged HTML5 projects work best in **Firefox** or **Chrome-based** browsers on **Windows 10/11**. They also work for now in Firefox, Safari and Chrome-based browsers on MacOS. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work.
+Also available is an **alternative branch with UE 4.24 using ES2 shaders (WebGL1)** for those who wish to remain on that version.
+
+Packaged HTML5 projects work best in Firefox or Chrome-based browsers on Windows 10/11. They also work for now in Firefox, Safari and Chrome-based browsers on MacOS. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work.
 
 Development/packaging of HTML5 projects (i.e. building and using this fork of Unreal Editor) is done on Windows 10 (but 11 should also be OK).
 
@@ -17,7 +19,7 @@ Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.co
 
 Some other changes have also made to try and make a better out of the box experience:
 
-- **Build compression of assets (to .gz files) is enabled by default**. You can still disable this if you prefer. Compressed (.gz suffix) assets need to be served using `Content-Type: gzip`. If you are unable to set this header in your hosting environment, a fallback decompression attempt will now be made (using [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream)). This fallback is currently only supported/tested in Chrome-based browsers.
+- **Build compression of assets (to .gz files) is enabled by default**. You can still disable this if you prefer. Compressed (.gz suffix) assets need to be served using `Content-Type: gzip`. If this is not set this fork may try to use [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) but this is only available Chrome-based and Safari browsers so should not be relied upon.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
 - **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer the user to download the data every time.
 - **Uses single-threaded HTML5 mode by default** as it seems to work better at the moment (tried this after seeing [@ufna](https://github.com/ufna/UE-HTML5)'s decision). You can still package a HTML5 build with multithreading support but it has issues (see Caveats section below).
@@ -25,17 +27,15 @@ Some other changes have also made to try and make a better out of the box experi
 - Added [**optional, experimental, support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS. This feature is disabled by default.
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps etc. This feature is disabled by default.
 
-Also available is an **alternative branch with UE 4.24 using ES2 shaders (WebGL1)** - but with the above new features - for those who wish to remain on that version.
-
 ### Caveats / Known Issues
 
 There are some issues with the HTML5 plugin (some already existed, some are new in this fork):
 - Currently, Safari mouse sensitivity is dramatically different to Firefox/Chrome-based. This is likely due to how Safari reports mouse movementX - see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and associated [bug](https://github.com/w3c/pointerlock/issues/42).
 - MacOS with dedicated graphics (e.g. Intel Macs with NVIDIA/AMD cards) may not automatically use dedicated graphics (reason unknown at the moment) which can result in much worse performance. Users with external displays plugged in will already be using dedicated graphics so should be fine. Other users can temporarily [disable Automatic graphics switching](https://support.apple.com/en-us/HT202043) to force use of dedicated graphics.
-- Only Development, Testing, and Shipping packaging is supported. Debug/DebugGame packaging is not supported.
-- You should make sure **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False**. HTML5 multithreading is not fully supported (it only works in Development, not Test/Shipping and may have subtle/unknown issues). 
 - Currently, in the ES3 branch, [stationary directional lights do not properly cast modulated dynamic shadows](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-the-game-with-the-es3-branch-you-notice-that-stationary-directional-light-is-not-casting-dynamic-shadows). A workaround for this for now could be to use non-modulated dynamic shadows (on your directional light set Cast Modulated Shadows to false, and also ensure you have set an appropriate Dynamic Shadow Distance).
 - Mobile MSAA is not supported and [must be disabled in your project or you will see an error when running the HTML5 client](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-game-you-see-in-browser-console-an-error-with-assertion-failed-regarding-multisampled-textures).
+- Only Development, Testing, and Shipping packaging is supported. Debug/DebugGame packaging is not supported.
+- You should make sure **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False**. HTML5 multithreading is not fully supported and currently only works when packaging in Development mode (Test/Shipping renders a black screen).
 - Video playing, and likely anything related to Unreal [Media Framework](https://docs.unrealengine.com/4.27/en-US/WorkingWithMedia/IntegratingMedia/MediaFramework/) does not work.
 
 For all features you may wish to use, a good rule of thumb is: anything that didn't work in ES2 likely won't work in the ES3 fork, except maybe some graphical features which specifically needed ES3. Anything that needs compute shaders won't work as that isn't supported in WebGL1 or WebGL2.
@@ -214,9 +214,9 @@ However, if you feel your project will only be visited as a one-off, or you are 
 
 There are two compression mechanisms in place right now:
 - **PAK file compression** (**Project Settings -> Project -> Packaging -> Packaging -> Create compressed cooked packages**) (you can see this by clicking the down arrow as it is an advanced setting). **This should always be left enabled** and dramatically reduces the size of your data PAK (which will include all the cooked content for the project).
-- **Asset compression** (**Project Settings -> Platforms -> HTML5 -> Packaging -> Compress files during packaging**). This helps reduce the size of _all_ the files in your packaged project (including compiled WASM and the CSS/JS). When this is enabled, many of the packaged files will now have a `.gz` extension (i.e. gzipped). This compression means that when the .gz files are served from your hosting environment you must ensure the HTTP header `Content-Type: gzip` is set so the user's browser knows to decompress them (HTML5LaunchHelper.exe already does this for you when testing locally). Each hosting environment may do this in a different way - check the relevant documentation for your web server / hosting environment. If the header is not set your project may not load correctly in the user's browser.
+- **Asset compression** (**Project Settings -> Platforms -> HTML5 -> Packaging -> Compress files during packaging**). This helps reduce the size of _all_ the files in your packaged project (including compiled WASM and the CSS/JS). When this is enabled, many of the packaged files will now have a `.gz` extension (i.e. gzipped). This compression means that when the .gz files are served from your hosting environment you must ensure the HTTP header `Content-Type: gzip` is set so the user's browser knows to decompress them (HTML5LaunchHelper.exe already does this for you when testing locally). Each hosting environment may do this in a different way - check the relevant documentation for your web server / hosting environment. If the header is not set your project may not load correctly in the user's browser (this fork may make an attempt with DecompressionStream to work around this in Chrome-based and Safari browsers but you shouldn't rely on this). Thus, **asset compression should be enabled/disabled depending on your circumstances.**
 
-**Asset compression**'s most useful contribution is that it significantly reduces the size of the WASM file (this is the compiled engine / project code), however due to the gzip header requirement it can cause issues. Asset compression does not actually reduce the PAK file much further (which is already itself compressed via PAK file compression). If you encounter any issues where the packaged project works locally but doesn't work in your hosting environment, you should try turning off asset compression, clear the packaged files folder and then package/upload your project again to see if the issue is resolved. This lets you know that the missing header is probably the problem.
+Asset compression's most useful contribution is that it significantly reduces the size of the WASM file (this is the compiled engine / project code). However, it does not actually reduce the PAK file much further (which is _already_ itself compressed via PAK file compression). If you encounter any issues where the packaged project works locally but doesn't work in your hosting environment, you should try turning off asset compression, clear the packaged files folder and then package/upload your project again to see if the issue is resolved. This lets you know that the missing header is probably the problem.
 
 ### Customizing the controls / web page
 
