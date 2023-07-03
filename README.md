@@ -1,4 +1,4 @@
-# UnrealEngine HTML5 ES3 (WebGL2)
+# UnrealEngine 4.27 HTML5 ES3 (WebGL2)
 
 <img src="Images/ThirdPerson.jpg" style="width:600px"/>
 
@@ -161,7 +161,7 @@ Select the .html file. You should see the running game.
 
 ## Releasing your Project
 
-**IMPORTANT: Everything is done at your own risk! Also see this documentation's [LICENSE](LICENSE) which includes a disclaimer.**.
+**IMPORTANT: Everything is done at your own risk! Also see this documentation's [LICENSE](LICENSE) which includes a disclaimer.**
 
 Here are some things to consider when releasing your project. However, it should not be considered a fully detailed or complete list as this is a huge topic. It is merely intended to be helpful and may be added to over time.
 
@@ -188,7 +188,7 @@ You can enable all four:
 - **Encrypt UAsset Files** = true
 - **Encrypt All Asset Files** = true
 
-## Ensure only needed maps are packaged
+### Ensure only needed maps are packaged
 
 By default, Unreal includes all assets used by _any_ map in the project. So if you have enabled starter content (which is typical), or some Marketplace assets, these may have maps in them that are dragging in a lot of assets you didn't actually intend to use.
 
@@ -196,7 +196,7 @@ You should set the maps which will be included the packaging via this setting (m
 
 This is an advanced setting so you may need to click the down arrow to show it.
 
-## Set appropriate texture sizes
+### Set appropriate texture sizes
 
 See community plugin documentation entry: https://github.com/UnrealEngineHTML5/Documentation/blob/master/Platforms/HTML5/HowTo/README.2.advanced.UE4.HTML5.md#smash-texture-sizes
 
@@ -220,7 +220,7 @@ There are two compression mechanisms in place right now:
 
 ### Customizing the controls / web page
 
-HTML5 projects use a set of template files in `Engine/Platforms/HTML5/Build/TemplateFiles` to produce the packaged project HTML/JS/CSS etc. This is what defines the appearance of the buttons at the bottom of the screen, for instance. You may wish to customize these files, either by editing them in the engine folder or by creating a copy of them in your project's `Build/HTML5` folder which will then be picked up during the HTML5 packaging process.
+HTML5 projects use a set of template files in `Engine/Platforms/HTML5/Build/TemplateFiles` to produce the packaged project HTML/JS/CSS etc. This is what defines the appearance of the buttons at the bottom of the screen, for instance. You may wish to customize these files, either by editing them in the engine folder (not ideal as it is easy to lose the changes when a new version of this fork is released etc.) or by creating a copy of them in your project's `Build/HTML5` folder which will then be picked up during the HTML5 packaging process.
 
 ## Fork Updates / Fresh Start
 
