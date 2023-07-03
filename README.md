@@ -244,7 +244,7 @@ Now do
     
 This will bring in the latest version of the branch.
 
-Now follow the original Installation guide starting with the `./Setup.bat` step.
+Now follow the original [Installation](#Installation) guide starting with the fix for `Commit.gitdeps.xml` and the `./Setup.bat` step and so on.
 
 ## Issues / Discussions
 
