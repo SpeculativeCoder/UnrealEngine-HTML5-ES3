@@ -1,6 +1,6 @@
 # UnrealEngine HTML5 ES3 (WebGL2)
 
-## Troubleshooting - Recent
+## Troubleshooting
 
 These are issues you may run into using the latest version of the fork.
 
@@ -8,13 +8,13 @@ These are issues you may run into using the latest version of the fork.
 
 This happens if you run HTML5Setup.sh without first having run the ./Setup.bat stage. Running ./Setup.bat to ensure all the dependencies Unreal needs are downloaded (including this zlib tar) should avoid this error.
 
-After resolving this issue, you should ensure to delete the `Engine/Platforms/HTML/Build/emsdk` folder before trying HTML5Setup again as emsdk can sometimes be left in a broken state.
+After resolving this issue, you should ensure to delete the `Engine/Platforms/HTML/Build/emsdk` folder before trying HTML5Setup.sh again as emsdk can sometimes be left in a broken state.
 
 ### When running HMTL5Setup.sh you see: "Python" (and/or things simply stop after seeing "Resolving deltas: 100% (XXX/XXX), done." and nothing more happens), or possibly other errors relating to Python
 
 Even if you have official Python properly installed, Windows may have some [app installer "app execution aliases" for Python](https://stackoverflow.com/a/61958044) that could possibly be interfering with Python usage.
 
-After resolving this issue, you should ensure to delete the `Engine/Platforms/HTML/Build/emsdk` folder before trying HTML5Setup again as emsdk can sometimes be left in a broken state.
+After resolving this issue, you should ensure to delete the `Engine/Platforms/HTML/Build/emsdk` folder before trying HTML5Setup.sh again as emsdk can sometimes be left in a broken state.
 
 ### When opening UE4.sln in Visual Studio you see "Target framework not supported" for each .NET program
 
@@ -32,7 +32,7 @@ If you see this when trying to package for HTML5 then in Visual Studio CTRL-Clic
 - HTML5LaunchHelper
 - UnrealBuildTool
 
-Then do **Right Click -> Rebuild Selection** to force rebuild the .NET programs. Seems to fix the issue.
+Then do **Right Click -> Rebuild Selection** to force rebuild the .NET programs. Seems to fix the issue (try packaging again and you shouldn't see the error).
 
 ### When running game you see in browser console an error with: "Assertion failed" regarding multisampled textures
 
@@ -40,21 +40,21 @@ Try disabling Mobile MSAA (in Project Rendering options).
 
 ### When running the game with the ES3 branch you notice that stationary directional light is not casting dynamic shadows
 
-In the ES2 version of the fork, modulated dynamic shadows (e.g. casted from moving meshes) from a stationary direction light (like in First Person or Third Person sample projects) will appear: 
+In the ES3 version of the fork, **modulated** dynamic shadows (e.g. casted by moving meshes) from a stationary directional light do not appear:
 
-<img src="Images/ThirdPerson_424ES2_StationaryDirectionalLightDynamicShadowsVisible.jpg" style="width:600px"/>
+<img src="Images/ThirdPerson_427ES3_StationaryDirectionalLightDynamicShadowsNotVisible.jpg" style="width:400px"/>
 
-But in the ES3 version of the fork, the modulated dynamic shadows do not appear:
+In the ES2 version of the fork, modulated dynamic shadows do appear: 
 
-<img src="Images/ThirdPerson_427ES3_StationaryDirectionalLightDynamicShadowsNotVisible.jpg" style="width:600px"/>
+<img src="Images/ThirdPerson_424ES2_StationaryDirectionalLightDynamicShadowsVisible.jpg" style="width:400px"/>
 
-The cause of this issue is currently unknown, but as a workaround for stationary direction lights you could switch to non-modulated dynamic shadows.
+The cause of this issue is currently unknown, but as a workaround for stationary direction lights you could switch to normal dynamic shadows (i.e. do not use modulated shadows).
 
 On your directional light, set **Cast Modulated Shadows** to **false** (you may need to click the down arrow in Light section to see this as it is an advanced property).
 
 You will also need to be sure you have set an appropriate distance in the **Dynamic Shadow Distance** in the Cascaded Shadows Maps section of the directional light (default is 0 which will disable the shadow). For example, with a setting of 500, in the third person sample project the non-modulated dynamic shadow looks as follows:
 
-<img src="Images/ThirdPerson_427ES3_StationaryDirectionalLightNonModulatedDynamicShadowsVisible.jpg" style="width:600px"/>
+<img src="Images/ThirdPerson_427ES3_StationaryDirectionalLightNonModulatedDynamicShadowsVisible.jpg" style="width:400px"/>
 
 You will likely need to tweak the Cascaded Shadow Map settings etc. to get an acceptable quality / performance balance for your project.
 
@@ -69,8 +69,6 @@ NOTE: This is an advanced setting so you need to click the down arrow to unhide 
 Once you have done this you can package the project again as HTML5 and see if the issue is fixed. You may need to to clear the IndexedDB and/or browser cache so you get the newly generated PAK file.
 
 ### When running the game you only see a blank white page with buttons at the top and/or in the console log you see: "Uncaught SyntaxError: illegal character U+001F" and/or you see error/warning message: "Downloaded a compressed file XXX without the necessary HTTP response header "Content-Encoding: gzip""
-
-_Note: A workaround was added as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/bb4fd48050d006df946f20e014d730a40a894cd7) (although only for Chrome-based browsers) - updating to the latest version of the fork may help you avoid this issue_ 
 
 If you are using compressed packaging for HTML5 (which is the default), you need to ensure the files ending in `.gz' (i.e. the compressed files) are served with the following HTTP header:
 
@@ -88,15 +86,7 @@ Most of the increase in size due to turning off this compression will be in the 
 
 Also some web hosting solutions may _automatically_ do all the gzip compression of .css / .js assets on the fly (and set appropriate headers too) so in those cases you may be better off not using compressed packaging.
 
-### Why is the download so big? Can I reduce the size of the generated application?
-
-By default, Unreal includes all assets used by _any_ map in the project. So if you have enabled starter content, or some Marketplace assets, these may have maps in them that are dragging in a lot of assets you didn't actually intend to use.
-
-You should set the maps which will be included the packaging via this setting (make sure it has only the maps you make use of):
-
-Project Settings -> Packaging -> List of maps to include in packaged build
-
-This is an advanced setting so you may need to click the down arrow to show it.
+_Note: A partial attempt to workaround the gzip header missing was added as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/bb4fd48050d006df946f20e014d730a40a894cd7) but it only applies to Chrome-based and Safari browsers (so NOT Firefox) and may not always work so it is probably best to set the header or just turn off the 'Compress files during packaging' setting._ 
 
 ## Troubleshooting - Legacy
 
