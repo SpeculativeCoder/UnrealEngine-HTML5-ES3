@@ -92,6 +92,12 @@ _Note: A partial attempt to workaround the gzip header missing was added as of [
 
 These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the latest version.
 
+### When compiling you see a compile error about discarding a return value in `SteamVRInputDeviceFunctionLibrary.cpp`
+
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/ae86634b7667197cb36a4b6232eabc94d0b6d2f1) - update to the latest version of the fork avoid this issue_ 
+
+This was an error which has appeared in the newer Visual Studio which appears to have stricter checking. See this [issue](https://github.com/SpeculativeCoder/UnrealEngine/issues/45) for more detail and a fix if you are using an older version of the fork and need a quick fix (NOTE: this link requires your GitHub account to be linked to Epic Games account or you will see 404).
+
 ### When running HTML5Setup.sh you see: "fatal: not a git repository (or any of the parent directories): .git"
 
 _Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3552c51f1a81aeb94f4bf1de5a347986bd5e3ca1) - update to the latest version of the fork avoid this issue_ 
