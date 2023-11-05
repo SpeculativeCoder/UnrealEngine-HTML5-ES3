@@ -1,13 +1,16 @@
-# UnrealEngine 4.27 HTML5 ES3 (WebGL2)
+# Unreal Engine 4.27 HTML5 ES3 (WebGL 2) / Unreal Engine 4.24 HTML5 ES2 (WebGL 1)
 
 <img src="Images/ThirdPerson.jpg" style="width:600px"/>
 
-This is documentation for a fork of UnrealEngine 4 which builds upon the last version of the [community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
-- Support for **ES3 shaders** (WebGL2).
+This is documentation for a fork of Unreal Engine 4 which builds upon the last version of the [community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
+- Support for **ES3 shaders** (WebGL 2).
 - Support for the **latest/final version of UE4 (4.27)**.
 - Support for a **recent version of [emscripten](https://emscripten.org/)** (will try to keep this up to date).
+- A number of other features and improvements (see below). 
 
-Also available is an **alternative branch with UE 4.24 using ES2 shaders (WebGL1)** for those who wish to remain on that version.
+Also available is an **alternative branch with UE 4.24 using ES2 shaders (WebGL 1)** for those who wish to remain on that version.
+
+_NOTE: To access the [fork](https://github.com/SpeculativeCoder/UnrealEngine) and the associated [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues?q=) and [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions?discussions_q=) sections you need your GitHub linked to your Epic Games account or you will see 404 errors._
 
 Packaged HTML5 projects work best in Firefox or Chrome-based browsers on Windows 10/11. They also work for now in Firefox, Safari and Chrome-based browsers on MacOS. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work (only checked iPhone, though).
 
@@ -21,45 +24,41 @@ Other changes have also made to try and make a better out of the box experience,
 
 - **Web socket networking plugin is enabled by default** which is needed for multiplayer in HTML5 should you wish to use it. You would still need to run separate server(s) (e.g. Windows / Linux servers) to connect to as web browser HTML5 clients cannot act as servers.
 - Added [**optional, experimental, support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS.
-- Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps etc.
-- **Build compression of assets (to .gz files) is enabled by default**. Compressed (.gz suffix) assets need to be served using `Content-Type: gzip` HTTP header.
-- If the `Content-Type: gzip` HTTP header is missing, this fork will try to use [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to work around it. This works in Chrome-based and Safari browsers, but not Firefox so it is best to set the header.
+- Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps and/or modes etc.
+- **Build compression of assets (to .gz files) is enabled by default**. Compressed (.gz suffix) assets need to be served using `Content-Type: gzip` HTTP header. If the header is missing, this fork will try to use the browser's built-in [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to work around it.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
 - **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer the user to download the data every time.
 - **Uses single-threaded HTML5 mode by default** as it works better at the moment (tried this after seeing [@ufna](https://github.com/ufna/UE-HTML5)'s decision). You should make sure **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False** in your projects. HTML5 multithreading is not fully supported and currently only works when packaging in Development mode (Test/Shipping renders a black screen).
 - Only Development, Testing, and Shipping packaging is supported. Debug/DebugGame packaging is not supported.
 - MacOS with dedicated graphics (e.g. Intel Macs with NVIDIA/AMD cards) may not automatically use dedicated graphics (reason unknown at the moment) which can result in much worse performance. Users with external displays plugged in will already be using dedicated graphics so should be fine. Other users can temporarily [disable Automatic graphics switching](https://support.apple.com/en-us/HT202043) to force use of dedicated graphics.
 - Currently, Safari mouse sensitivity is dramatically different to Firefox/Chrome-based. This is likely due to how Safari reports mouse movementX - see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and associated [bug](https://github.com/w3c/pointerlock/issues/42).
-- Currently, in the ES3 branch, [stationary directional lights do not properly cast modulated dynamic shadows](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-the-game-with-the-es3-branch-you-notice-that-stationary-directional-light-is-not-casting-dynamic-shadows). A workaround for this for now could be to use non-modulated dynamic shadows (on your directional light set Cast Modulated Shadows to false, and also ensure you have set an appropriate Dynamic Shadow Distance).
-- Mobile MSAA is not supported and [must be disabled in your project or you will see an error when running the HTML5 client](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-game-you-see-in-browser-console-an-error-with-assertion-failed-regarding-multisampled-textures).
+- Mobile MSAA is not supported. It should be disabled by default for new projects but if your packaged HTML5 project doesn't work and you see "Assertion failed" regarding multisampled textures in your browser console then set **Project Settings -> Rendering -> Mobile -> Mobile MSAA** to **No MSAA** and package your project again.
 - Video playing, and likely anything related to Unreal [Media Framework](https://docs.unrealengine.com/4.27/en-US/WorkingWithMedia/IntegratingMedia/MediaFramework/) does not work.
 
-For all features you may wish to use, a good rule of thumb is: anything that didn't work in ES2 likely won't work in the ES3 fork, except maybe some graphical features which specifically needed ES3. Anything that needs compute shaders won't work as that isn't supported in WebGL1 or WebGL2. See this page for an indication of what features may be supported (see the Android ES3.1 column which will be most useful indication as to what may work or not work in the ES3 fork branch): https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/SupportedRenderingFeatures/
+For all features you may wish to use, a good rule of thumb is: anything that didn't work in ES2 likely won't work in the ES3 fork, except maybe some graphical features which specifically needed ES3. Anything that needs compute shaders won't work as that isn't supported in WebGL 1 or WebGL 2. See [this page](https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/SupportedRenderingFeatures/) for an indication of what features may be supported (see the Android ES3.1 column which will be most useful indication as to what may work or not work in the ES3 fork branch).
 
 See [TROUBLESHOOTING](TROUBLESHOOTING.md) for more detail on typical issues / troubleshooting / workarounds.
-
-If you need to raise any technical issues / discussions regarding this fork and the code changes you can use the [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues?q=) or [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions?discussions_q=) sections for the fork (you need your GitHub linked to your Epic Games account to see these or you will see 404 error).
 
 ## Git Repository / Branches
 
 **To access the links below you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected) - if you do not do this you will see 404 error.**
 
-### 4.27 HTML5 ES3 (WebGL2)
+### 4.27 HTML5 ES3 (WebGL 2)
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **UnrealEngine 4.27.2** with HTML5 platform support using **ES3** shaders (WebGL2) and **emscripten 3.1.45**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3** shaders (WebGL 2) and **emscripten 3.1.47**
 
 If you want to look at the code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27.2 release (you can see the changes are all _new_ files in the Platforms/HTML5 folder).
 
 An alternative way to view the code is a [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27.2-release_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) of this branch against UE 4.27.2 release 
 with @nickshin's last community supported UE4.24 HTML5 plugin code as the starting point. This shows the actual differences in the plugin code which were needed to get 4.27.2 working rather than all new files.
 
-### 4.24 HTML5 ES2 (WebGL1)
+### 4.24 HTML5 ES2 (WebGL 1)
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **UnrealEngine 4.24.3** with HTML5 platform support using **ES2** shaders (WebGL1) and **emscripten 3.1.45**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2** shaders (WebGL 1) and **emscripten 3.1.47**
 
 This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the code see this see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
 
@@ -81,19 +80,19 @@ Using a Git for Windows BASH shell.
 
 Clone the appropriate repository branch (you can also download the branch as a ZIP and unpack it if you prefer that way).
 
-For the 4.27 ES3 (WebGL2) branch you can do:
+For the 4.27 ES3 (WebGL 2) branch you can do:
 
     `git clone -b 4.27-html5-es3 --single-branch https://github.com/SpeculativeCoder/UnrealEngine.git ue-4.27-html5-es3`
 
-Or, alternatively, for the 4.24 ES2 (WebGL1) branch you would instead do:
+Or, alternatively, for the 4.24 ES2 (WebGL 1) branch you would instead do:
 
     `git clone -b 4.24-html5-es2 --single-branch https://github.com/SpeculativeCoder/UnrealEngine.git ue-4.24-html5-es2`
 
 This should download the branch (it will take a while depending on your connection as the source is quite large).
 
-Now, as per an [announcement from Epic Games](https://forums.unrealengine.com/t/upcoming-disruption-of-service-impacting-unreal-engine-users-on-github/1155880), you will need to replace the `Commit.gitdeps.xml` in the `Engine/Build` folder with a version newly provided by Epic depending on the engine version you are using. You can download the latest Commit.gitdeps.xml from the *Assets* section of the relevant UnrealEngine release below and replace the file in your `Engine/Build` folder with it:
-- https://github.com/EpicGames/UnrealEngine/releases/tag/4.27.2-release if you are using 4.27 ES3 (WebGL2) branch
-- https://github.com/EpicGames/UnrealEngine/releases/tag/4.24.3-release if you are using 4.24 ES2 (WebGL1) branch
+Now, as per an [announcement from Epic Games](https://forums.unrealengine.com/t/upcoming-disruption-of-service-impacting-unreal-engine-users-on-github/1155880), you will need to replace the `Commit.gitdeps.xml` in the `Engine/Build` folder with a version newly provided by Epic depending on the engine version you are using. You can download the latest Commit.gitdeps.xml from the *Assets* section of the relevant Unreal Engine release below and replace the file in your `Engine/Build` folder with it:
+- https://github.com/EpicGames/UnrealEngine/releases/tag/4.27.2-release if you are using 4.27 ES3 (WebGL 2) branch
+- https://github.com/EpicGames/UnrealEngine/releases/tag/4.24.3-release if you are using 4.24 ES2 (WebGL 1) branch
 
 Note: this was a recent breaking change so in future I hope to include this fix in the branches but want to do it in a clean way so for now we rely on the official fix/source.
 
@@ -112,7 +111,7 @@ Now do:
     cd Engine/Platforms/HTML5
     ./HTML5Setup.sh
 
-This patches the UnrealEngine source with a bunch of fixes, downloads emscripten SDK and builds the various support libraries (e.g. PhysX). It takes a while. At the end of this some notification sounds will be played to try and let you know it's finished and you should see the line `Success!` after a bunch of green messages. *If you do not see the 'Success!' line then something has gone wrong and any further steps will encounter problems so you should investigate/resolve the issue first. Issues with the HTML5Setup.sh step can also often leave Engine/Platforms/HTML/Build/emsdk in a broken state so deleting that directory is often a necessary part of trying again after you have chased down whatever the problem was.*
+This patches the Unreal Engine source with a bunch of fixes, downloads emscripten SDK and builds the various support libraries (e.g. PhysX). It takes a while. At the end of this some notification sounds will be played to try and let you know it's finished and you should see the line `Success!` after a bunch of green messages. *If you do not see the 'Success!' line then something has gone wrong and any further steps will encounter problems so you should investigate/resolve the issue first. Issues with the HTML5Setup.sh step can also often leave Engine/Platforms/HTML/Build/emsdk in a broken state so deleting that directory is often a necessary part of trying again after you have chased down whatever the problem was.*
 
 Now do:
 

@@ -1,4 +1,4 @@
-# UnrealEngine HTML5 ES3 (WebGL2)
+# Unreal Engine 4.27 HTML5 ES3 (WebGL 2) / Unreal Engine 4.24 HTML5 ES2 (WebGL 1)
 
 ## Troubleshooting
 
@@ -36,9 +36,39 @@ Then do **Right Click -> Rebuild Selection** to force rebuild the .NET programs.
 
 ### When running game you see in browser console an error with: "Assertion failed" regarding multisampled textures
 
-Try disabling Mobile MSAA (in Project Rendering options).
+Try disabling Mobile MSAA as such:
+
+**Project Settings -> Rendering -> Mobile -> Mobile MSAA** - set this to **No MSAA**
+
+Repackage your project and you should not see the same error this time.
+
+### When running the game you only see a blank white page with buttons at the top and/or in the console log you see: "Uncaught SyntaxError: illegal character U+001F" and/or you see error/warning message: "Downloaded a compressed file XXX without the necessary HTTP response header "Content-Encoding: gzip""
+
+If you are using compressed packaging for HTML5 (which is the default), you need to ensure the files ending in `.gz' (i.e. the compressed files) are served with the following HTTP header:
+
+    Content-Encoding: gzip
+    
+This signals to the web browser that it needs to decompress the file before trying to use it.
+
+The way the header can be set depends on how you are hosting the files. It will differ per solution - check the documentation for your web hosting solution. 
+
+However, if you need to temporarily work around this, you can disable compressed packaging:
+
+Project Settings -> HTML5 -> Packaging -> Compress files during packaging: Set to **false**
+
+Most of the increase in size due to turning off this compression will be in the size of the Unreal binary code which will no longer be compressed. The PAK data file actually has its own compression (which should be turned on by default) handled by Unreal so depending on how big your project the increase may or may not be a significant versus the overall size. 
+
+Also some web hosting solutions may _automatically_ do all the gzip compression of .css / .js assets on the fly (and set appropriate headers too) so in those cases you may be better off not using compressed packaging.
+
+_Note: A partial attempt to workaround the gzip header missing was added as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/bb4fd48050d006df946f20e014d730a40a894cd7) but it only applies to Chrome-based and Safari browsers (so NOT Firefox) and may not always work so it is probably best to set the header or just turn off the 'Compress files during packaging' setting._ 
+
+## Troubleshooting - Legacy
+
+These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the latest version.
 
 ### When running the game with the ES3 branch you notice that stationary directional light is not casting dynamic shadows
+
+_Note: Should be fixed as of [TODO this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/ae86634b7667197cb36a4b6232eabc94d0b6d2f1) - update to the latest version of the fork avoid this issue_ 
 
 In the ES3 version of the fork, **modulated** dynamic shadows (e.g. casted by moving meshes) from a stationary directional light do not appear:
 
@@ -67,30 +97,6 @@ Project Settings -> Packaging -> Pak File Compression Format(s): Change this fro
 NOTE: This is an advanced setting so you need to click the down arrow to unhide the setting.
 
 Once you have done this you can package the project again as HTML5 and see if the issue is fixed. You may need to to clear the IndexedDB and/or browser cache so you get the newly generated PAK file.
-
-### When running the game you only see a blank white page with buttons at the top and/or in the console log you see: "Uncaught SyntaxError: illegal character U+001F" and/or you see error/warning message: "Downloaded a compressed file XXX without the necessary HTTP response header "Content-Encoding: gzip""
-
-If you are using compressed packaging for HTML5 (which is the default), you need to ensure the files ending in `.gz' (i.e. the compressed files) are served with the following HTTP header:
-
-    Content-Encoding: gzip
-    
-This signals to the web browser that it needs to decompress the file before trying to use it.
-
-The way the header can be set depends on how you are hosting the files. It will differ per solution - check the documentation for your web hosting solution. 
-
-However, if you need to temporarily work around this, you can disable compressed packaging:
-
-Project Settings -> HTML5 -> Packaging -> Compress files during packaging: Set to **false**
-
-Most of the increase in size due to turning off this compression will be in the size of the Unreal binary code which will no longer be compressed. The PAK data file actually has its own compression (which should be turned on by default) handled by Unreal so depending on how big your project the increase may or may not be a significant versus the overall size. 
-
-Also some web hosting solutions may _automatically_ do all the gzip compression of .css / .js assets on the fly (and set appropriate headers too) so in those cases you may be better off not using compressed packaging.
-
-_Note: A partial attempt to workaround the gzip header missing was added as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/bb4fd48050d006df946f20e014d730a40a894cd7) but it only applies to Chrome-based and Safari browsers (so NOT Firefox) and may not always work so it is probably best to set the header or just turn off the 'Compress files during packaging' setting._ 
-
-## Troubleshooting - Legacy
-
-These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the latest version.
 
 ### When compiling you see a compile error about discarding a return value in `SteamVRInputDeviceFunctionLibrary.cpp`
 
