@@ -68,7 +68,7 @@ These are issues that existed in older versions of the fork which you should hop
 
 ### When running the game with the ES3 branch you notice that stationary directional light is not casting dynamic shadows
 
-_Note: Should be fixed as of [TODO this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/ae86634b7667197cb36a4b6232eabc94d0b6d2f1) - update to the latest version of the fork avoid this issue_ 
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/a6f50bc17c27756ce0f37e76628d982926c81158) - update to the latest version of the fork avoid this issue_ 
 
 In the ES3 version of the fork, **modulated** dynamic shadows (e.g. casted by moving meshes) from a stationary directional light do not appear:
 
