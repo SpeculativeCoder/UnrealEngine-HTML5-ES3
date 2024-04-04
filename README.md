@@ -47,7 +47,7 @@ See [TROUBLESHOOTING](TROUBLESHOOTING.md) for more detail on typical issues / tr
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3** shaders (WebGL 2) and **emscripten 3.1.53**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3** shaders (WebGL 2) and **emscripten 3.1.56**
 
 If you want to look at the code here is a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this branch against the pristine UE 4.27.2 release (you can see the changes are all _new_ files in the Platforms/HTML5 folder).
 
@@ -58,7 +58,7 @@ with @nickshin's last community supported UE4.24 HTML5 plugin code as the starti
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2** shaders (WebGL 1) and **emscripten 3.1.53**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2** shaders (WebGL 1) and **emscripten 3.1.56**
 
 This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the code see this see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
 
