@@ -20,9 +20,13 @@ After resolving this issue, you should ensure to delete the `Engine/Platforms/HT
 
 For each of these you should be able to accept the default of **Update the target** to the newer version of .NET which seems to work fine.
 
+### When compiling AutomationTool or you have issues relating to AutomationTool not being built correctly (typically something going wrong with HoloLens Automation DLLs), or see an error about .NET 4.6.2 reference assemblies not being available, or similar.
+
+Make sure you the Individual component "NET Framework 4.6.2 development tools" installed in your Visual Studio installation and try again.
+
 ### When compiling, you see: some error involving `NOEXCEPT` and preprocessor macros
 
-Currently thinking this may be due to the engine not being built with the latest Windows 10 SDK. For example if a Windows 11 SDK is present on the system and is being used (or was maybe previously used during the build?). You can check in Visual Studio Setup (and possibly also Add/Remove Programs in your Windows) to see which Windows SDK's are installed. After ensuring only the Windows 10 SDK is being used you could try rebuilding the fork.
+This is due to the engine not being built with the latest Windows 10 SDK. For example if a Windows 11 SDK is present on the system and is being used (or was maybe previously used during the build?) you will see this error. You can check in Visual Studio Installer (and possibly also Add/Remove Programs in your Windows) to see which Windows SDK's are installed. After ensuring only the latest Windows 10 SDK is being used you can try rebuilding the fork.
 
 ### When compiling, you see: `Detected compiler newer than Visual Studio XXXX, please update min version checking`
 
