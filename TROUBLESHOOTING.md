@@ -16,6 +16,45 @@ Even if you have official Python properly installed, Windows may have some [app 
 
 After resolving this issue, you should ensure to delete the `Engine/Platforms/HTML/Build/emsdk` folder before trying HTML5Setup.sh again as emsdk can sometimes be left in a broken state.
 
+### When running GenerateProjectFiles.bat you see: `NODE_JS NOT FOUND`
+
+This may look like the following:
+
+```
+$ ./GenerateProjectFiles.bat
+Setting up Unreal Engine 4 project files...
+ERROR: NODEJS NOT FOUND: ... \ue-4.24-html5-es2\Engine\Platforms\HTML5\Build\emsdk\emsdk-3.1.60\node\16.20.0_64bit\bin\node.exe
+*** NODE_JS NOT FOUND: error_nodejs_not_found
+*** NODE_JS NOT FOUND: error_nodejs_not_found
+Binding IntelliSense data... 100%
+Writing project files... 100%
+```
+
+The `ERROR: NODE_JS NOT FOUND` is a problem and needs to to be fixed before proceeding.
+
+Sometimes the version of node used by emscripten changes. I try to keep this up to date for each release of this fork. However if this change happens at any time you can manually bump the expected version of node rather than waiting for the next release of this fork.
+
+Look in directory `Engine/Platforms/HTML5/Build/emsdk/emsdk-3.1.60/node` (the emscripten version i.e.  3.1.60 may be different - just look in the folder of whatever latest version of emscripten is being used).
+
+You will then see a directory with the version of node that actually needs to be used e.g. `18.20.3_64bit`
+
+Now look at the file `Engine/Platforms/HTML5/Source/Programs/UnrealBuildTool/HTML5SDKInfo.cs`
+
+You should see a line defining `NODE_VER` e.g. it would be set to `16.20.0_64bit` for the above error.
+
+Change it to the correct version e.g. `18.20.3_64bit` for our example.
+
+Now run `./GenerateProjectFiles.bat` again and you should not see the error:
+
+```
+$ ./GenerateProjectFiles.bat
+Setting up Unreal Engine 4 project files...
+Binding IntelliSense data... 100%
+Writing project files... 100%
+```
+
+You can carry on with the next stage of setup i.e. opening UE4.sln in Visual Studio.
+
 ### When opening UE4.sln in Visual Studio you see **Target framework not supported** popup for each .NET program
 
 For each of these you should be able to accept the default of **Update the target** to the newer version of .NET which seems to work fine.
