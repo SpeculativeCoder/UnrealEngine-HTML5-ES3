@@ -2,7 +2,7 @@
 
 <img src="Images/ThirdPerson.jpg" style="width:600px"/>
 
-This is documentation for a fork of Unreal Engine 4.27 which builds upon the last version of the [community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
+This is documentation for a fork of Unreal Engine 4 which builds upon the last version of the [community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
 - Support for **ES3 shaders (WebGL 2)**.
 - Support for the **latest/final version of UE4 (4.27.2)**.
 - Support for a **more recent version of [emscripten](https://emscripten.org/)** (will try to keep this up to date).
@@ -26,12 +26,12 @@ Other changes have also been made to try and make a better "out of the box" expe
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps and/or modes etc.
 - **Build compression of assets (to .gz files) is enabled by default**. Ideally, you should serve these compressed (.gz suffix) assets using `Content-Type: gzip` HTTP header so the user's web browser will know the assets are compressed (setting the header depends on your particular web hosting solution). However, if the header is missing, this fork will instead try to use the browser's built-in JavaScript [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to decompress the assets.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
-- **Web browser IndexedDB usage is enabled by default** to prevent having to download all the assets on each page refresh. You can still turn this off if you prefer the user to download the data every time.
+- Added options under **Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization** to quickly/easily configure the appearance of the generated web page when packaging for HTML5. Customization includes background color, icons only toolbar (hides button text), transparent toolbar (just the icons/text rather than buttons), overlay toolbar (moves the toolbar above the rendered content to fully consume all screen space), button visibility for each button, and text label for each button.
 - **Project Settings -> Packaging -> Pak File Compression Format(s)** is now set to **Zlib** by default, and you should have it set to this in your projects. Oodle compression (which was default in Epic UE4.27) is not supported.
 - **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False** by default, and you should have it set to this in your projects. HTML5 multithreading is not fully supported in this fork and currently only seems to work when packaging in Development mode (Test/Shipping renders a black screen).
 - **Debug/DebugGame packaging is not supported**. Only Development, Testing, and Shipping packaging is supported.
 - **MacOS with dedicated graphics (e.g. Intel Macs with NVIDIA/AMD cards) may not automatically use dedicated graphics** (reason unknown at the moment) which can result in much worse performance. Users with external displays plugged in will already be using dedicated graphics so should be fine. Other users can temporarily [disable Automatic graphics switching](https://support.apple.com/en-us/HT202043) to force use of dedicated graphics.
-- **Safari mouse sensitivity is dramatically different to Firefox/Chrome-based browsers**. This is likely due to how Safari reports mouse movementX - see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and associated [bug](https://github.com/w3c/pointerlock/issues/42).
+- **Safari mouse sensitivity is dramatically different to Firefox/Chrome-based browsers**. This is likely due to how Safari reports mouse movementX - see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and associated [bug](https://github.com/w3c/pointerlock/issues/42). There is also currently an [issue](https://bugs.webkit.org/show_bug.cgi?id=272136) with Safari where the mouse cursor is not captured in fullscreen mode.
 - **Project Settings -> Rendering -> Mobile -> Mobile MSAA** should always be set to **No MSAA** (the default) as mobile MSAA is not supported (if enabled it will cause an "Assertion failed" error on startup).
 - **Video playing, and likely anything related to Unreal [Media Framework](https://docs.unrealengine.com/4.27/en-US/WorkingWithMedia/IntegratingMedia/MediaFramework/) does not work**.
 
@@ -207,11 +207,11 @@ See community plugin documentation entry: https://github.com/UnrealEngineHTML5/D
 
 **Project Settings -> Platforms -> HTML5 -> Emscripten -> IndexedDB storage**
 
-IndexedDB support is enabled by default for new projects in this fork.
+IndexedDB storage is disabled by default.
 
-When IndexedDB support is enabled, the downloaded data files will be "cached" in the user's IndexedDB, which is a database managed by the user's browser. When the user visits your site again, the data will instead be obtained from their IndexedDB. This can be particularly useful for projects that the user will regularly visit/use.
+If you enable IndexedDB support, the downloaded data files will be "cached" in the user's IndexedDB, which is a database managed by the user's browser. When the user visits your site again, the data will instead be obtained from their IndexedDB. This can be particularly useful for projects that the user will regularly visit/use.
 
-However, if you feel your project will only be visited as a one-off, or you are happy for the download to be done every time, you can disable IndexedDB support and the user's browser will not be asked to cache the data.
+However, if you feel your project will only be visited as a one-off, or you are happy for the download to be done every time, you can keep IndexedDB support disabled and the user's browser will not be asked to cache the data.
 
 ### Asset compression on or off
 
