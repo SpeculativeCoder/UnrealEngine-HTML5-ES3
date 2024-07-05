@@ -31,7 +31,8 @@ Other changes have also been made to try and make a better "out of the box" expe
 - **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False** by default, and you should have it set to this in your projects. HTML5 multithreading is not fully supported in this fork and currently only seems to work when packaging in Development mode (Test/Shipping renders a black screen).
 - **Debug/DebugGame packaging is not supported**. Only Development, Testing, and Shipping packaging is supported.
 - **MacOS with dedicated graphics (e.g. Intel Macs with NVIDIA/AMD cards) may not automatically use dedicated graphics** (reason unknown at the moment) which can result in much worse performance. Users with external displays plugged in will already be using dedicated graphics so should be fine. Other users can temporarily [disable Automatic graphics switching](https://support.apple.com/en-us/HT202043) to force use of dedicated graphics.
-- **Safari mouse sensitivity is dramatically different to Firefox/Chrome-based browsers**. This is likely due to how Safari reports mouse movementX - see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and associated [bug](https://github.com/w3c/pointerlock/issues/42). There is also currently an [issue](https://bugs.webkit.org/show_bug.cgi?id=272136) with Safari where the mouse cursor is not captured in fullscreen mode.
+- Safari does not currently allow pointerlock (mouse cursor capture) once in fullscreen due to an [issue](https://bugs.webkit.org/show_bug.cgi?id=272136). As a workaround, an experimental option is available in **Project Settings -> HTML5 -> Emscripten -> Request pointerlock before fullscreen (Experimental)** which, although not reliable, will try to capture the pointer before switching to full screen, which sometimes works OK.
+- **Safari mouse sensitivity is dramatically different to Firefox/Chrome-based browsers**. This may be due to how Safari reports mouse events and/or mouse movementX/Y - see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and [issue](https://github.com/w3c/pointerlock/issues/42). 
 - **Project Settings -> Rendering -> Mobile -> Mobile MSAA** should always be set to **No MSAA** (the default) as mobile MSAA is not supported (if enabled it will cause an "Assertion failed" error on startup).
 - **Video playing, and likely anything related to Unreal [Media Framework](https://docs.unrealengine.com/4.27/en-US/WorkingWithMedia/IntegratingMedia/MediaFramework/) does not work**.
 
@@ -47,7 +48,7 @@ See [TROUBLESHOOTING](TROUBLESHOOTING.md) for more detail on typical issues / tr
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.60**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.61**
 
 The best way to view the changes in this fork is a [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27.2-release_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) of this branch against UE 4.27.2 release 
 with @nickshin's last community supported UE4.24 HTML5 plugin code as the starting point (this shows the actual changes made by this fork in the plugin code which were needed to get 4.27.2 working). Alternatively you can see the [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this fork branch against Epic's pristine UE 4.27.2 release which shows the plugin as new files in the Platforms/HTML5 folder.
@@ -56,7 +57,7 @@ with @nickshin's last community supported UE4.24 HTML5 plugin code as the starti
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.60**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.61**
 
 This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the changes see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
 
