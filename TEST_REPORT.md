@@ -2,17 +2,17 @@
 
 ## Test Report
 
-Most recent test run completed around **2024-06-22** for a release with emscripten **3.1.61**
+Most recent test run completed around **2024-08-16** for a release with emscripten **3.1.64**
 
 ## VS2022
 
 - Windows 10
-- Git for Windows: **2.45.2**
-- CMake: **3.29.6**
-- Python: **3.12.4**
-- Visual Studio 2022: **17.10.3**
-- Visual Studio toolchain: **14.40.33811**
-- Windows 10 SDK: **10.0.20348**
+- Git for Windows: **2.46.0**
+- CMake: **3.30.2**
+- Python: **3.12.5**
+- Visual Studio 2022: **17.11.0**
+- Visual Studio toolchain: **14.41.34120**
+- Windows 11 SDK: **10.0.26100**
 
 ### ES3 branch - tested with AdhocCombat (personal project)
 
@@ -29,12 +29,12 @@ Most recent test run completed around **2024-06-22** for a release with emscript
 ## VS2019
 
 - Windows 10
-- Git for Windows: **2.45.2**
-- CMake: **3.29.6**
-- Python: **3.12.4**
-- Visual Studio 2019: **16.11.37**
-- Visual Studio toolchain: **14.29.30154**
-- Windows 10 SDK: **10.0.20348**
+- Git for Windows: **2.46.0**
+- CMake: **3.30.2**
+- Python: **3.12.5**
+- Visual Studio 2019: **16.11.39**
+- Visual Studio toolchain: **14.29.30133**
+- Windows 11 SDK: **10.0.22000**
 
 ### ES3 branch - tested with Unreal FirstPerson project
 

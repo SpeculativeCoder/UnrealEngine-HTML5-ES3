@@ -63,15 +63,17 @@ For each of these you should be able to accept the default of **Update the targe
 
 Make sure you the Individual component "NET Framework 4.6.2 development tools" installed in your Visual Studio installation and try again.
 
-### When compiling, you see: some error involving `NOEXCEPT` and preprocessor macros
-
-This is due to the engine not being built with the latest Windows 10 SDK. For example if a Windows 11 SDK is present on the system and is being used (or was maybe previously used during the build?) you will see this error. You can check in Visual Studio Installer (and possibly also Add/Remove Programs in your Windows) to see which Windows SDK's are installed. After ensuring only the latest Windows 10 SDK is being used you can try rebuilding the fork.
-
 ### When compiling, you see: `Detected compiler newer than Visual Studio XXXX, please update min version checking`
 
 XXXX is just whatever version of Visual Studio the branch was last successfully tested with. This can appear if you are using an even more recent version of Visual Studio e.g. 2022 latest releases. It is just a warning and shouldn't cause any issues as VS2022 seems to be able to build the engine fine.
 
 I will keep trying to bump the version check to avoid the warning but new releases of VS2022 may trigger it again.
+
+### When compiling, you see: `C1083	Cannot open include file` relating to `dte80a.tlh` and/or `VisualStudioDTE`
+
+I noticed this when compiling the ES2 branch occasionally and it may or may not happen on ES3 branch also (unsure). It seems to be a transient error.
+
+Simply resuming the same build again (i.e. Right Click -> Build) should work and complete the build.
 
 ### When packaging HTML5 you see: `error CS1519: Invalid token '(' in class, struct, or interface member declaration`
 
@@ -104,6 +106,20 @@ Once you have done this you can package the project again as HTML5 and see if th
 ## Troubleshooting - Legacy
 
 These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the latest version.
+
+### When running `Setup.bat` you see a `403` `Permission denied` error or similar
+
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3e7742c5300a07e2122ffd4c1bbebfa6cde97f7d) - update to the latest version of the fork avoid this issue_ 
+
+Older versions of the fork did not have a fix Epic put out for the Commit.gitdeps.xml file. Either use the latest version of the fork or, per per an [announcement from Epic Games](https://forums.unrealengine.com/t/upcoming-disruption-of-service-impacting-unreal-engine-users-on-github/1155880), you will need to replace the `Commit.gitdeps.xml` in the `Engine/Build` folder with a version newly provided by Epic depending on the engine version you are using. You can download the latest Commit.gitdeps.xml from the *Assets* section of the relevant Unreal Engine release below and replace the file in your `Engine/Build` folder with it:
+- https://github.com/EpicGames/UnrealEngine/releases/tag/4.27.2-release if you are using 4.27 ES3 (WebGL 2) branch
+- https://github.com/EpicGames/UnrealEngine/releases/tag/4.24.3-release if you are using 4.24 ES2 (WebGL 1) branch
+
+### When compiling, you see: some error involving `NOEXCEPT` and preprocessor macros
+
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3e7742c5300a07e2122ffd4c1bbebfa6cde97f7d) - update to the latest version of the fork avoid this issue_ 
+
+This fork now supports the latest version of Windows SDK (now the Windows 11 SDK). However prior to the above commit, this fork would need to be built with the last version of the Windows 10 SDK or you would see the `NOEXCEPT` error. If you are using an older version of the fork you can ensure you only have the latest version of the Windows 10 SDK. You can check in Visual Studio Installer (and possibly also Add/Remove Programs in your Windows) to see which Windows SDK's are installed. After ensuring only the latest Windows 10 SDK is being used you can try rebuilding the fork.
 
 ### When running the game you only see a blank white page with buttons at the top and/or in the console log you see: `Uncaught SyntaxError: illegal character U+001F` and/or you see error/warning message: `Downloaded a compressed file XXX without the necessary HTTP response header "Content-Encoding: gzip"`
 

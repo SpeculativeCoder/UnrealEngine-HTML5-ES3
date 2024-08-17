@@ -31,7 +31,7 @@ Other changes have also been made to try and make a better "out of the box" expe
 - **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False** by default, and you should have it set to this in your projects. HTML5 multithreading is not fully supported in this fork and currently only seems to work when packaging in Development mode (Test/Shipping renders a black screen).
 - **Debug/DebugGame packaging is not supported**. Only Development, Testing, and Shipping packaging is supported.
 - **MacOS with dedicated graphics (e.g. Intel Macs with NVIDIA/AMD cards) may not automatically use dedicated graphics** (reason unknown at the moment) which can result in much worse performance. Users with external displays plugged in will already be using dedicated graphics so should be fine. Other users can temporarily [disable Automatic graphics switching](https://support.apple.com/en-us/HT202043) to force use of dedicated graphics.
-- Safari does not currently allow pointerlock (mouse cursor capture) once in fullscreen due to an [issue](https://bugs.webkit.org/show_bug.cgi?id=272136). As a workaround, an experimental option is available in **Project Settings -> HTML5 -> Emscripten -> Request pointerlock before fullscreen (Experimental)** which, although not reliable, will try to capture the pointer before switching to full screen, which sometimes works OK.
+- Safari does not currently allow pointerlock (mouse cursor capture) once in fullscreen due to an [issue](https://bugs.webkit.org/show_bug.cgi?id=272136). As a workaround, an experimental option is available in **Project Settings -> HTML5 -> Emscripten -> Request pointerlock before fullscreen (Experimental)** which, although not reliable, will try to capture the pointer before switching to full screen, which sometimes works OK. This will likely be fixed soon in an upcoming Safari release so is only a temporary feature.
 - **Safari mouse sensitivity is dramatically different to Firefox/Chrome-based browsers**. This may be due to how Safari reports mouse events and/or mouse movementX/Y - see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and [issue](https://github.com/w3c/pointerlock/issues/42). 
 - **Project Settings -> Rendering -> Mobile -> Mobile MSAA** should always be set to **No MSAA** (the default) as mobile MSAA is not supported (if enabled it will cause an "Assertion failed" error on startup).
 - **Video playing, and likely anything related to Unreal [Media Framework](https://docs.unrealengine.com/4.27/en-US/WorkingWithMedia/IntegratingMedia/MediaFramework/) does not work**.
@@ -48,18 +48,18 @@ See [TROUBLESHOOTING](TROUBLESHOOTING.md) for more detail on typical issues / tr
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.61**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.64**
 
-The best way to view the changes in this fork is a [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27.2-release_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) of this branch against UE 4.27.2 release 
-with @nickshin's last community supported UE4.24 HTML5 plugin code as the starting point (this shows the actual changes made by this fork in the plugin code which were needed to get 4.27.2 working). Alternatively you can see the [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27.2-release...SpeculativeCoder:4.27-html5-es3) of this fork branch against Epic's pristine UE 4.27.2 release which shows the plugin as new files in the Platforms/HTML5 folder.
+It is based on the rolling Epic `4.24-plus` branch. The best way to view the changes made by this fork is a [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) of this branch against the UE 4.27-plus branch 
+with @nickshin's last community supported UE4.24 HTML5 plugin code as the starting point (this shows the actual changes made by this fork in the plugin code which were needed to get 4.27.2 working). Alternatively you can see the [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27-plus...SpeculativeCoder:4.27-html5-es3) of this fork branch against Epic's latest UE 4.27-plus branch which shows the plugin as new files in the Platforms/HTML5 folder.
 
 ### 4.24 HTML5 ES2 (WebGL 1)
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.61**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.64**
 
-This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the changes see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
+It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin. This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the changes see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
 
 ## Requirements
 
@@ -69,8 +69,7 @@ This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but
   - Workload ".NET desktop environment"
   - Workload "Game Development with C++"
   - Individual component "NET Framework 4.6.2 development tools"
-  - Individual component latest version of "Windows 10 SDK"
-  - _IMPORTANT: Ideally **unselect/uninstall Windows 11 SDK** to avoid accidental use as this will cause a "NOEXCEPT" build error._
+  - Individual component latest version of "Windows 11 SDK" that your Visual Studio installer offers.
 - **CMake** (make sure you select to add it to PATH during installation or manually after)
 - **Python 3.*** (watch out for Windows Python app installer "app execution aliases" which may cause problems - recommend setting these to disabled - see [this Stack Overflow post](https://stackoverflow.com/a/61958044))
 
@@ -93,12 +92,6 @@ Or, alternatively, for the 4.24 ES2 (WebGL 1) branch you would instead do:
     `git clone -b 4.24-html5-es2 --single-branch https://github.com/SpeculativeCoder/UnrealEngine.git ue-4.24-html5-es2`
 
 This should download the branch (it will take a while depending on your connection as the source is quite large).
-
-Now, as per an [announcement from Epic Games](https://forums.unrealengine.com/t/upcoming-disruption-of-service-impacting-unreal-engine-users-on-github/1155880), you will need to replace the `Commit.gitdeps.xml` in the `Engine/Build` folder with a version newly provided by Epic depending on the engine version you are using. You can download the latest Commit.gitdeps.xml from the *Assets* section of the relevant Unreal Engine release below and replace the file in your `Engine/Build` folder with it:
-- https://github.com/EpicGames/UnrealEngine/releases/tag/4.27.2-release if you are using 4.27 ES3 (WebGL 2) branch
-- https://github.com/EpicGames/UnrealEngine/releases/tag/4.24.3-release if you are using 4.24 ES2 (WebGL 1) branch
-
-Note: this was a recent breaking change so in future I hope to include this fix in the branches but want to do it in a clean way so for now we rely on the official fix/source.
 
 Back in Git Bash, go into the folder:
 
