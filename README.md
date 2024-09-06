@@ -50,8 +50,8 @@ https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
 This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.64**
 
-It is based on the rolling Epic `4.24-plus` branch. The best way to view the changes made by this fork is a [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) of this branch against the UE 4.27-plus branch 
-with @nickshin's last community supported UE4.24 HTML5 plugin code as the starting point (this shows the actual changes made by this fork in the plugin code which were needed to get 4.27.2 working). Alternatively you can see the [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27-plus...SpeculativeCoder:4.27-html5-es3) of this fork branch against Epic's latest UE 4.27-plus branch which shows the plugin as new files in the Platforms/HTML5 folder.
+It is based on the rolling Epic `4.27-plus` branch so the best way to view the changes made by this fork is a [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) against a combination of Epic `4.27-plus` 
+with @nickshin's last community supported UE4.24 HTML5 plugin code (this shows the actual changes made by this fork in the plugin code which were needed to get 4.27.2 working). If you look at a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27-plus...SpeculativeCoder:4.27-html5-es3) against just Epic `4.27-plus` it will show the plugin as new files in the Platforms/HTML5 folder.
 
 ### 4.24 HTML5 ES2 (WebGL 1)
 
@@ -101,7 +101,7 @@ Run:
     
     ./Setup.bat
 
-This will download a lot of dependencies used by Unreal engine and perform some setup tasks. *If you see an error about remote server returned error or 403 / Forbidden then you may not have properly applied the Commit.gitdeps.xml fix above.* 
+This will download a lot of dependencies used by Unreal engine and perform some setup tasks.
 
 Now do:
 
@@ -219,11 +219,11 @@ HTML5 projects use a set of template files in `Engine/Platforms/HTML5/Build/Temp
 
 ## Fork Updates / Fresh Start
 
-If a new version of the fork is released (i.e. a new commit to the branch), it is best to rebuild Unreal entirely to avoid any issues.
+If a new version of the fork is released (i.e. a new commit to the branch), it is best to do a clean build to avoid any issues.
 
 If you downloaded as ZIP, just delete the old extracted directory, download the branch again and start from scratch.
 
-If you cloned the git repository / branch, go into the folder where you cloned the git repository e.g.
+If you cloned the git repository / branch, go into the existing folder where you cloned the git repository e.g.
 
     cd ue-4.27-html5-es3
     
@@ -239,7 +239,7 @@ Now do
     
 This will bring in the latest version of the branch.
 
-Now follow the original [Installation](#Installation) guide starting with the fix for `Commit.gitdeps.xml` and the `./Setup.bat` step and so on.
+Now follow the original [Installation](#Installation) guide starting with `./Setup.bat` step and so on.
 
 ## Issues / Discussions
 

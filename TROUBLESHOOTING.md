@@ -107,7 +107,7 @@ Once you have done this you can package the project again as HTML5 and see if th
 
 These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the latest version.
 
-### When running `Setup.bat` you see a `403` `Permission denied` error or similar
+### When running `Setup.bat` you see a `403` `Forbidden` error or similar
 
 _Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3e7742c5300a07e2122ffd4c1bbebfa6cde97f7d) - update to the latest version of the fork avoid this issue_ 
 
