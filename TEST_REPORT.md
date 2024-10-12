@@ -2,42 +2,52 @@
 
 ## Test Report
 
-Most recent test run completed around **2024-08-16** for a release with emscripten **3.1.64**
+Most recent test run completed around **2024-10-11** for a release with emscripten **3.1.68**
 
-## VS2022
+## Test ES3 branch, VS2022, AdhocCombat (personal project)
 
-- Windows 10
-- Git for Windows: **2.46.0**
-- CMake: **3.30.2**
-- Python: **3.12.5**
-- Visual Studio 2022: **17.11.0**
-- Visual Studio toolchain: **14.41.34120**
-- Windows 11 SDK: **10.0.26100**
+Versions:
+- Windows **10**
+- Git for Windows: **2.47.0**
+- CMake: **3.30.5**
+- Python: **3.12.6**
+- Visual Studio **2022**: **17.11.5**
+- Visual Studio toolchain: **14.41.34123**
+- Windows SDK: **10.0.26100**
 
-### ES3 branch - tested with AdhocCombat (personal project)
-
+Steps:
 - Build AdhocCombat C++ project Development regularly and tested locally in Chromium.
-- Built AdhocCombat C++ project Shipping, deployed to https://adhoccombat.com, and ran in Chromium and/or Firefox.
+- Built AdhocCombat C++ project Shipping, deployed to https://adhoccombat.com, and ran in Chromium and/or Firefox. This ensures multiplayer works when the client is served over HTTPS.
 
-### ES2 branch - tested with Unreal FirstPerson project
+## Test ES2 branch, VS2022, Unreal FirstPerson project
 
+Versions:
+- Windows **10**
+- Git for Windows: **2.46.2**
+- CMake: **3.30.4**
+- Python: **3.12.6**
+- Visual Studio **2022**: **17.11.5**
+- Visual Studio toolchain: **14.41.34123**
+- Windows SDK: **10.0.26100**
+
+Steps:
 - Built FirstPerson Blueprint project in Development and ran in Chromium.
 - Built FirstPerson Blueprint project in Shipping and ran in Chromium.
 - Built FirstPerson Blueprint project in Development multithreaded and ran in Chromium.
 - Tested multiplayer using enabled websocket plugin with at least one of the above.
 
-## VS2019
+## Test ES3 branch, VS2019, Unreal FirstPerson project
 
-- Windows 10
-- Git for Windows: **2.46.0**
-- CMake: **3.30.2**
-- Python: **3.12.5**
-- Visual Studio 2019: **16.11.39**
-- Visual Studio toolchain: **14.29.30133**
+Versions:
+- Windows **10**
+- Git for Windows: **2.47.0**
+- CMake: **3.30.5**
+- Python: **3.12.6**
+- Visual Studio **2019**: **16.11.41**
+- Visual Studio toolchain: **14.29.30156**
 - Windows 11 SDK: **10.0.22000**
 
-### ES3 branch - tested with Unreal FirstPerson project
-
+Steps:
 - Built FirstPerson Blueprint project in Development and ran in Chromium.
 - Built FirstPerson Blueprint project in Shipping and ran in Chromium.
 - Built FirstPerson Blueprint project in Development multithreaded and ran in Chromium.

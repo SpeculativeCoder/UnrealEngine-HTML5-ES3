@@ -18,27 +18,15 @@ Development and packaging of HTML5 projects (i.e. building and using this fork o
 
 Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - personal project, work in progress
 
-### Other Features / Caveats
-
-Other changes have also been made to try and make a better "out of the box" experience, and there are also various issues/caveats to be aware of (some already existed, some are new in this fork):
+### Other Features / Improvements
 
 - Added [**optional, experimental, support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS.
-- Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to select different maps and/or modes etc.
-- **Build compression of assets (to .gz files) is enabled by default**. Ideally, you should serve these compressed (.gz suffix) assets using `Content-Type: gzip` HTTP header so the user's web browser will know the assets are compressed (setting the header depends on your particular web hosting solution). However, if the header is missing, this fork will instead try to use the browser's built-in JavaScript [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to decompress the assets.
+- Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to easily select different maps and/or modes etc.
+- **Build compression of assets (to .gz files) is enabled by default**. If your hosting environment does not set the appropriate `Content-Type: gzip` HTTP header when serving these files, this fork will use the browser's built-in JavaScript [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to get the assets.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
-- Added options under **Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization** to quickly/easily configure the appearance of the generated web page when packaging for HTML5. Customization includes background color, icons only toolbar (hides button text), transparent toolbar (just the icons/text rather than buttons), overlay toolbar (moves the toolbar above the rendered content to fully consume all screen space), button visibility for each button, and text label for each button.
-- **Project Settings -> Packaging -> Pak File Compression Format(s)** is now set to **Zlib** by default, and you should have it set to this in your projects. Oodle compression (which was default in Epic UE4.27) is not supported.
-- **Project Settings -> HTML5 -> Emscripten -> Multithreading support** is set to **False** by default, and you should have it set to this in your projects. HTML5 multithreading is not fully supported in this fork and currently only seems to work when packaging in Development mode (Test/Shipping renders a black screen).
-- **Debug/DebugGame packaging is not supported**. Only Development, Testing, and Shipping packaging is supported.
-- **MacOS with dedicated graphics (e.g. Intel Macs with NVIDIA/AMD cards) may not automatically use dedicated graphics** (reason unknown at the moment) which can result in much worse performance. Users with external displays plugged in will already be using dedicated graphics so should be fine. Other users can temporarily [disable Automatic graphics switching](https://support.apple.com/en-us/HT202043) to force use of dedicated graphics.
-- Safari does not currently allow pointerlock (mouse cursor capture) once in fullscreen due to an [issue](https://bugs.webkit.org/show_bug.cgi?id=272136). As a workaround, an experimental option is available in **Project Settings -> HTML5 -> Emscripten -> Request pointerlock before fullscreen (Experimental)** which, although not reliable, will try to capture the pointer before switching to full screen, which sometimes works OK. This will likely be fixed soon in an upcoming Safari release so is only a temporary feature.
-- **Safari mouse sensitivity is dramatically different to Firefox/Chrome-based browsers**. This may be due to how Safari reports mouse events and/or mouse movementX/Y - see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and [issue](https://github.com/w3c/pointerlock/issues/42). 
-- **Project Settings -> Rendering -> Mobile -> Mobile MSAA** should always be set to **No MSAA** (the default) as mobile MSAA is not supported (if enabled it will cause an "Assertion failed" error on startup).
-- **Video playing, and likely anything related to Unreal [Media Framework](https://docs.unrealengine.com/4.27/en-US/WorkingWithMedia/IntegratingMedia/MediaFramework/) does not work**.
+- Added options under **Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization** to quickly/easily configure the appearance of the generated web page when packaging for HTML5. Customization includes background color, visibility of each toolbar button, button labels, transparent toolbar, and overlay toolbar (moves the toolbar above the rendered content to avoid wasting screen space).
 
-For all features you may wish to use, a good rule of thumb is: anything that didn't work in Epic's last supported version of HTML5 packaging (4.23) or the community supported plugin (4.24) it likely won't work in this fork. Anything that needs compute shaders won't work as that isn't supported in WebGL 1 or WebGL 2. See [this page](https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/SupportedRenderingFeatures/) for an indication of what features may be supported (see the Android ES3.1 column which will be most useful indication as to what _may_ work in this fork's ES3 branch).
-
-See [TROUBLESHOOTING](TROUBLESHOOTING.md) for more detail on typical issues / troubleshooting / workarounds.
+There are also a number of [CAVEATS](CAVEATS.md) with this fork that you should also be aware of. Also see [TROUBLESHOOTING](TROUBLESHOOTING.md) for typical issues / troubleshooting / workarounds.
 
 ## Git Repository / Branches
 
@@ -48,7 +36,7 @@ See [TROUBLESHOOTING](TROUBLESHOOTING.md) for more detail on typical issues / tr
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.64**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.68**
 
 It is based on the rolling Epic `4.27-plus` branch so the best way to view the changes made by this fork is a [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) against a combination of Epic `4.27-plus` 
 with @nickshin's last community supported UE4.24 HTML5 plugin code (this shows the actual changes made by this fork in the plugin code which were needed to get 4.27.2 working). If you look at a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27-plus...SpeculativeCoder:4.27-html5-es3) against just Epic `4.27-plus` it will show the plugin as new files in the Platforms/HTML5 folder.
@@ -57,14 +45,14 @@ with @nickshin's last community supported UE4.24 HTML5 plugin code (this shows t
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.64**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.68**
 
 It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin. This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the changes see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
 
 ## Requirements
 
 - **Windows 10** (11 should also work)
-- **Git for Windows**
+- **Git for Windows** (this also includes the Git Bash terminal which is used to build this fork)
 - **Visual Studio 2019 or 2022**
   - Workload ".NET desktop environment"
   - Workload "Game Development with C++"
@@ -73,7 +61,7 @@ It is based on the last version of the @nickshin community supported UE4.24 HTML
 - **CMake** (make sure you select to add it to PATH during installation or manually after)
 - **Python 3.*** (watch out for Windows Python app installer "app execution aliases" which may cause problems - recommend setting these to disabled - see [this Stack Overflow post](https://stackoverflow.com/a/61958044))
 
-I have only built/tested on Windows 10 using the above requirements and the commands below. Other platforms may need further fixes/changes. See [TEST_REPORT](TEST_REPORT.md) for the last test run I have done including versions of the above requirements at the time of testing. 
+I have only built/tested on Windows 10 using the above requirements and the commands below in a Git Bash terminal. Other platforms may need further fixes/changes. See [TEST_REPORT](TEST_REPORT.md) for the last test run I have done including versions of the above requirements at the time of testing.
 
 ## Installation
 
@@ -117,9 +105,9 @@ Now do:
     cd -
     ./GenerateProjectFiles.bat
 
-Open ``UE4.sln`` in Visual Studio. You will probably see a popup asking if it is OK to upgrade some .NET programs from 4.5 to 4.8. You can accept this in each case (I typically click the "do this for all" checkbox to get through this quicker).
+Open ``UE4.sln`` in Visual Studio. You may see a popup asking if it is OK to upgrade some .NET programs to 4.8. You can accept this in each case (I typically click the "do this for all" checkbox to get through this quicker).
 
-You first need to add the HTML5LauncherHelper project to the solution... to do this you can Right Click **Programs** then **Add -> Existing Project** then navigate to and select this project to add to the solution: ``Engine\Platforms\HTML5\Source\Programs\HTML5\HTML5LaunchHelper\HTML5LauncherHelper.csproj``. You may see the .NET 4.5 to 4.8 version upgrade again which you can accept.
+You first need to add the HTML5LauncherHelper project to the solution... to do this you can Right Click **Programs** then **Add -> Existing Project** then navigate to and select this project to add to the solution: ``Engine\Platforms\HTML5\Source\Programs\HTML5\HTML5LaunchHelper\HTML5LauncherHelper.csproj``. You may see the .NET 4.8 version upgrade again which you can accept.
 
 Now you can build all the programs. CTRL-Click the following projects to select them all at once:
 
