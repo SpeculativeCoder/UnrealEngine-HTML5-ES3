@@ -36,7 +36,7 @@ There are also a number of [CAVEATS](CAVEATS.md) with this fork that you should 
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.68**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.70**
 
 It is based on the rolling Epic `4.27-plus` branch so the best way to view the changes made by this fork is a [diff](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) against a combination of Epic `4.27-plus` 
 with @nickshin's last community supported UE4.24 HTML5 plugin code (this shows the actual changes made by this fork in the plugin code which were needed to get 4.27.2 working). If you look at a [diff](https://github.com/EpicGames/UnrealEngine/compare/4.27-plus...SpeculativeCoder:4.27-html5-es3) against just Epic `4.27-plus` it will show the plugin as new files in the Platforms/HTML5 folder.
@@ -45,7 +45,7 @@ with @nickshin's last community supported UE4.24 HTML5 plugin code (this shows t
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.68**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.70**
 
 It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin. This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the changes see this [diff](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2) against @nickshin's last community supported UE4.24 HTML5 plugin code.
 
@@ -105,7 +105,11 @@ Now do:
     cd -
     ./GenerateProjectFiles.bat
 
-Open ``UE4.sln`` in Visual Studio. You may see a popup asking if it is OK to upgrade some .NET programs to 4.8. You can accept this in each case (I typically click the "do this for all" checkbox to get through this quicker).
+*If you see any errors about `NODEJS NOT FOUND` then please do the fix described in [the NODEJS version issue troubleshooting section](https://github.com/SpeculativeCoder/UnrealEngine-HTML5-ES3/blob/main/TROUBLESHOOTING.md#when-running-generateprojectfilesbat-you-see-node_js-not-found). You should be able to run `./GenerateProjectFiles.bat` after making the fix and no NODEJS errors should occur.*
+
+Open `UE4.sln` in Visual Studio. 
+
+*You may see a popup asking if it is OK to upgrade some .NET programs to 4.8. You can accept this in each case (I typically click the "do this for all" checkbox to get through this quicker).*
 
 You first need to add the HTML5LauncherHelper project to the solution... to do this you can Right Click **Programs** then **Add -> Existing Project** then navigate to and select this project to add to the solution: ``Engine\Platforms\HTML5\Source\Programs\HTML5\HTML5LaunchHelper\HTML5LauncherHelper.csproj``. You may see the .NET 4.8 version upgrade again which you can accept.
 

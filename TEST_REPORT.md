@@ -2,7 +2,7 @@
 
 ## Test Report
 
-Most recent test run completed around **2024-10-11** for a release with emscripten **3.1.68**
+Most recent test run completed around **2024-11-07** for a release with emscripten **3.1.70**
 
 ## Test ES3 branch, VS2022, AdhocCombat (personal project)
 
@@ -23,8 +23,8 @@ Steps:
 
 Versions:
 - Windows **10**
-- Git for Windows: **2.46.2**
-- CMake: **3.30.4**
+- Git for Windows: **2.47.0**
+- CMake: **3.30.5**
 - Python: **3.12.6**
 - Visual Studio **2022**: **17.11.5**
 - Visual Studio toolchain: **14.41.34123**
