@@ -2,32 +2,32 @@
 
 ## Test Report
 
-Most recent test run completed around **2024-11-07** for a release with emscripten **3.1.70**
+Most recent test run completed around **2024-12-06** for a release with emscripten **3.1.73**
 
 ## Test ES3 branch, VS2022, AdhocCombat (personal project)
 
 Versions:
 - Windows **10**
-- Git for Windows: **2.47.0**
-- CMake: **3.30.5**
+- Git for Windows: **2.47.1**
+- CMake: **3.31.1**
 - Python: **3.12.6**
-- Visual Studio **2022**: **17.11.5**
-- Visual Studio toolchain: **14.41.34123**
+- Visual Studio **2022**: **17.12.3**
+- Visual Studio toolchain: **14.42.34435**
 - Windows SDK: **10.0.26100**
 
 Steps:
-- Build AdhocCombat C++ project Development regularly and tested locally in Chromium.
+- Built AdhocCombat C++ project Development regularly and tested locally in Chromium.
 - Built AdhocCombat C++ project Shipping, deployed to https://adhoccombat.com, and ran in Chromium and/or Firefox. This ensures multiplayer works when the client is served over HTTPS.
 
 ## Test ES2 branch, VS2022, Unreal FirstPerson project
 
 Versions:
 - Windows **10**
-- Git for Windows: **2.47.0**
-- CMake: **3.30.5**
+- Git for Windows: **2.47.1**
+- CMake: **3.31.1**
 - Python: **3.12.6**
-- Visual Studio **2022**: **17.11.5**
-- Visual Studio toolchain: **14.41.34123**
+- Visual Studio **2022**: **17.12.3**
+- Visual Studio toolchain: **14.42.34435**
 - Windows SDK: **10.0.26100**
 
 Steps:
@@ -40,11 +40,11 @@ Steps:
 
 Versions:
 - Windows **10**
-- Git for Windows: **2.47.0**
-- CMake: **3.30.5**
+- Git for Windows: **2.47.1**
+- CMake: **3.31.1**
 - Python: **3.12.6**
-- Visual Studio **2019**: **16.11.41**
-- Visual Studio toolchain: **14.29.30156**
+- Visual Studio **2019**: **16.11.42**
+- Visual Studio toolchain: **14.29.30157**
 - Windows 11 SDK: **10.0.22000**
 
 Steps:
