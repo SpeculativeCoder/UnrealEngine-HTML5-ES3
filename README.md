@@ -1,10 +1,10 @@
-# Unreal Engine 4.27 HTML5 ES3 (WebGL 2) / 4.24 HTML5 ES2 (WebGL 1)
+# Unreal Engine 4.27 HTML5 ES3 (WebGL 2) & 4.24 HTML5 ES2 (WebGL 1)
 
 <img src="Images/ThirdPerson.jpg" style="width:600px"/>
 
 This is documentation for a fork of Unreal Engine 4 which builds upon the last version of the [community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
-- Support for **ES3 shaders (WebGL 2)**.
 - Support for the **latest/final version of UE4 (4.27.2)**.
+- Support for **ES3 shaders (WebGL 2)**.
 - Support for a **more recent version of [emscripten](https://emscripten.org/)** (will try to keep this up to date).
 - A number of other features and improvements (see below). 
 
@@ -12,7 +12,7 @@ Also available is an **alternative branch with UE 4.24.3 using ES2 shaders (WebG
 
 _NOTE: To access the [fork](https://github.com/SpeculativeCoder/UnrealEngine) and the associated [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues?q=) and [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions?discussions_q=) sections you need your GitHub linked to your [Epic Games Account](https://www.epicgames.com/account/connected) or you will see [404 errors](https://github.com/UnrealEngineHTML5/Documentation/issues/12#issuecomment-597729773)._
 
-Packaged HTML5 projects work best in Firefox or Chrome-based browsers on Windows 10/11. They also work for now in Firefox, Safari and Chrome-based browsers on MacOS. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work (only checked iPhone, though).
+Packaged HTML5 projects work best in Firefox or Chrome-based browsers on Windows 10/11. They also seem to work for now in Firefox, Safari and Chrome-based browsers on MacOS. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work (only checked iPhone, though).
 
 Development and packaging of HTML5 projects (i.e. building and using this fork of Unreal Editor) is done on Windows 10 (but 11 should also be OK).
 
@@ -26,26 +26,26 @@ Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.co
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
 - Added options under **Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization** to quickly/easily configure the appearance of the generated web page when packaging for HTML5. Customization includes background color, visibility of each toolbar button, button labels, transparent toolbar, and overlay toolbar (moves the toolbar above the rendered content to avoid wasting screen space).
 
-There are also a number of [CAVEATS](CAVEATS.md) with this fork that you should also be aware of. Also see [TROUBLESHOOTING](TROUBLESHOOTING.md) for typical issues / troubleshooting / workarounds.
+There are a number of [CAVEATS](CAVEATS.md) with this fork that you should be aware of. Also see [TROUBLESHOOTING](TROUBLESHOOTING.md) for typical issues / troubleshooting / workarounds.
 
 ## Git Repository / Branches
 
-**To access the links below you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected) - if you do not do this you will see [404 errors](https://github.com/UnrealEngineHTML5/Documentation/issues/12#issuecomment-597729773).**
+_NOTE: To access the links below you need to link your Epic Games account to GitHub - see your [Epic Games Account](https://www.epicgames.com/account/connected) - if you do not do this you will see [404 errors](https://github.com/UnrealEngineHTML5/Documentation/issues/12#issuecomment-597729773)._
 
 ### 4.27 HTML5 ES3 (WebGL 2)
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.73**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.74**
 
-It is based on the rolling Epic `4.27-plus` branch so the best way to view the changes made by this fork is a [diff against Epic 4.27-plus 
+It is based on the rolling Epic 4.27-plus branch so the best way to view the changes made by this fork is a [diff against Epic 4.27-plus 
 and @nickshin's last community supported UE4.24 HTML5 plugin code](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) (this shows the actual changes made by this fork in the plugin code to get it working with UE4.27). Otherwise if you look at a [diff against just Epic 4.27-plus](https://github.com/EpicGames/UnrealEngine/compare/4.27-plus...SpeculativeCoder:4.27-html5-es3) it will just show the plugin code as new files in the Platforms/HTML5 folder.
 
 ### 4.24 HTML5 ES2 (WebGL 1)
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.73**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.74**
 
 It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin. This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the changes see this [diff against @nickshin's last community supported UE4.24 HTML5 plugin code](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2).
 
@@ -57,7 +57,7 @@ It is based on the last version of the @nickshin community supported UE4.24 HTML
   - Workload ".NET desktop environment"
   - Workload "Game Development with C++"
   - Individual component "NET Framework 4.6.2 development tools"
-  - Individual component latest version of "Windows 11 SDK" that your Visual Studio installer offers.
+  - Individual component latest version of "Windows 11 SDK" that your Visual Studio installer offers. Other SDK's will probably also work OK but I always test with the latest available in the installer.
 - **CMake** (make sure you select to add it to PATH during installation or manually after)
 - **Python 3.*** (watch out for Windows Python app installer "app execution aliases" which may cause problems - recommend setting these to disabled - see [this Stack Overflow post](https://stackoverflow.com/a/61958044))
 
@@ -243,7 +243,7 @@ If interested in a more technical commentary of the development / code etc. (cou
 
 ## Documentation Copyright / License
 
-Copyright (c) 2022-2023 SpeculativeCoder (https://github.com/SpeculativeCoder)
+Copyright (c) 2022-2025 SpeculativeCoder (https://github.com/SpeculativeCoder)
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
