@@ -12,7 +12,7 @@ Also available is an **alternative branch with UE 4.24.3 using ES2 shaders (WebG
 
 _NOTE: To access the [fork](https://github.com/SpeculativeCoder/UnrealEngine) and the associated [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues?q=) and [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions?discussions_q=) sections you need your GitHub linked to your [Epic Games Account](https://www.epicgames.com/account/connected) or you will see [404 errors](https://github.com/UnrealEngineHTML5/Documentation/issues/12#issuecomment-597729773)._
 
-Packaged HTML5 projects work best in Firefox or Chrome-based browsers on Windows 10/11. They also seem to work for now in Firefox, Safari and Chrome-based browsers on MacOS. Other browsers/platforms may either not work or have graphical/performance issues. Mobile does not work (only checked iPhone, though).
+Packaged HTML5 projects work best in Firefox or Chrome-based browsers on Windows 10/11. They also seem to work for now in Firefox, Safari and Chrome-based browsers on MacOS. Mobile is experimental (only tested on iPhone, though).
 
 Development and packaging of HTML5 projects (i.e. building and using this fork of Unreal Editor) is done on Windows 10 (but 11 should also be OK).
 
@@ -20,11 +20,12 @@ Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.co
 
 ### Other Features / Improvements
 
+- Added [**experimental mobile support**](Features/Feature-MobileSupport.md) with ASTC texture compression and some basic touch input support. You should package to both HTML5 and HTML5 (ASTC) targets to the same location and the web page will automatically try to use ASTC when ran on a mobile device.
 - Added [**optional, experimental, support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS.
+- Added [**Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization**](Features/Feature-WebPageTemplateCustomization.md) options to allow easier configuration of the packaged HTML5 web page.
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to easily select different maps and/or modes etc.
 - **Build compression of assets (to .gz files) is enabled by default**. If your hosting environment does not set the appropriate `Content-Type: gzip` HTTP header when serving these files, this fork will use the browser's built-in JavaScript [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to get the assets.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
-- Added options under **Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization** to quickly/easily configure the appearance of the generated web page when packaging for HTML5. Customization includes background color, visibility of each toolbar button, button labels, transparent toolbar, and overlay toolbar (moves the toolbar above the rendered content to avoid wasting screen space).
 
 There are a number of [CAVEATS](CAVEATS.md) with this fork that you should be aware of. Also see [TROUBLESHOOTING](TROUBLESHOOTING.md) for typical issues / troubleshooting / workarounds.
 
@@ -36,7 +37,7 @@ _NOTE: To access the links below you need to link your Epic Games account to Git
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 3.1.74**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.3**
 
 It is based on the rolling Epic 4.27-plus branch so the best way to view the changes made by this fork is a [diff against Epic 4.27-plus 
 and @nickshin's last community supported UE4.24 HTML5 plugin code](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) (this shows the actual changes made by this fork in the plugin code to get it working with UE4.27). Otherwise if you look at a [diff against just Epic 4.27-plus](https://github.com/EpicGames/UnrealEngine/compare/4.27-plus...SpeculativeCoder:4.27-html5-es3) it will just show the plugin code as new files in the Platforms/HTML5 folder.
@@ -45,7 +46,7 @@ and @nickshin's last community supported UE4.24 HTML5 plugin code](https://githu
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 3.1.74**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.3**
 
 It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin. This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the changes see this [diff against @nickshin's last community supported UE4.24 HTML5 plugin code](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2).
 
@@ -111,7 +112,13 @@ Open `UE4.sln` in Visual Studio.
 
 *You may see a popup asking if it is OK to upgrade some .NET programs to 4.8. You can accept this in each case (I typically click the "do this for all" checkbox to get through this quicker).*
 
-You first need to add the HTML5LauncherHelper project to the solution... to do this you can Right Click **Programs** then **Add -> Existing Project** then navigate to and select this project to add to the solution: ``Engine\Platforms\HTML5\Source\Programs\HTML5\HTML5LaunchHelper\HTML5LauncherHelper.csproj``. You may see the .NET 4.8 version upgrade again which you can accept.
+Set Solution Configuration to: **Development Editor**
+
+Set Solution Platform to: **Win64**
+
+(the above two options are in the toolbar at the top of the screen usually)
+
+You should now add the HTML5LauncherHelper project to the solution... to do this you can Right Click **Programs** then **Add -> Existing Project** then navigate to and select this project to add to the solution: ``Engine\Platforms\HTML5\Source\Programs\HTML5\HTML5LaunchHelper\HTML5LauncherHelper.csproj``. You may see the .NET 4.8 version upgrade again which you can accept.
 
 Now you can build all the programs. CTRL-Click the following projects to select them all at once:
 
