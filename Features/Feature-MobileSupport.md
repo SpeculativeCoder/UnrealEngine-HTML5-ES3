@@ -10,7 +10,7 @@ The way this is done (for now) is that you can produce two different variants of
 
 The web page then does a simple check on the useragent and tells mobile devices to use the ASTC data instead of DXT. Default for everything else is DXT as normal.
 
-This requires you to packaged your project **twice** to the **same location**. Once to produce DXT assets and then again to produce ASTC assets.
+This requires you to package your project **twice** to the **same location**. Once to produce DXT assets and then again to produce ASTC assets.
 
 First, enable ASTC data variant support. If you don't do this, DXT data will be used for all platforms and you will get an error when trying to build for ASTC:
 

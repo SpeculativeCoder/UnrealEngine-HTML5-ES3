@@ -63,27 +63,11 @@ For each of these you should be able to accept the default of **Update the targe
 
 Make sure you the Individual component "NET Framework 4.6.2 development tools" installed in your Visual Studio installation and try again.
 
-### When compiling, you see: `Detected compiler newer than Visual Studio XXXX, please update min version checking`
-
-XXXX is just whatever version of Visual Studio the branch was last successfully tested with. This can appear if you are using an even more recent version of Visual Studio e.g. 2022 latest releases. It is just a warning and shouldn't cause any issues as VS2022 seems to be able to build the engine fine.
-
-I will keep trying to bump the version check to avoid the warning but new releases of VS2022 may trigger it again.
-
 ### When compiling, you see: `C1083	Cannot open include file` relating to `dte80a.tlh` and/or `VisualStudioDTE`
 
 I noticed this when compiling the ES2 branch occasionally and it may or may not happen on ES3 branch also (unsure). It seems to be a transient error.
 
 Simply resuming the same build again (i.e. Right Click -> Build) should work and complete the build.
-
-### When packaging HTML5 you see: `error CS1519: Invalid token '(' in class, struct, or interface member declaration`
-
-If you see this when trying to package for HTML5 then in Visual Studio CTRL-Click these:
-- AutomationTool
-- AutomationToolLauncher
-- HTML5LaunchHelper
-- UnrealBuildTool
-
-Then do **Right Click -> Rebuild Selection** to force rebuild the .NET programs. Seems to fix the issue (try packaging again and you shouldn't see the error).
 
 ### When running game you see in browser console an error with: `Assertion failed` regarding multisampled textures
 
@@ -95,23 +79,47 @@ Repackage your project and you should not see the same error this time.
 
 ### When running game you see in browser console an error with: `Assertion failed` relating to a compression method and `file needs to be forced to use zlib compression`
 
-This can happen if you have PAK file compression format set to **Oodle**. This HTML5 plugin requires you to use **Zlib** compression. You can change this as follows:
+This can happen if you have both the **Project Settings -> Packaging -> Pak File Compression Format(s)** set to **Oodle** (this is the default in UE4.27) and **Project Settings -> Packaging -> Use this Compression Format not hardware override** enabled (this is _not_ the default so could be a problem if your project had it enabled).
 
-Project Settings -> Packaging -> Pak File Compression Format(s): Change this from **Oodle** to **Zlib** 
+NOTE: These are advanced settings so you need to click the down arrow to unhide the settings.
 
-NOTE: This is an advanced setting so you need to click the down arrow to unhide the setting.
+The HTML5 platform currently needs the PAK files using **Zlib** compression so is relying on a "hardware override" to Zlib.
 
-Once you have done this you can package the project again as HTML5 and see if the issue is fixed. You may need to to clear the IndexedDB and/or browser cache so you get the newly generated PAK file.
+You should disable **Use this Compression Format not hardware override** to ensure the "hardware override" for HTML5 (Zlib) gets picked up.
+
+Alternatively, as a final resort, you can just set **Project Settings -> Packaging -> Pak File Compression Format(s)** to **Zlib** 
+
+Once you have done either of the above you can package the project again as HTML5 and see if the issue is fixed. You may need to to clear the IndexedDB and/or browser cache so you get the newly generated PAK file.
 
 ## Troubleshooting - Legacy
 
 These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the latest version.
 
+### When packaging HTML5 you see: `error CS1519: Invalid token '(' in class, struct, or interface member declaration`
+
+_Note: This may have been fixed in upstream as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/4a04c0552d6fcdd3d667b37ee9dbbb9e84e562bc) - update to the latest version of the fork to hopefully avoid this issue_ 
+
+If you see this when trying to package for HTML5 then in Visual Studio CTRL-Click these:
+- AutomationTool
+- AutomationToolLauncher
+- HTML5LaunchHelper
+- UnrealBuildTool
+
+Then do **Right Click -> Rebuild Selection** to force rebuild the .NET programs. Seems to fix the issue (try packaging again and you shouldn't see the error).
+
+### When compiling, you see: `Detected compiler newer than Visual Studio XXXX, please update min version checking`
+
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/66aee96af0c6e7a6c3bcb78d27a16760b9239744) - update to the latest version of the fork avoid this issue_ 
+
+XXXX is just whatever version of Visual Studio the branch was last successfully tested with. This can appear if you are using an even more recent version of Visual Studio e.g. 2022 latest releases. It is just a warning and shouldn't cause any issues as VS2022 seems to be able to build the engine fine.
+
 ### When running `Setup.bat` you see a `403` `Forbidden` error or similar
 
-_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3e7742c5300a07e2122ffd4c1bbebfa6cde97f7d) - update to the latest version of the fork avoid this issue_ 
+_Note: Should be fixed as of [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/20b9c4c6eb68fbb1105a1d4541d6ff9f9b1d339a) - update to the latest version of the fork avoid this issue_
 
-Older versions of the fork did not have a fix Epic put out for the Commit.gitdeps.xml file. Either use the latest version of the fork or, per per an [announcement from Epic Games](https://forums.unrealengine.com/t/upcoming-disruption-of-service-impacting-unreal-engine-users-on-github/1155880), you will need to replace the `Commit.gitdeps.xml` in the `Engine/Build` folder with a version newly provided by Epic depending on the engine version you are using. You can download the latest Commit.gitdeps.xml from the *Assets* section of the relevant Unreal Engine release below and replace the file in your `Engine/Build` folder with it:
+There was a problem with old crypto/TLS versions. To resolve this [flags were added](https://github.com/SpeculativeCoder/UnrealEngine/commit/20b9c4c6eb68fbb1105a1d4541d6ff9f9b1d339a#diff-de7b562e658c9e7ce9bc7f7c588ee923d14d5ef6360807dc9b994aeffea88a27) to GitDependencies.exe.config to allow it to use newer crypto/TLS. This should help avoid download problems during Setup.bat step. See https://learn.microsoft.com/en-us/dotnet/framework/network-programming/tls for more info on these flags.
+
+Also, much older versions of the fork (prior to [this commit](https://github.com/SpeculativeCoder/UnrealEngine/commit/3e7742c5300a07e2122ffd4c1bbebfa6cde97f7d)) did not have a fix Epic put out for the Commit.gitdeps.xml file. Either use the latest version of the fork or, per per an [announcement from Epic Games](https://forums.unrealengine.com/t/upcoming-disruption-of-service-impacting-unreal-engine-users-on-github/1155880), you will need to replace the `Commit.gitdeps.xml` in the `Engine/Build` folder with a version newly provided by Epic depending on the engine version you are using. You can download the latest Commit.gitdeps.xml from the *Assets* section of the relevant Unreal Engine release below and replace the file in your `Engine/Build` folder with it:
 - https://github.com/EpicGames/UnrealEngine/releases/tag/4.27.2-release if you are using 4.27 ES3 (WebGL 2) branch
 - https://github.com/EpicGames/UnrealEngine/releases/tag/4.24.3-release if you are using 4.24 ES2 (WebGL 1) branch
 
