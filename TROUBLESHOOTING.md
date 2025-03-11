@@ -91,6 +91,20 @@ Alternatively, as a final resort, you can just set **Project Settings -> Packagi
 
 Once you have done either of the above you can package the project again as HTML5 and see if the issue is fixed. You may need to to clear the IndexedDB and/or browser cache so you get the newly generated PAK file.
 
+### When running game you see that Skylight Cubemap reflections are incorrect
+
+If you have reflections and are relying the Skylight Cubemap (whether scene capture or specific cubemap), it will look OK the editor preview:
+
+<img src="Images/427ES3_SkylightCubmapProblem_Scene.JPG" style="width:400px"/>
+
+But when ran in the browser you will see an incorrect rendering:
+
+<img src="Images/427ES3_SkylightCubmapProblem.JPG" style="width:400px"/>
+
+Until this issue can be fixed, you will need to use other sources of a reflection cubemap in your level such as a SphereReflectionCapture (both scene capture or specific cubemap should work OK with this).
+
+[Original report thread with discussion](https://github.com/SpeculativeCoder/UnrealEngine/issues/148) (NOTE: this link requires your GitHub account to be linked to Epic Games account or you will see 404). Thanks to [@wadim-al](https://github.com/wadim-al) for reporting this issue.
+
 ## Troubleshooting - Legacy
 
 These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the latest version.

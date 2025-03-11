@@ -13,6 +13,7 @@ There are various issues/caveats to be aware of (some already existed, some are 
 - **Project Settings -> Rendering -> Mobile -> Mobile MSAA** should always be set to **No MSAA** (the default) as mobile MSAA is not supported (if enabled it will cause an "Assertion failed" error on startup).
 - **Video playing, and likely anything related to Unreal [Media Framework](https://docs.unrealengine.com/4.27/en-US/WorkingWithMedia/IntegratingMedia/MediaFramework/) does not work**.
 - **Niagara particles are not available**. You will need to use Cascade (legacy) particle systems instead.
+- **Reflections of Skylight Cubemap currently don't render properly** for both scene captures and specific cubemaps. For now you will need to use other reflection sources in your level such as a SphereReflectionCapture which takes precedence (both scene capture or specific cubemap should work OK).
 
 For all features you may wish to use, a good rule of thumb is: anything that didn't work in Epic's last supported version of HTML5 packaging (4.23) or the community supported plugin (4.24) probably won't work in this fork. Anything that needs compute shaders won't work as that isn't supported in WebGL 1 or WebGL 2. See [this page](https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/SupportedRenderingFeatures/) for an indication of what features may be supported (see the Android ES3.1 column which will be most useful indication as to what _may_ work in the ES3 branch of this fork).
 
