@@ -2,17 +2,17 @@
 
 ## Test Report
 
-Most recent test run completed around **2025-02-16** for a release with emscripten **4.0.3**
+Most recent test run completed around **2025-03-31** for a release with emscripten **4.0.6**
 
 ## Test ES3 branch, Windows 10, VS2022 -- AdhocCombat (personal project)
 
 Versions:
 - Windows **10**
-- Git for Windows: **2.47.1**
-- CMake: **3.31.5**
-- Python: **3.13.1**
-- Visual Studio **2022**: **17.13.0**
-- Visual Studio toolchain: **14.43.34808**
+- Git for Windows: **2.49.0**
+- CMake: **4.0.0**
+- Python: **3.13.2**
+- Visual Studio **2022**: **17.13.5**
+- Visual Studio toolchain: **14.43.34809**
 - Windows SDK: **10.0.26100**
 
 Steps:
@@ -24,11 +24,11 @@ Steps:
 
 Versions:
 - Windows **10**
-- Git for Windows: **2.47.1**
-- CMake: **3.31.5**
-- Python: **3.13.1**
-- Visual Studio **2022**: **17.13.0**
-- Visual Studio toolchain: **14.43.34808**
+- Git for Windows: **2.49.0**
+- CMake: **4.0.0**
+- Python: **3.13.2**
+- Visual Studio **2022**: **17.13.5**
+- Visual Studio toolchain: **14.43.34809**
 - Windows SDK: **10.0.26100**
 
 Steps:
@@ -41,12 +41,12 @@ Steps:
 
 Versions:
 - Windows **10**
-- Git for Windows: **2.48.1**
-- CMake: **3.31.5**
-- Python: **3.13.1**
-- Visual Studio **2019**: **16.11.44**
-- Visual Studio toolchain: **14.29.30158**
-- Windows 11 SDK: **10.0.22000**
+- Git for Windows: **2.49.0**
+- CMake: **4.0.0**
+- Python: **3.13.2**
+- Visual Studio **2019**: **16.11.45**
+- Visual Studio toolchain: **14.29.30159**
+- Windows SDK: **10.0.22000**
 
 Steps:
 - Built FirstPerson Blueprint project in Development and ran in Chromium.

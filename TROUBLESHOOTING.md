@@ -101,7 +101,9 @@ But when ran in the browser you will see an incorrect rendering:
 
 <img src="Images/427ES3_SkylightCubmapProblem.JPG" style="width:400px"/>
 
-Until this issue can be fixed, you will need to use other sources of a reflection cubemap in your level such as a SphereReflectionCapture (both scene capture or specific cubemap should work OK with this).
+Until this issue can be fixed, you will need to use other sources of a reflection cubemap in your level such as a SphereReflectionCapture (both scene capture or specific cubemap should work OK with this):
+
+<img src="Images/427ES3_SkylightCubmapProblem_SphereWorkaround.JPG" style="width:400px"/>
 
 [Original report thread with discussion](https://github.com/SpeculativeCoder/UnrealEngine/issues/148) (NOTE: this link requires your GitHub account to be linked to Epic Games account or you will see 404). Thanks to [@wadim-al](https://github.com/wadim-al) for reporting this issue.
 

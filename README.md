@@ -22,7 +22,7 @@ Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.co
 
 - Added [**experimental mobile support**](Features/Feature-MobileSupport.md) with ASTC texture compression and some basic touch input support. You should package to both HTML5 and HTML5 (ASTC) targets to the same location and the web page will automatically try to use ASTC when ran on a mobile device.
 - Added [**optional, experimental, support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS.
-- Added [**Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization**](Features/Feature-WebPageTemplateCustomization.md) options to allow easier configuration of the packaged HTML5 web page.
+- Added [**Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization**](Features/Feature-WebPageTemplateCustomization.md) options to allow easier configuration of the packaged HTML5 web page. You can also provide **About HTML** which will appear in a dialog popup when the user clicks the About button - this can be useful to easily include extra information about your packaged application without having to modify the web page template files yourself.
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to easily select different maps and/or modes etc.
 - **Build compression of assets (to .gz files) is enabled by default**. If your hosting environment does not set the appropriate `Content-Type: gzip` HTTP header when serving these files, this fork will use the browser's built-in JavaScript [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to get the assets.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
@@ -37,7 +37,7 @@ _NOTE: To access the links below you need to link your Epic Games account to Git
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.3**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.6**
 
 It is based on the rolling Epic 4.27-plus branch so the best way to view the changes made by this fork is a [diff against Epic 4.27-plus 
 and @nickshin's last community supported UE4.24 HTML5 plugin code](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) (this shows the actual changes made by this fork in the plugin code to get it working with UE4.27). Otherwise if you look at a [diff against just Epic 4.27-plus](https://github.com/EpicGames/UnrealEngine/compare/4.27-plus...SpeculativeCoder:4.27-html5-es3) it will just show the plugin code as new files in the Platforms/HTML5 folder.
@@ -46,7 +46,7 @@ and @nickshin's last community supported UE4.24 HTML5 plugin code](https://githu
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.3**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.6**
 
 It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin. This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the changes see this [diff against @nickshin's last community supported UE4.24 HTML5 plugin code](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2).
 
