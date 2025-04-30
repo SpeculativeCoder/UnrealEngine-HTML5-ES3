@@ -52,17 +52,17 @@ It is based on the last version of the @nickshin community supported UE4.24 HTML
 
 ## Requirements
 
-- **Windows 10** (11 should also work)
-- **Git for Windows** (this also includes the Git Bash terminal which is used to build this fork)
-- **Visual Studio 2019 or 2022**
+- **Windows 11** (10 may also still work)
+- **Visual Studio 2022 (2019 may also still work)** with setup choices:
   - Workload ".NET desktop environment"
   - Workload "Game Development with C++"
-  - Individual component "NET Framework 4.6.2 development tools"
+  - Individual component "NET Framework 4.6.2 targeting pack"
   - Individual component latest version of "Windows 11 SDK" that your Visual Studio installer offers. Other SDK's will probably also work OK but I always test with the latest available in the installer.
-- **CMake** (make sure you select to add it to PATH during installation or manually after)
-- **Python 3.*** (watch out for Windows Python app installer "app execution aliases" which may cause problems - recommend setting these to disabled - see [this Stack Overflow post](https://stackoverflow.com/a/61958044))
+- **Git for Windows**
+- **CMake** - make sure you select to add it to your PATH during installation or manually after. You can type `cmake --version` to be sure it is working.
+- **Python 3.*** - make sure you ensure that Windows Python "app execution aliases" are disabled - discussed in [this Stack Overflow post](https://stackoverflow.com/a/61958044). You can type `python --version` to be sure your Python is set up correctly.
 
-I have only built/tested on Windows 10 using the above requirements and the commands below in a Git Bash terminal. Other platforms may need further fixes/changes. See [TEST_REPORT](TEST_REPORT.md) for the last test run I have done including versions of the above requirements at the time of testing.
+I build the latest fork on Windows 11 using the above requirements and the commands below in a Git Bash terminal. Other platforms may need further fixes/changes. See [TEST_REPORT](TEST_REPORT.md) for the last test run I have done including versions of the above requirements at the time of testing.
 
 ## Installation
 

@@ -16,6 +16,20 @@ Even if you have official Python properly installed, Windows may have some [app 
 
 After resolving this issue, you should ensure to delete the `Engine/Platforms/HTML/Build/emsdk` folder before trying HTML5Setup.sh again as emsdk can sometimes be left in a broken state.
 
+### When running HTML5Setup.sh you see: `error: error: tool is not installed and therefore cannot be activated: 'node-20.18.0-64bit'` or similar
+
+This can happen if you had issues with the Windows Python issue (e.g. above) or if something else went wrong on a previous attempt of running HTML5Setup and the emsdk has been left in a broken state.
+
+You must delete `Engine/Platforms/HTML/Build/emsdk`
+
+Then you should be able to run HTML5Setup.sh again and get past this issue.
+
+### When running HTML5Setup.sh you see: `fatal error: error in backend: IO failure on output stream: invalid argument` possibly including a stack trace and asking also to submit a bug report
+
+This seems to be random and to do with disk IO or possibly a bug.
+
+If this happens you should be able to simply run HTML5Setup.sh again and it will hopefully not happen again this time.
+
 ### When running GenerateProjectFiles.bat you see: `NODE_JS NOT FOUND`
 
 This may look like the following:
