@@ -5,22 +5,22 @@
 This is documentation for a fork of Unreal Engine 4 which builds upon the last version of the [community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
 - Support for the **latest/final version of UE4 (4.27.2)**.
 - Support for **ES3 shaders (WebGL 2)**.
-- Support for a **more recent version of [emscripten](https://emscripten.org/)** (will try to keep this up to date).
+- Support for a **more recent version of [emscripten](https://emscripten.org/)** (emscripten is used to compile UE to run in the browser - will try to keep this reasonably up to date).
 - A number of other features and improvements (see below). 
 
 Also available is an **alternative branch with UE 4.24.3 using ES2 shaders (WebGL 1)** for those who wish to remain on that version.
 
 _NOTE: To access the [fork](https://github.com/SpeculativeCoder/UnrealEngine) and the associated [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues?q=) and [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions?discussions_q=) sections you need your GitHub linked to your [Epic Games Account](https://www.epicgames.com/account/connected) or you will see [404 errors](https://github.com/UnrealEngineHTML5/Documentation/issues/12#issuecomment-597729773)._
 
-Packaged HTML5 projects work best in Firefox or Chrome-based browsers on Windows 10/11. They also seem to work for now in Firefox, Safari and Chrome-based browsers on MacOS. Mobile is experimental (only tested on iPhone, though).
+Packaged HTML5 projects work best in Firefox or Chrome-based browsers on Windows. They also seem to work for now in Safari, Firefox and Chrome-based browsers on MacOS. Mobile is experimental (only Safari iPhone is tested).
 
-Development and packaging of HTML5 projects (i.e. building and using this fork of Unreal Editor) is done on Windows 10 (but 11 should also be OK).
+Development (i.e. building and using this fork of Unreal Editor) and packaging of HTML5 projects is done on Windows.
 
 Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - personal project, work in progress
 
 ### Other Features / Improvements
 
-- Added [**experimental mobile support**](Features/Feature-MobileSupport.md) with ASTC texture compression and some basic touch input support. You should package to both HTML5 and HTML5 (ASTC) targets to the same location and the web page will automatically try to use ASTC when ran on a mobile device.
+- Added [**experimental mobile support**](Features/Feature-MobileSupport.md) with ASTC texture compression and some basic touch input support. You can package to both HTML5 and HTML5 (ASTC) targets to the same location and the web page will automatically try to use ASTC when ran on a mobile device.
 - Added [**optional, experimental, support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS.
 - Added [**Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization**](Features/Feature-WebPageTemplateCustomization.md) options to allow easier configuration of the packaged HTML5 web page. You can also provide **About HTML** which will appear in a dialog popup when the user clicks the About button - this can be useful to easily include extra information about your packaged application without having to modify the web page template files yourself.
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to easily select different maps and/or modes etc.
@@ -38,7 +38,7 @@ _NOTE: To access the links below you need to link your Epic Games account to Git
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.8**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.10**
 
 It is based on the rolling Epic 4.27-plus branch so the best way to view the changes made by this fork is a [diff against Epic 4.27-plus 
 and @nickshin's last community supported UE4.24 HTML5 plugin code](https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3) (this shows the actual changes made by this fork in the plugin code to get it working with UE4.27). Otherwise if you look at a [diff against just Epic 4.27-plus](https://github.com/EpicGames/UnrealEngine/compare/4.27-plus...SpeculativeCoder:4.27-html5-es3) it will just show the plugin code as new files in the Platforms/HTML5 folder.
@@ -47,7 +47,7 @@ and @nickshin's last community supported UE4.24 HTML5 plugin code](https://githu
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.8**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.10**
 
 It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin. This may be useful as a fallback if you still need to use UE 4.24 and/or ES2 but want the other changes above. If you want to look at the changes see this [diff against @nickshin's last community supported UE4.24 HTML5 plugin code](https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2).
 
@@ -56,9 +56,8 @@ It is based on the last version of the @nickshin community supported UE4.24 HTML
 - **Windows 11** (10 may also still work)
 - **Visual Studio 2022 (2019 may also still work)** with setup choices:
   - Workload ".NET desktop environment"
-  - Workload "Game Development with C++"
-  - Individual component "NET Framework 4.6.2 targeting pack"
-  - Individual component latest version of "Windows 11 SDK" that your Visual Studio installer offers. Other SDK's will probably also work OK but I always test with the latest available in the installer.
+  - Workload "Game Development with C++". 
+  - Recommend selecting the latest version of "Windows 11 SDK" (if not already selected by default). Older SDK's will probably also work OK but I test with the latest version offered by the installer.
 - **Git for Windows**
 - **CMake** - make sure you select to add it to your PATH during installation or manually after. You can type `cmake --version` to be sure it is working.
 - **Python 3.*** - make sure you ensure that Windows Python "app execution aliases" are disabled - discussed in [this Stack Overflow post](https://stackoverflow.com/a/61958044). You can type `python --version` to be sure your Python is set up correctly.
