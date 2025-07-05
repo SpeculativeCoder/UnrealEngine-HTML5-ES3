@@ -121,6 +121,26 @@ Until this issue can be fixed, you will need to use other sources of a reflectio
 
 [Original report thread with discussion](https://github.com/SpeculativeCoder/UnrealEngine/issues/148) (NOTE: this link requires your GitHub account to be linked to Epic Games account or you will see 404). Thanks to [@wadim-al](https://github.com/wadim-al) for reporting this issue.
 
+### When running the game performance on MacOS Intel got worse in Chrome-based browsers
+
+At some point MacOS Intel Chrome-based browsers switched to Metal rather than OpenGL backend. This seems to perform worse - unsure as to the reason.
+
+You can observe this difference by temporarily changing from Metal to OpenGL via this browser flag: 
+
+chrome://flags/#use-angle
+
+Remember to switch back to Default (Metal) once you are done testing.
+
+### When running the game MacOS Safari seems to have very low sensitivity mouse movement while pointerlock is active
+
+It seems that the values reported by [mousemove](https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event) events for [movementX](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementX) and [movementY](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/movementY) are often just 0 or 1 on MacOS Safari (rather than typically larger values seen on other browsers) which results in a feeling of very low mouse sensitivity.
+
+Reason for this issue is unknown and this does not happen for Firefox or Chrome-based browsers in MacOS.
+
+For now the user will need to increase mouse sensitivity setting in your game to try to offset the problem.
+
+[Issue thread with discussion](https://github.com/SpeculativeCoder/UnrealEngine/issues/22) (NOTE: this link requires your GitHub account to be linked to Epic Games account or you will see 404).
+
 ## Troubleshooting - Legacy
 
 These are issues that existed in older versions of the fork which you should hopefully be able to avoid by using the latest version.

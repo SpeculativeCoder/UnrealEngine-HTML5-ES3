@@ -4,7 +4,7 @@
 
 Most recent test run completed around **2025-06-08** for a release with emscripten **4.0.10**
 
-## Test ES3 branch
+## Test ES3 branch for https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27.2-html5-es3-4.0.10
 
 Versions:
 - Windows **11**
@@ -24,7 +24,8 @@ Steps:
 - Built FirstPerson Blueprint project in Development multithreaded and ran in Chromium.
 - Tested multiplayer using enabled websocket plugin with at least one of the above.
 
-## Test ES2 branch
+## Test ES2 branch for https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24.3-html5-es2-4.0.10
+
 Versions:
 - Windows **11**
 - Git for Windows: **2.49.0**
