@@ -5,28 +5,28 @@
 This is documentation for a fork of Unreal Engine 4 which builds upon the last version of the [community-supported HTML5 (WebGL) platform plugin](https://github.com/UnrealEngineHTML5/Documentation) to add:
 - Support for the **latest/final version of UE4 (4.27.2)**.
 - Support for **ES3 shaders (WebGL 2)**.
-- Support for a **more recent version of [emscripten](https://emscripten.org/)** (emscripten is used to compile UE to run in the browser - will try to keep this reasonably up to date).
+- Support for a **more recent version of [emscripten](https://emscripten.org/)** (emscripten compiles UE to WebAssembly for running in a browser).
 - A number of other features and improvements (see below). 
 
-Also available is an **alternative branch with UE 4.24.3 using ES2 shaders (WebGL 1)** for those who wish to remain on that version.
+Also available is an **alternative branch with UE 4.24.3 using ES2 shaders (WebGL 1)** for those who wish to remain on that version but still benefit from the improvements/fixes in this fork.
 
 _NOTE: To access the [fork](https://github.com/SpeculativeCoder/UnrealEngine) and the associated [Issues](https://github.com/SpeculativeCoder/UnrealEngine/issues?q=) and [Discussions](https://github.com/SpeculativeCoder/UnrealEngine/discussions?discussions_q=) sections you need your GitHub linked to your [Epic Games Account](https://www.epicgames.com/account/connected) or you will see [404 errors](https://github.com/UnrealEngineHTML5/Documentation/issues/12#issuecomment-597729773)._
 
-Packaged HTML5 projects work best in Firefox or Chrome-based browsers on Windows. They also seem to work for now in Safari, Firefox and Chrome-based browsers on MacOS. Mobile is experimental (only Safari iPhone is tested).
+Packaged HTML5 projects work best in **Firefox** or **Chrome-based** browsers on **Windows**. Also seems to work OK (for now) in Safari, Firefox and Chrome-based browsers on MacOS. Mobile is experimental (only Safari iOS on iPhone is tested at the moment).
 
-Development (i.e. building and using this fork of Unreal Editor) and packaging of HTML5 projects is done on Windows.
+Development (i.e. building and using this fork of Unreal Editor) and packaging of HTML5 projects is done on **Windows** (no other platforms tested).
 
-Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - personal project, work in progress
+Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.com) - personal project, work in progress (demonstrates multiplayer)
 
 ### Other Features / Improvements
 
-- Added [**experimental mobile support**](Features/Feature-MobileSupport.md) with ASTC texture compression and some basic touch input support. You can package to both HTML5 and HTML5 (ASTC) targets to the same location and the web page will automatically try to use ASTC when ran on a mobile device.
 - Added [**optional, experimental, support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS.
-- Added [**Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization**](Features/Feature-WebPageTemplateCustomization.md) options to allow easier configuration of the packaged HTML5 web page. You can also provide **About HTML** which will appear in a dialog popup when the user clicks the About button - this can be useful to easily include extra information about your packaged application without having to modify the web page template files yourself.
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to easily select different maps and/or modes etc.
-- **Build compression of assets (to .gz files) is enabled by default**. If your hosting environment does not set the appropriate `Content-Type: gzip` HTTP header when serving these files, this fork will use the browser's built-in JavaScript [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to get the assets.
+- Added [**Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization**](Features/Feature-WebPageTemplateCustomization.md) options to allow easier configuration of the packaged HTML5 web page. You can also provide **About HTML** which will appear in a dialog popup when the user clicks the About button - this can be useful to easily include extra information about your packaged application.
 - **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
-- **WebSocketNetworking plugin now ensures all available data is consumed from the websocket per tick**. This provides an essential improvement in the websocket multiplayer performance as the engine should no longer fall behind in network processing. This is particularly important in cases where performance is low (e.g low spec machines etc.).
+- **Build compression of assets (to .gz files) is enabled by default**. If your hosting environment does not set the appropriate `Content-Type: gzip` HTTP header when serving these files, this fork will use the browser's built-in JavaScript [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to get the assets.
+- Added [**experimental mobile support**](Features/Feature-MobileSupport.md) via ASTC texture compression and basic touch input support. You can package both HTML5 and HTML5 (ASTC) targets to the same location and the web page will automatically try to use ASTC when ran on a mobile device.
+- **WebSocketNetworking plugin now ensures all available data is consumed from the websocket per tick**. This fix provides an essential improvement in the websocket multiplayer performance as the engine should no longer fall behind in network processing. This is particularly important in cases where performance is low (e.g low spec machines etc.).
 
 There are a number of [CAVEATS](CAVEATS.md) with this fork that you should be aware of. Also see [TROUBLESHOOTING](TROUBLESHOOTING.md) for typical issues / troubleshooting / workarounds.
 
@@ -38,7 +38,7 @@ _NOTE: To access the links below you need to link your Epic Games account to Git
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.10**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.12**
 
 It is based on a recent version of the Epic 4.27-plus branch and the last version of the @nickshin community supported UE4.24 HTML5 plugin code. An easy way to see the changes made by this fork is via this comparison: https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3
 
@@ -46,7 +46,7 @@ It is based on a recent version of the Epic 4.27-plus branch and the last versio
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.10**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.12**
 
 This branch may be useful as a fallback if you need to stay on UE 4.24 and/or ES2 but still want the other changes/improvements of this fork. It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin branch. You can see the changes made by this fork via this comparison: https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2
 
