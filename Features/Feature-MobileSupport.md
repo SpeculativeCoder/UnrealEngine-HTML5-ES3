@@ -35,8 +35,8 @@ Having two separate data variants allows the web page to only download the data 
 
 Only basic touch support has been added. The following events are sent to Unreal as **mouse events**:
 
-- **touchstart** - sent to Unreal as though left mouse button pressed
-- **touchmove** - sent to Unreal as though mouse is moving
-- **touchend** - sent to Unreal as though left muse button is released
+- **touchstart** - sent to Unreal as mouse movement and also as a left mouse button down
+- **touchmove** - sent to Unreal as mouse movement
+- **touchend** - sent to Unreal as mouse movement and also as a left mouse button up
 
 Ideally in the future it would be better to have these sent to Unreal as proper touch input and support multi touch but for now touch just acts like a mouse clicking and dragging.

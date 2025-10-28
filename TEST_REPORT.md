@@ -2,17 +2,17 @@
 
 ## Test Report
 
-Most recent test run completed around **2025-08-06** for a release with emscripten **4.0.12**
+Most recent test run completed around **2025-10-22** for a release with emscripten **4.0.17**
 
 ## Test ES3 branch for https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27.2-html5-es3-4.0.12
 
 Versions:
 - Windows **11**
-- Git for Windows: **2.50.1**
-- CMake: **4.0.3**
-- Python: **3.13.5**
-- Visual Studio **2022**: **17.14.11**
-- Visual Studio toolchain: **14.44.35214**
+- Git for Windows: **2.51.1**
+- CMake: **4.1.2**
+- Python: **3.14.0**
+- Visual Studio **2022**: **17.14.18**
+- Visual Studio toolchain: **14.44.35219**
 - Windows SDK: **10.0.26100**
 
 Steps:
@@ -28,11 +28,11 @@ Steps:
 
 Versions:
 - Windows **11**
-- Git for Windows: **2.50.1**
-- CMake: **4.0.3**
-- Python: **3.13.5**
-- Visual Studio **2022**: **17.14.11**
-- Visual Studio toolchain: **14.44.35214**
+- Git for Windows: **2.51.1**
+- CMake: **4.1.2**
+- Python: **3.14.0**
+- Visual Studio **2022**: **17.14.18**
+- Visual Studio toolchain: **14.44.35219**
 - Windows SDK: **10.0.26100**
 
 Steps:

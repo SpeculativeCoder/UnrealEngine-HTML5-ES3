@@ -20,12 +20,12 @@ Live Example: [**AdhocCombat** (https://adhoccombat.com)](https://adhoccombat.co
 
 ### Other Features / Improvements
 
-- Added [**optional, experimental, support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS.
 - Added an [**optional way to pass command line options to the HTML5 application**](Features/Feature-CommandLine.md) e.g. to easily select different maps and/or modes etc.
 - Added [**Project Settings -> HTML5 -> Emscripten -> Web Page Template Customization**](Features/Feature-WebPageTemplateCustomization.md) options to allow easier configuration of the packaged HTML5 web page. You can also provide **About HTML** which will appear in a dialog popup when the user clicks the About button - this can be useful to easily include extra information about your packaged application.
-- **All required scripts/assets (e.g. Bootstrap) are included in built project** (no more third party JS/font downloads).
-- **Build compression of assets (to .gz files) is enabled by default**. If your hosting environment does not set the appropriate `Content-Type: gzip` HTTP header when serving these files, this fork will use the browser's built-in JavaScript [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to get the assets.
+- Added [**optional, experimental, support for websocket SSL**](Features/Feature-WebSocketSSL.md), including the ability to connect to a hostname rather than just an IP address. This allows multiplayer to work when serving the HTML5 client via HTTPS.
 - Added [**experimental mobile support**](Features/Feature-MobileSupport.md) via ASTC texture compression and basic touch input support. You can package both HTML5 and HTML5 (ASTC) targets to the same location and the web page will automatically try to use ASTC when ran on a mobile device.
+- Added **Project Settings -> HTML5 -> Packaging -> Package JQuery and Bootstrap** which is enabled by default. This ensures JQuery/Bootstrap files are included when you package for HTML5, rather than relying on a CDN to serve the files. If you encounter any issues, or wish to use the original approach, you can set this to false.
+- **Build compression of assets (to .gz files) is enabled by default**. If your hosting environment does not set the appropriate `Content-Type: gzip` HTTP header when serving these files, this fork will use the browser's built-in JavaScript [DecompressionStream](https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream) to get the assets.
 - **WebSocketNetworking plugin now ensures all available data is consumed from the websocket per tick**. This fix provides an essential improvement in the websocket multiplayer performance as the engine should no longer fall behind in network processing. This is particularly important in cases where performance is low (e.g low spec machines etc.).
 
 There are a number of [CAVEATS](CAVEATS.md) with this fork that you should be aware of. Also see [TROUBLESHOOTING](TROUBLESHOOTING.md) for typical issues / troubleshooting / workarounds.
@@ -38,7 +38,7 @@ _NOTE: To access the links below you need to link your Epic Games account to Git
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.12**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.17**
 
 It is based on a recent version of the Epic 4.27-plus branch and the last version of the @nickshin community supported UE4.24 HTML5 plugin code. An easy way to see the changes made by this fork is via this comparison: https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3
 
@@ -46,22 +46,22 @@ It is based on a recent version of the Epic 4.27-plus branch and the last versio
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.12**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.17**
 
 This branch may be useful as a fallback if you need to stay on UE 4.24 and/or ES2 but still want the other changes/improvements of this fork. It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin branch. You can see the changes made by this fork via this comparison: https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2
 
 ## Requirements
 
-- **Windows 11** (10 may also still work)
+- **Windows 11** (10 may also still work) - other platforms may need further fixes/changes.
 - **Visual Studio 2022** (2019 may also still work) with setup choices:
   - Workload ".NET desktop environment"
   - Workload "Game Development with C++". 
-  - Recommend selecting the latest version of "Windows 11 SDK" (if not already selected by default). Older SDK's will probably also work OK but I test with the latest version offered by the installer.
-- **Git for Windows**
-- **CMake** - make sure you select to add it to your PATH during installation or manually after. You can type `cmake --version` to be sure it is working.
-- **Python 3.*** - make sure you ensure that Windows Python "app execution aliases" are disabled - discussed in [this Stack Overflow post](https://stackoverflow.com/a/61958044). You can type `python --version` to be sure your Python is set up correctly.
+  - Latest version of "Windows 11 SDK" (if not already selected by default). Older SDK's will probably also work OK but I test with the latest version offered by the installer.
+- **Git for Windows** - the documentation for this fork assumes you run all commands in the bundled "Git Bash" terminal.
+- **CMake** - make sure it is added to your PATH during installation or manually after. You can type `cmake --version` to be sure it is working (it should output version information).
+- **Python 3.*** - make sure you ensure that Windows Python "app execution aliases" are disabled - discussed in [this Stack Overflow post](https://stackoverflow.com/a/61958044). You can type `python --version` to be sure your Python is set up correctly (it should output version information).
 
-I build the latest fork on Windows 11 using the above requirements and the commands below in a Git Bash terminal. Other platforms may need further fixes/changes. See [TEST_REPORT](TEST_REPORT.md) for the last test run I have done including versions of the above requirements at the time of testing.
+See [TEST_REPORT](TEST_REPORT.md) for the last test run I have done including versions of the above requirements at the time of testing.
 
 ## Installation
 
@@ -119,7 +119,7 @@ Set Solution Platform to: **Win64**
 
 You should now add the HTML5LauncherHelper project to the solution... to do this you can Right Click **Programs** then **Add -> Existing Project** then navigate to and select this project to add to the solution: ``Engine\Platforms\HTML5\Source\Programs\HTML5\HTML5LaunchHelper\HTML5LauncherHelper.csproj``. You may see the .NET 4.8 version upgrade again which you can accept.
 
-Now you can build all the programs. CTRL-Click the following projects to select them all at once:
+Now you can build all the programs. CTRL-Click the following projects to select them all at once (the solution tree may need to be collapsed so you can easily see these - you can click the "Collapse All" button which looks like two up arrows to make these easier to CTRL-Click):
 
 - UE4
 - AutomationTool
@@ -153,6 +153,22 @@ Once built, go to to where the build was packaged and run ``HTML5LaunchHelper.ex
 Navigate to http://localhost:8000
 
 Select the .html file. You should see your project running in your browser!
+
+## Engine Association
+
+Custom builds of Unreal Engine are automatically assigned a GUID. If you open a project with a custom Unreal Engine build it will be "associated" with the GUID (e.g. via in place conversion).
+
+When you change the association of a project (e.g. when updating this fork or sharing your project with others) it will force the project to be converted again.
+
+One way I have found to work around having to do the conversion each time is to set a relative path for the EngineAssociation in the .uproject file. For example, the following says to use an engine at a location relative to the project:
+
+```
+    "EngineAssociation": "../../git/ue-4.27-html5-es3",
+```
+
+This may help you if you are working in a team etc.
+
+For more detail on this and other ways to handle it see the official documentation: https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Projects/FProjectDescriptor/EngineAssociation
 
 ## Releasing your Project
 
