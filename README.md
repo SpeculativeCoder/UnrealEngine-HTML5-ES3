@@ -38,7 +38,7 @@ _NOTE: To access the links below you need to link your Epic Games account to Git
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.17**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.22**
 
 It is based on a recent version of the Epic 4.27-plus branch and the last version of the @nickshin community supported UE4.24 HTML5 plugin code. An easy way to see the changes made by this fork is via this comparison: https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3
 
@@ -46,7 +46,7 @@ It is based on a recent version of the Epic 4.27-plus branch and the last versio
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.17**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.22**
 
 This branch may be useful as a fallback if you need to stay on UE 4.24 and/or ES2 but still want the other changes/improvements of this fork. It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin branch. You can see the changes made by this fork via this comparison: https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2
 
@@ -96,7 +96,7 @@ Now do:
     cd Engine/Platforms/HTML5
     ./HTML5Setup.sh
 
-This patches the Unreal Engine source with a bunch of fixes, downloads emscripten SDK and builds the various support libraries (e.g. PhysX). It takes a while. At the end of this some notification sounds will be played to try and let you know it's finished and you should see the line `Success!` after a bunch of green messages. 
+This patches the Unreal Engine source with a bunch of fixes, downloads emscripten SDK and builds the various support libraries (e.g. PhysX). It takes a while. At the end of this some notification sounds will be played to try and let you know it's finished and you should see the line `Success!` at the end of the process.
 
 *If you do not see the 'Success!' line or you see any other errors then something has gone wrong and any further steps will encounter problems. You should investigate/resolve this issue first before going any further. Tip: issues with the HTML5Setup.sh step can also often leave Engine/Platforms/HTML/Build/emsdk in a broken state so deleting that directory is often a necessary part of trying again after you have chased down whatever the problem was.*
 
@@ -109,15 +109,15 @@ Now do:
 
 Open `UE4.sln` in Visual Studio. 
 
-*You may see a popup asking if it is OK to upgrade some .NET programs to 4.8. You can accept this in each case (I typically click the "do this for all" checkbox to get through this quicker).*
+*In the latest Visual Studio 2026 you may see a "Setup assistant" window saying "Some projects are missing components or targeting outdated tools". You can ignore this for now as it doesn't seem to affect the engine build.*
 
 Set Solution Configuration to: **Development Editor**
 
 Set Solution Platform to: **Win64**
 
-(the above two options are in the toolbar at the top of the screen usually)
+(the above two options are in the toolbar at the top of the screen usually - they are likely already set to the correct values but check just to be sure)
 
-You should now add the HTML5LauncherHelper project to the solution... to do this you can Right Click **Programs** then **Add -> Existing Project** then navigate to and select this project to add to the solution: ``Engine\Platforms\HTML5\Source\Programs\HTML5\HTML5LaunchHelper\HTML5LauncherHelper.csproj``. You may see the .NET 4.8 version upgrade again which you can accept.
+You should now add the HTML5LauncherHelper project to the solution... to do this you can Right Click **Programs** then **Add -> Existing Project** then navigate to and select this project to add to the solution: ``Engine\Platforms\HTML5\Source\Programs\HTML5\HTML5LaunchHelper\HTML5LauncherHelper.csproj``.
 
 Now you can build all the programs. CTRL-Click the following projects to select them all at once (the solution tree may need to be collapsed so you can easily see these - you can click the "Collapse All" button which looks like two up arrows to make these easier to CTRL-Click):
 
@@ -132,9 +132,15 @@ Now you can build all the programs. CTRL-Click the following projects to select 
 - UnrealLightmass
 - UnrealPak
 
-Now **Right Click -> Build Selection**
+Now **Right Click -> Build Selection**. This will take a long time. UE4 will usually be built last and takes the longest. If you see any failures at the end, try again at least once in case there was any ordering issue etc.
 
-This will take a long time. UE4 will usually be built last and takes the longest. If you see any failures at the end, try again at least once in case there was any ordering issue etc.
+Here is a screenshot showing the above step. Highlighted with a red square is where to ensure Development Editor and Win64 (if not already set). Highlighted with red circle is the Collapse All feature which will compact the project list and allow you to easily CTRL-Click the projects so you can then do Right Click -> Build Selection:
+
+<img src="Images/build_selected_highlights.png" style="width:400px"/>
+
+If you are regularly building this engine want to make it more convenient, you can drag the selected items from the Programs section into the Engine folder. You can then just Right Click on the Engine folder and do Build. This saves having to CTRL-Click the correct programs each time:
+
+<img src="Images/build_engine_conveniently.png" style="width:400px"/>
 
 ## Usage
 

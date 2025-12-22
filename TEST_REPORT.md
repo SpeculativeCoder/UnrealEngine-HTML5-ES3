@@ -2,17 +2,17 @@
 
 ## Test Report
 
-Most recent test run completed around **2025-10-22** for a release with emscripten **4.0.17**
+Most recent test run completed around **2025-12-20** for a release with emscripten **4.0.22**
 
-## Test ES3 branch for https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27.2-html5-es3-4.0.12
+## Test ES3 branch (https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27.2-html5-es3-4.0.22)
 
 Versions:
 - Windows **11**
-- Git for Windows: **2.51.1**
-- CMake: **4.1.2**
+- Git for Windows: **2.52.0**
+- CMake: **4.2.1**
 - Python: **3.14.0**
-- Visual Studio **2022**: **17.14.18**
-- Visual Studio toolchain: **14.44.35219**
+- Visual Studio **2026**: **18.1.1**
+- Visual Studio toolchain: **14.50.35721**
 - Windows SDK: **10.0.26100**
 
 Steps:
@@ -24,15 +24,15 @@ Steps:
 - Built FirstPerson Blueprint project in Development multithreaded and ran in Chromium.
 - Tested multiplayer using enabled websocket plugin with at least one of the above.
 
-## Test ES2 branch for https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24.3-html5-es2-4.0.12
+## Test ES2 branch (https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24.3-html5-es2-4.0.22)
 
 Versions:
 - Windows **11**
-- Git for Windows: **2.51.1**
-- CMake: **4.1.2**
+- Git for Windows: **2.52.0**
+- CMake: **4.2.1**
 - Python: **3.14.0**
-- Visual Studio **2022**: **17.14.18**
-- Visual Studio toolchain: **14.44.35219**
+- Visual Studio **2026**: **18.1.1**
+- Visual Studio toolchain: **14.50.35721**
 - Windows SDK: **10.0.26100**
 
 Steps:
