@@ -38,7 +38,7 @@ _NOTE: To access the links below you need to link your Epic Games account to Git
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27-html5-es3
 
-This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 4.0.22**
+This is **Unreal Engine 4.27.2** with HTML5 platform support using **ES3 shaders (WebGL 2)** and **emscripten 5.0.3**
 
 It is based on a recent version of the Epic 4.27-plus branch and the last version of the @nickshin community supported UE4.24 HTML5 plugin code. An easy way to see the changes made by this fork is via this comparison: https://github.com/SpeculativeCoder/UnrealEngine/compare/4.27-plus_with_4.24.3-html5-1.39.18_plugin..4.27-html5-es3
 
@@ -46,14 +46,14 @@ It is based on a recent version of the Epic 4.27-plus branch and the last versio
 
 https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24-html5-es2
 
-This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 4.0.22**
+This is **Unreal Engine 4.24.3** with HTML5 platform support using **ES2 shaders (WebGL 1)** and **emscripten 5.0.3**
 
 This branch may be useful as a fallback if you need to stay on UE 4.24 and/or ES2 but still want the other changes/improvements of this fork. It is based on the last version of the @nickshin community supported UE4.24 HTML5 plugin branch. You can see the changes made by this fork via this comparison: https://github.com/UnrealEngineHTML5/UnrealEngine/compare/4.24.3-html5-1.39.18..SpeculativeCoder:4.24-html5-es2
 
 ## Requirements
 
 - **Windows 11** (10 may also still work) - other platforms may need further fixes/changes.
-- **Visual Studio 2022** (2019 may also still work) with setup choices:
+- **Visual Studio 2026** (2022/2019 may also still work) with setup choices:
   - Workload ".NET desktop environment"
   - Workload "Game Development with C++". 
   - Latest version of "Windows 11 SDK" (if not already selected by default). Older SDK's will probably also work OK but I test with the latest version offered by the installer.
