@@ -4,15 +4,15 @@
 
 ## Test ES3 branch (https://github.com/SpeculativeCoder/UnrealEngine/tree/4.27.2-html5-es3)
 
-Most recent test run completed around **2026-07-23** for a release with emscripten **5.0.7**
+Most recent test run completed around **2026-08-17** for a release with emscripten **6.0.6**
 
 Versions:
 - Windows **11**
-- Git for Windows: **2.55.0.windows.3**
-- CMake: **4.4.0**
-- Python: **3.14.6**
-- Visual Studio **2026**: **18.8.1**
-- Visual Studio toolchain: **14.51.36252**
+- Git for Windows: **2.55.0.windows.4**
+- CMake: **4.4.2**
+- Python: **3.14.7**
+- Visual Studio **2026**: **18.9.0**
+- Visual Studio toolchain: **14.51.36256**
 - Windows SDK: **10.0.28000.2114**
 
 Steps:
@@ -26,16 +26,16 @@ Steps:
 
 ## Test ES2 branch (https://github.com/SpeculativeCoder/UnrealEngine/tree/4.24.3-html5-es2)
 
-Most recent test run completed around **2026-05-24** for a release with emscripten **5.0.7**
+Most recent test run completed around **2026-08-17** for a release with emscripten **6.0.6**
 
 Versions:
 - Windows **11**
-- Git for Windows: **2.54.0**
-- CMake: **4.3.2**
-- Python: **3.14.5**
-- Visual Studio **2026**: **18.6.1**
-- Visual Studio toolchain: **14.51.36244**
-- Windows SDK: **10.0.28000**
+- Git for Windows: **2.55.0.windows.4**
+- CMake: **4.4.2**
+- Python: **3.14.7**
+- Visual Studio **2026**: **18.9.0**
+- Visual Studio toolchain: **14.51.36256**
+- Windows SDK: **10.0.28000.2114**
 
 Steps:
 - Built FirstPerson Blueprint project in Development and ran in Chromium.
